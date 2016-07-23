@@ -14,7 +14,7 @@
         tools:context="ru.takoe.iav.statbm.CreateCost">
 
     <TextView
-            android:text="Hello World!"
+            android:text="Personal Funds Statistics"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 </RelativeLayout>
