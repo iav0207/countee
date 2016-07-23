@@ -1,5 +1,6 @@
 package ru.takoe.iav.statbm;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,7 +23,7 @@ public class CreateCost extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "There will be an action soon", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, getString(R.string.create_cost_button_message), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

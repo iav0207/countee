@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">StatBM</string>
     <string name="action_settings">Settings</string>
+
+    <string name="main_screen_welcome_message">Personal Funds Statistics</string>
+    <string name="create_cost_button_message">There will be an action soon</string>
 </resources>
