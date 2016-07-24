@@ -5,6 +5,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public class TestUtils {
 
@@ -14,6 +15,10 @@ public class TestUtils {
 
     public static String getRandomString(int length) {
         return RandomStringUtils.randomAlphanumeric(length);
+    }
+
+    public static Date getRandomDate() {
+        return new Date(getRandomLong());
     }
 
     public static BigDecimal getRandomBigDecimal() {

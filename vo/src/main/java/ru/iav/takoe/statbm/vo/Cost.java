@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
+import static ru.iav.takoe.statbm.utils.DateUtils.now;
+
 public class Cost implements Serializable {
 
     private UUID uuid;
@@ -15,40 +17,11 @@ public class Cost implements Serializable {
 
     private String comment;
 
-    private Cost(BigDecimal amount, String comment) {
+    Cost(BigDecimal amount, String comment) {
         this.uuid = UUID.randomUUID();
         this.timestamp = now();
         this.amount = amount;
         this.comment = comment;
-    }
-
-    public static Cost create(BigDecimal amount, String comment) throws IllegalArgumentException {
-        try {
-            validate(amount);
-            validate(comment);
-            return new Cost(amount, comment);
-        } catch (IllegalArgumentException iae) {
-            throw new IllegalArgumentException(iae.getMessage() + " Cost instance was not constructed.");
-        }
-    }
-
-    private static void validate(BigDecimal amount) {
-        if (amount == null) {
-            throw new IllegalArgumentException("Amount must be non-null!");
-        }
-        if (BigDecimal.ZERO.equals(amount)) {
-            throw new IllegalArgumentException("Amount must be non-zero!");
-        }
-    }
-
-    private static void validate(String comment) {
-        if (comment == null || comment.trim().length() == 0) {
-            throw new IllegalArgumentException("Comment most be not empty!");
-        }
-    }
-
-    private static Date now() {
-        return new Date();
     }
 
     public UUID getUuid() {
