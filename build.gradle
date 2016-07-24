@@ -13,7 +13,10 @@ buildscript {
 }
 
 allprojects {
+    apply plugin: 'idea'
+
     repositories {
+        mavenCentral()
         jcenter()
     }
 }

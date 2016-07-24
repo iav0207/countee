@@ -5,11 +5,13 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>
             <option value="$USER_HOME$/Dropbox/std/pokaifu/JavaProjects/workspace_w/StatBM" />
             <option value="$USER_HOME$/Dropbox/std/pokaifu/JavaProjects/workspace_w/StatBM/app" />
             <option value="$USER_HOME$/Dropbox/std/pokaifu/JavaProjects/workspace_w/StatBM/json" />
+            <option value="$USER_HOME$/Dropbox/std/pokaifu/JavaProjects/workspace_w/StatBM/utils" />
             <option value="$USER_HOME$/Dropbox/std/pokaifu/JavaProjects/workspace_w/StatBM/vo" />
           </set>
         </option>
