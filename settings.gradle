@@ -1,1 +1,1 @@
-include ':app', ':vo', ':json', ':utils', ':persistence'
+include ':app', ':vo', ':json', ':utils', ':persistence', ':logging'
