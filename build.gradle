@@ -19,6 +19,14 @@ allprojects {
         mavenCentral()
         jcenter()
     }
+
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
+        }
+    }
+
 }
 
 task clean(type: Delete) {
