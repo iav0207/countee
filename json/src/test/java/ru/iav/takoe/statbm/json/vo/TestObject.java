@@ -1,7 +1,5 @@
 package ru.iav.takoe.statbm.json.vo;
 
-import flexjson.JSON;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
@@ -17,7 +15,6 @@ public class TestObject implements Serializable {
 
     private Integer integer;
 
-    @JSON(include = false)
     private Boolean aBoolean;
 
     private Date date;
