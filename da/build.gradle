@@ -7,4 +7,12 @@ dependencies {
     compile project(':vo')
     compile project(':json')
     compile project(':persistence')
+
+    testCompile 'org.testng:testng:6.9.10'
+    testCompile 'org.mockito:mockito-core:2.0.87-beta'
+
+}
+
+test {
+    useTestNG()
 }
