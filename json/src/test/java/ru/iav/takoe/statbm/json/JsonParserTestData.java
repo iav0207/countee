@@ -1,10 +1,7 @@
 package ru.iav.takoe.statbm.json;
 
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.ObjectFactory;
 import ru.iav.takoe.statbm.json.vo.TestObject;
-
-import java.util.Date;
 
 import static ru.iav.takoe.statbm.utils.TestUtils.getRandomString;
 

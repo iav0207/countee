@@ -1,17 +1,11 @@
 package ru.iav.takoe.statbm.json;
 
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.iav.takoe.statbm.json.vo.TestObject;
 
-import java.math.BigDecimal;
-import java.util.UUID;
-
 import static org.testng.Assert.*;
 import static ru.iav.takoe.statbm.json.JsonConverterTestData.getTestObject;
-import static ru.iav.takoe.statbm.utils.DateUtils.now;
-import static ru.iav.takoe.statbm.utils.TestUtils.*;
 
 /**
  * Created by takoe on 24.07.16.

@@ -3,7 +3,6 @@ package ru.iav.takoe.statbm.json;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.iav.takoe.statbm.json.exception.DeserializationException;
-import ru.iav.takoe.statbm.json.vo.TestObjectWithNoFields;
 import ru.iav.takoe.statbm.json.vo.TestObject;
 
 import static org.testng.Assert.*;

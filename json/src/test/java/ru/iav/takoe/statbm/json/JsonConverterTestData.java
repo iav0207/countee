@@ -1,9 +1,7 @@
 package ru.iav.takoe.statbm.json;
 
-import org.testng.annotations.DataProvider;
 import ru.iav.takoe.statbm.json.vo.TestObject;
 
-import java.util.Date;
 import java.util.UUID;
 
 import static ru.iav.takoe.statbm.utils.DateUtils.now;
