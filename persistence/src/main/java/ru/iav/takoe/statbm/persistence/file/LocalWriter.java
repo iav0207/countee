@@ -4,6 +4,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.*;
 
+import static ru.iav.takoe.statbm.logging.LogService.logError;
+
 public class LocalWriter {
 
     private static LocalWriter instance;
@@ -24,7 +26,7 @@ public class LocalWriter {
             writer = new BufferedWriter(new FileWriter(file, append));
             writer.write(text);
         } catch (IOException ioe) {
-            // TODO log error
+            logError("Couldn't write to file " + file.getName(), ioe);
         } finally {
             close(writer);
         }

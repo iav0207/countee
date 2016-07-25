@@ -35,7 +35,7 @@ public class FileFactory {
             createDirectoryIfDoesNotExist(file.getAbsolutePath());
             return file.createNewFile();
         } catch (IOException ioe) {
-            // TODO log error
+
             return false;
         }
     }

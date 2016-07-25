@@ -3,8 +3,11 @@ apply plugin: 'idea'
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    
     testCompile 'org.testng:testng:6.9.10'
+
     compile project(':utils')
+    compile project(':logging')
 }
 
 idea {

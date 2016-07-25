@@ -1,11 +1,12 @@
 package ru.iav.takoe.statbm.persistence.file;
 
-import javax.annotation.Nullable;
-import java.io.Closeable;
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Collection;
+
+import static ru.iav.takoe.statbm.logging.LogService.logError;
 
 /**
  * Created by takoe on 25.07.16.
@@ -23,11 +24,11 @@ public class LocalReader {
         return instance;
     }
 
-    public String read(File file) {
+    public String read(@Nonnull File file) {
         try {
             return toOneString(Files.readAllLines(file.toPath()));
         } catch (IOException ioe) {
-            // TODO log error
+            logError("Couldn't read file " + file.getName(), ioe);
             return null;
         }
     }
