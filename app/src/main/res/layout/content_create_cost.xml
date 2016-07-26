@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -13,8 +13,26 @@
         tools:showIn="@layout/activity_create_cost"
         tools:context=".activity.CreateCostActivity">
 
-    <TextView
+    <!--<TextView
             android:text="@string/main_screen_welcome_message"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-</RelativeLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="51dp" android:id="@+id/textView"/>-->
+
+    <EditText
+            android:id="@+id/edit_message"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:hint="@string/edit_message"
+            android:maxLines="1"
+            android:inputType="text"
+            android:layout_gravity="bottom"/>
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_save_cost"
+            android:onClick="saveCost"
+            android:layout_gravity="bottom"/>
+
+</LinearLayout>

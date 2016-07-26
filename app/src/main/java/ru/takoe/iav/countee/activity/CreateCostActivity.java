@@ -1,15 +1,18 @@
 package ru.takoe.iav.countee.activity;
 
-import android.content.res.Resources;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import ru.takoe.iav.countee.R;
+
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class CreateCostActivity extends AppCompatActivity {
 
@@ -51,4 +54,16 @@ public class CreateCostActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Called when user clicks the Save button
+     */
+    public void saveCost(View view) {
+        Intent intent = new Intent(this, SaveCostActivity.class);
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+        String message = editText.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
 }
