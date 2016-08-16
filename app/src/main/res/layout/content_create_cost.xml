@@ -11,29 +11,49 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_create_cost"
-        tools:context=".activity.CreateCostActivity">
+        tools:context=".activity.CreateCostActivity"
+        android:orientation="vertical" android:weightSum="1">
 
-    <TextView
-            android:id="@+id/output_text"
-            android:text="@string/main_screen_default_output"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="51dp"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_horizontal">
 
-    <EditText
-            android:id="@+id/edit_message"
-            android:layout_height="wrap_content"
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:hint="@string/edit_message"
-            android:maxLines="1"
-            android:inputType="text"
-            android:layout_gravity="bottom"/>
+        <TextView
+                android:id="@+id/output_text"
+                android:text="@string/main_screen_default_output"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="top|center"/>
 
-    <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/button_save_cost"
-            android:onClick="saveCost"
-            android:layout_gravity="bottom"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_gravity="bottom|center">
+
+        <EditText
+                android:id="@+id/edit_message"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:hint="@string/edit_message"
+                android:maxLines="1"
+                android:inputType="text"
+                android:layout_gravity="bottom|start"/>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/button_save_cost"
+                android:onClick="saveCost"
+                android:layout_gravity="bottom|end"/>
+
+    </LinearLayout>
 
 </LinearLayout>
