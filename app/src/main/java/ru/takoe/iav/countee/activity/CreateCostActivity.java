@@ -66,7 +66,6 @@ public class CreateCostActivity extends AppCompatActivity {
         getSaveCostService().saveAsNewCost(getInputText());
         clearInputText();
         updateOutputText();
-        ViewScroller.scrollToBottom(getScrollView());
         /*intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);*/
     }
@@ -81,6 +80,7 @@ public class CreateCostActivity extends AppCompatActivity {
 
     private void updateOutputText() {
         getOutputArea().setText(getReadCostService().getCurrentMonthOutput());
+        ViewScroller.scrollToBottom(getScrollView());
     }
 
     private EditText getInputField() {
