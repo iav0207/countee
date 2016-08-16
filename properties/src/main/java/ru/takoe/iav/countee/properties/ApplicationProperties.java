@@ -9,6 +9,8 @@ public class ApplicationProperties {
 
     private static File outputDirectory;
 
+    private static boolean clearPreviousRecords = false;
+
     public static File getOutputDirectory() {
         return outputDirectory;
     }
@@ -16,4 +18,13 @@ public class ApplicationProperties {
     public static void setOutputDirectory(File outputDirectory) {
         ApplicationProperties.outputDirectory = outputDirectory;
     }
+
+    public static boolean isClearPreviousRecords() {
+        return clearPreviousRecords;
+    }
+
+    public static void setClearPreviousRecords(boolean clearPreviousRecords) {
+        ApplicationProperties.clearPreviousRecords = clearPreviousRecords;
+    }
+
 }
