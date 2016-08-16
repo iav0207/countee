@@ -1,10 +1,11 @@
 package ru.iav.takoe.countee.persistence.file;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
+
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Collection;
 
 import static ru.iav.takoe.countee.logging.LogService.logError;
 
@@ -26,24 +27,11 @@ public class LocalReader {
 
     public String read(@Nonnull File file) {
         try {
-            return toOneString(Files.readAllLines(file.toPath()));
+            return Files.toString(file, Charsets.UTF_8);
         } catch (IOException ioe) {
             logError("Couldn't read file " + file.getName(), ioe);
             return null;
         }
-    }
-
-    private String toOneString(Collection<String> strings) {
-        StringBuilder sb = new StringBuilder();
-        for (String each : strings) {
-            sb.append(each).append("\n");
-        }
-        removeLastSymbol(sb);   // last appended "\n"
-        return sb.toString();
-    }
-
-    private void removeLastSymbol(StringBuilder sb) {
-        sb.setLength(sb.length() - 1);
     }
 
 }

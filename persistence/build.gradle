@@ -8,6 +8,7 @@ dependencies {
     compile project(':utils')
     compile project(':logging')
 
+    compile 'com.google.guava:guava:18.0'
     testCompile 'org.testng:testng:6.9.10'
 
     sourceCompatibility = 1.7
