@@ -62,17 +62,31 @@ public class CreateCostActivity extends AppCompatActivity {
      */
     public void saveCost(View view) {
 //        Intent intent = new Intent(this, SaveCostActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
-        getSaveCostService().saveAsNewCost(message);
+        getSaveCostService().saveAsNewCost(getInputText());
+        clearInputText();
         updateOutputText();
         /*intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);*/
     }
 
+    private String getInputText() {
+        return getInputField().getText().toString();
+    }
+
+    private void clearInputText() {
+        getInputField().setText("");
+    }
+
     private void updateOutputText() {
-        TextView output = (TextView) findViewById(R.id.output_text);
-        output.setText(getReadCostService().getCurrentMonthOutput());
+        getOutputArea().setText(getReadCostService().getCurrentMonthOutput());
+    }
+
+    private EditText getInputField() {
+        return (EditText) findViewById(R.id.edit_message);
+    }
+
+    private TextView getOutputArea() {
+        return (TextView) findViewById(R.id.output_text);
     }
 
     private ReadCostService getReadCostService() {
