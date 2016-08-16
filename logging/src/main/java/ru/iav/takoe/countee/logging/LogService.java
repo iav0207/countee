@@ -19,6 +19,14 @@ public class LogService {
         logger.warn(message, cause);
     }
 
+    public static void logDebug(Throwable t) {
+        logDebug(t.getMessage(), t);
+    }
+
+    public static void logDebug(String message, Throwable throwable) {
+        logger.debug(message, throwable);
+    }
+
     public static void logError(String message) {
         logger.error(message);
     }
