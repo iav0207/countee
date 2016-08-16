@@ -13,11 +13,12 @@
         tools:showIn="@layout/activity_create_cost"
         tools:context=".activity.CreateCostActivity">
 
-    <!--<TextView
-            android:text="@string/main_screen_welcome_message"
+    <TextView
+            android:id="@+id/output_text"
+            android:text="@string/main_screen_default_output"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="51dp" android:id="@+id/textView"/>-->
+            android:layout_marginTop="51dp"/>
 
     <EditText
             android:id="@+id/edit_message"

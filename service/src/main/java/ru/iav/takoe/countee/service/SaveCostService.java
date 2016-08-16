@@ -7,13 +7,17 @@ import static ru.iav.takoe.countee.logging.LogService.logError;
 
 public class SaveCostService {
 
-    private static SaveCostService instance;
+    private static SaveCostService instance = new SaveCostService();
 
     private CostSaver costSaver;
 
     private CostInputParser inputParser;
 
-    public SaveCostService() {
+    public static SaveCostService getInstance() {
+        return instance;
+    }
+
+    private SaveCostService() {
         costSaver = CostSaver.getInstance();
         inputParser = CostInputParser.getInstance();
     }

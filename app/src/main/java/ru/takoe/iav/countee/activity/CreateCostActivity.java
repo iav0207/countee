@@ -7,13 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+import ru.iav.takoe.countee.service.ReadCostService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.properties.ApplicationProperties;
 
 public class CreateCostActivity extends AppCompatActivity {
-
-    private SaveCostService saveCostService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,9 @@ public class CreateCostActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+
         ApplicationProperties.setOutputDirectory(getFilesDir());
+        updateOutputText();
     }
 
     @Override
@@ -63,15 +65,22 @@ public class CreateCostActivity extends AppCompatActivity {
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
         getSaveCostService().saveAsNewCost(message);
+        updateOutputText();
         /*intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);*/
     }
 
+    private void updateOutputText() {
+        TextView output = (TextView) findViewById(R.id.output_text);
+        output.setText(getReadCostService().getCurrentMonthOutput());
+    }
+
+    private ReadCostService getReadCostService() {
+        return ReadCostService.getInstance();
+    }
+
     private SaveCostService getSaveCostService() {
-        if (saveCostService == null) {
-            saveCostService = new SaveCostService();
-        }
-        return saveCostService;
+        return SaveCostService.getInstance();
     }
 
 }
