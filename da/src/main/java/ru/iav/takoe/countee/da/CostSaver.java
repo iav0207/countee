@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 
 import static ru.iav.takoe.countee.da.CostFileNamesFactory.getActualFile;
 import static ru.iav.takoe.countee.logging.LogService.logError;
+import static ru.iav.takoe.countee.logging.LogService.logInfo;
 
 public class CostSaver {
 
@@ -35,12 +36,18 @@ public class CostSaver {
 
     public void save(@Nonnull Cost cost) throws PersistenceException {
         try {
+//            clearPreviousRecords();       // for debugging
             CostsData data = costReader.getDeserializedData();
             data.getDescriptor().put(cost.getUuid().toString(), cost);
             writeToFile(getSerialized(data));
+            logInfo("Cost saved!");
         } catch (Exception e) {
             handle(e);
         }
+    }
+
+    private void clearPreviousRecords() {
+        writeToFile("");
     }
 
     private String getSerialized(@Nonnull CostsData data) {
