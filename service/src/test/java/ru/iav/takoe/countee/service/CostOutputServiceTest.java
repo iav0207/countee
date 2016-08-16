@@ -16,20 +16,20 @@ import static org.testng.Assert.assertEquals;
 /**
  * Created by takoe on 16.08.16.
  */
-public class ReadCostServiceTest {
+public class CostOutputServiceTest {
 
     @Mock
     private CostReader costReader;
 
     @InjectMocks
-    private ReadCostService service;
+    private CostOutputService service;
 
     @BeforeClass
     public void init() {
         initMocks(this);
     }
 
-    @Test(dataProvider = "getCostLists", dataProviderClass = ReadCostServiceTestData.class)
+    @Test(dataProvider = "getCostLists", dataProviderClass = CostOutputServiceTestData.class)
     public void shouldReturnListOfCostsFromReader(List<Cost> costs, String expected) throws Exception {
         doReturn(costs).when(costReader).readCostsForThisMonth();
         assertEquals(service.getCurrentMonthOutput(), expected);

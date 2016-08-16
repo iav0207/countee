@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import ru.iav.takoe.countee.service.ReadCostService;
+import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.properties.ApplicationProperties;
@@ -95,8 +95,8 @@ public class CreateCostActivity extends AppCompatActivity {
         return (TextView) findViewById(R.id.output_text);
     }
 
-    private ReadCostService getReadCostService() {
-        return ReadCostService.getInstance();
+    private CostOutputService getReadCostService() {
+        return CostOutputService.getInstance();
     }
 
     private SaveCostService getSaveCostService() {
