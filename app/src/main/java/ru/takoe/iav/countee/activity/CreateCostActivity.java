@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import ru.iav.takoe.countee.service.ReadCostService;
 import ru.iav.takoe.countee.service.SaveCostService;
@@ -65,6 +66,7 @@ public class CreateCostActivity extends AppCompatActivity {
         getSaveCostService().saveAsNewCost(getInputText());
         clearInputText();
         updateOutputText();
+        ViewScroller.scrollToBottom(getScrollView());
         /*intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);*/
     }
@@ -83,6 +85,10 @@ public class CreateCostActivity extends AppCompatActivity {
 
     private EditText getInputField() {
         return (EditText) findViewById(R.id.edit_message);
+    }
+
+    private ScrollView getScrollView() {
+        return (ScrollView) findViewById(R.id.scrollableOutputText);
     }
 
     private TextView getOutputArea() {
