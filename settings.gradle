@@ -1,1 +1,3 @@
 include ':app', ':vo', ':json', ':utils', ':persistence', ':logging', ':da', ':service'
+include 'properties'
+
