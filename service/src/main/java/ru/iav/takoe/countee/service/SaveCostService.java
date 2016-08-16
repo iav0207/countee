@@ -14,7 +14,7 @@ public class SaveCostService {
     private CostInputParser inputParser;
 
     public SaveCostService() {
-        costSaver = new CostSaver();
+        costSaver = CostSaver.getInstance();
         inputParser = CostInputParser.getInstance();
     }
 

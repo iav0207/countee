@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.iav.takoe.countee.da.exception.PersistenceException;
 import ru.iav.takoe.countee.json.JsonConverter;
-import ru.iav.takoe.countee.persistence.file.FileFactory;
 import ru.iav.takoe.countee.persistence.file.LocalWriter;
 import ru.iav.takoe.countee.vo.Cost;
 import ru.iav.takoe.countee.vo.CostFactory;
@@ -15,9 +14,7 @@ import java.io.File;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
@@ -28,13 +25,13 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 public class CostSaverTest {
 
     @Mock
-    private FileFactory fileFactory;
-
-    @Mock
     private JsonConverter jsonConverter;
 
     @Mock
     private LocalWriter writer;
+
+    @Mock
+    private CostReader costReader;
 
     @InjectMocks
     private CostSaver costSaver;
@@ -62,6 +59,7 @@ public class CostSaverTest {
     @Test
     public void shouldBeSilentIfEverythingIsOk() throws Exception {
         doReturn(getRandomString()).when(jsonConverter).serialize(anyCost());
+        doReturn(new CostsData()).when(costReader).getDeserializedData();
         doNothing().when(writer).append(anyString(), any(File.class));
         costSaver.save(createCost());
     }

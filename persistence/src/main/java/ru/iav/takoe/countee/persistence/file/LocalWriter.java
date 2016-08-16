@@ -23,7 +23,7 @@ public class LocalWriter {
 
     public void append(@Nonnull String text, @Nonnull File file) {
         Writer writer = null;
-        boolean append = true;
+        boolean append = false;
         try {
             writer = new BufferedWriter(new FileWriter(file, append));
             writer.write(text);

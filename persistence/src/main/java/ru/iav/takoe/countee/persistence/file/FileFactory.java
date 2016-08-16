@@ -66,9 +66,7 @@ public class FileFactory {
             return customIoDirectory.getAbsolutePath();
         }
         String outputPath = getExecutionPath() + IO_RELATIVE_PATH;
-        if (!createDirectoryIfDoesNotExist(outputPath)) {
-            return null;
-        }
+        createDirectoryIfDoesNotExist(outputPath);
         return outputPath;
     }
 
