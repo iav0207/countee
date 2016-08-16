@@ -18,7 +18,7 @@ public class FileFactoryTest {
 
     private static final String testFileName = "test/fileFactory.test";
 
-    private static final File testFile = FileFactory.getFileForName(testFileName);
+    private static final File testFile = FileFactory.getInstance().getFileForName(testFileName);
 
     private FileFactory fileFactory;
 

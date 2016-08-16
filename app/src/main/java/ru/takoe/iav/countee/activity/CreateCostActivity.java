@@ -1,20 +1,19 @@
 package ru.takoe.iav.countee.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
+import ru.takoe.iav.countee.properties.ApplicationProperties;
 
 public class CreateCostActivity extends AppCompatActivity {
+
+    private SaveCostService saveCostService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,14 +22,15 @@ public class CreateCostActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, getString(R.string.create_cost_button_message), Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
+        ApplicationProperties.setOutputDirectory(getFilesDir());
     }
 
     @Override
@@ -59,11 +59,19 @@ public class CreateCostActivity extends AppCompatActivity {
      * Called when user clicks the Save button
      */
     public void saveCost(View view) {
-        Intent intent = new Intent(this, SaveCostActivity.class);
+//        Intent intent = new Intent(this, SaveCostActivity.class);
         EditText editText = (EditText) findViewById(R.id.edit_message);
         String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+        getSaveCostService().saveAsNewCost(message);
+        /*intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);*/
+    }
+
+    private SaveCostService getSaveCostService() {
+        if (saveCostService == null) {
+            saveCostService = new SaveCostService();
+        }
+        return saveCostService;
     }
 
 }

@@ -4,7 +4,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.*;
 
+import static ru.iav.takoe.countee.logging.LogService.logDebug;
 import static ru.iav.takoe.countee.logging.LogService.logError;
+import static ru.iav.takoe.countee.logging.LogService.logInfo;
 
 public class LocalWriter {
 
@@ -25,6 +27,7 @@ public class LocalWriter {
         try {
             writer = new BufferedWriter(new FileWriter(file, append));
             writer.write(text);
+            logInfo("Written to file " + file.getAbsolutePath());
         } catch (IOException ioe) {
             logError("Couldn't write to file " + file.getName(), ioe);
         } finally {
@@ -38,7 +41,7 @@ public class LocalWriter {
                 c.close();
             }
         } catch (Exception e) {
-            // ignore
+            logDebug(e);
         }
     }
 

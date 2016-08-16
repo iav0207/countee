@@ -31,7 +31,7 @@ public class LocalWriterTest {
     }
 
     private File getTestFile() {
-        return FileFactory.getFileForName(testFileName);
+        return FileFactory.getInstance().getFileForName(testFileName);
     }
 
     private String getExecutionPath() {

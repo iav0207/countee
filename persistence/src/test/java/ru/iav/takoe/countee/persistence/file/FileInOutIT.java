@@ -17,7 +17,7 @@ public class FileInOutIT {
 
     private static final String testFileName = "test/FileInOutIT.test";
 
-    private File testFile = FileFactory.getFileForName(testFileName);
+    private File testFile = FileFactory.getInstance().getFileForName(testFileName);
 
     private FileFactory fileFactory;
 

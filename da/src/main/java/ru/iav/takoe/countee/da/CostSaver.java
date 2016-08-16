@@ -22,25 +22,17 @@ public class CostSaver {
 
     private LocalWriter writer;
 
-    private CostSaver() {
+    public CostSaver() {
         fileFactory = FileFactory.getInstance();
         jsonConverter = JsonConverter.getInstance();
         writer = LocalWriter.getInstance();
-    }
-
-    public static CostSaver getInstance() {
-        if (instance == null) {
-            instance = new CostSaver();
-        }
-        return instance;
     }
 
     public void save(@Nonnull Cost cost) throws PersistenceException {
         try {
             writeToFile(getSerialized(cost));
         } catch (Exception e) {
-            logError("Failed to save cost data", e);
-            throw new PersistenceException(e.getMessage(), e);
+            handle(e);
         }
     }
 
@@ -51,6 +43,11 @@ public class CostSaver {
     private void writeToFile(String json)  {
         File target = fileFactory.create(getFileNameToSaveCostTo());
         writer.append(json, target);
+    }
+
+    private static void handle(Exception e) throws PersistenceException {
+        logError("Failed to save cost data", e);
+        throw new PersistenceException(e.getMessage(), e);
     }
 
 }

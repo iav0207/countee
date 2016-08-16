@@ -1,6 +1,7 @@
 package ru.iav.takoe.countee.persistence.file;
 
-import javax.annotation.Nonnull;
+import ru.takoe.iav.countee.properties.ApplicationProperties;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -11,11 +12,15 @@ public class FileFactory {
 
     private static FileFactory instance;
 
-    public static final String IO_ABSOLUTE_PATH = getOutputPath();
+    public final String IO_ABSOLUTE_PATH = getOutputPath();
 
     static final String IO_RELATIVE_PATH = "io/";
 
-    private FileFactory() {}
+    private File customIoDirectory;
+
+    private FileFactory() {
+        customIoDirectory = ApplicationProperties.getOutputDirectory();
+    }
 
     public static FileFactory getInstance() {
         if (instance == null) {
@@ -48,15 +53,18 @@ public class FileFactory {
         return !file.isDirectory() && file.exists() && file.delete();
     }
 
-    public boolean exists(@Nonnull String fileName) {
+    public boolean exists(String fileName) {
         return getFileForName(fileName).exists();
     }
 
-    public static File getFileForName(String fileName) {
-        return new File(IO_RELATIVE_PATH + fileName);
+    public File getFileForName(String fileName) {
+        return new File(getOutputPath() + fileName);
     }
 
-    private static String getOutputPath() {
+    private String getOutputPath() {
+        if (customIoDirectory != null) {
+            return customIoDirectory.getAbsolutePath();
+        }
         String outputPath = getExecutionPath() + IO_RELATIVE_PATH;
         if (!createDirectoryIfDoesNotExist(outputPath)) {
             return null;
