@@ -5,10 +5,12 @@ import ru.iav.takoe.countee.persistence.file.LocalReader;
 import ru.iav.takoe.countee.vo.Cost;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import static ru.iav.takoe.countee.da.CostFileNamesFactory.getActualFile;
+import static ru.iav.takoe.countee.da.CostFileNamesFactory.getAllCostFiles;
 import static ru.iav.takoe.countee.logging.LogService.logError;
 
 /**
@@ -33,7 +35,20 @@ public class CostReader {
 
     public List<Cost> readCostsForThisMonth() {
         try {
-            return getCosts(getDeserializedData());
+            return getCosts(getDeserializedData(getActualFile()));
+        } catch (Exception e) {
+            logError(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+    public List<Cost> readAllCosts() {
+        try {
+            List<Cost> result = new ArrayList<>();
+            for (File eachCostFile : getAllCostFiles()) {
+                result.addAll(getCosts(getDeserializedData(eachCostFile)));
+            }
+            return result;
         } catch (Exception e) {
             logError(e.getMessage());
             return new ArrayList<>();
@@ -41,13 +56,13 @@ public class CostReader {
     }
 
     @Nonnull
-    CostsData getDeserializedData() {
-        CostsData data = jsonParser.deserialize(readJson(), CostsData.class);
+    CostsData getDeserializedData(File file) {
+        CostsData data = jsonParser.deserialize(readJson(file), CostsData.class);
         return data == null ? new CostsData() : data;
     }
 
-    private String readJson() {
-        return reader.read(getActualFile());
+    private String readJson(File file) {
+        return reader.read(file);
     }
 
     private List<Cost> getCosts(CostsData data) {

@@ -37,6 +37,15 @@ public class CostOutputService {
         reader = CostReader.getInstance();
     }
 
+    public String getCurrentBalance() {
+        // TODO extract balance calculation to model module
+        BigDecimal balance = BigDecimal.ZERO;
+        for (Cost each : reader.readAllCosts()) {
+            balance = balance.subtract(each.getAmount());
+        }
+        return toString(balance);
+    }
+
     public String getCurrentMonthOutput() {
         List<Cost> costs = reader.readCostsForThisMonth();
         return (costs == null || costs.isEmpty()) ? "" : toString(costs);

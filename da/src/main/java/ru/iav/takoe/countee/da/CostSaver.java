@@ -38,7 +38,7 @@ public class CostSaver {
     public void save(@Nonnull Cost cost) throws PersistenceException {
         try {
             clearPreviousRecordsIfNeeded();       // for debugging
-            CostsData data = costReader.getDeserializedData();
+            CostsData data = costReader.getDeserializedData(getActualFile());
             addNewCostToTheDataSet(cost, data);
             writeToFile(getSerialized(data));
             logInfo("Cost saved!");
@@ -54,7 +54,9 @@ public class CostSaver {
     }
 
     private void addNewCostToTheDataSet(Cost cost, CostsData data) {
-        data.getDescriptor().put(cost.getUuid().toString(), cost);
+        if (ApplicationProperties.isWritingDataActually()) {
+            data.getDescriptor().put(cost.getUuid().toString(), cost);
+        }
     }
 
     private String getSerialized(@Nonnull CostsData data) {
