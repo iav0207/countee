@@ -11,7 +11,7 @@ public class ApplicationProperties {
 
     private static boolean clearPreviousRecords = false;
 
-    private static boolean writingDataActually = false;
+    private static boolean writingDataActually = true;
 
     public static File getOutputDirectory() {
         return outputDirectory;
