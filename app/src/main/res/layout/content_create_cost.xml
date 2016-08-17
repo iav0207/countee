@@ -12,7 +12,10 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_create_cost"
         tools:context=".activity.CreateCostActivity"
-        android:orientation="vertical" android:weightSum="1">
+        android:orientation="vertical"
+        android:weightSum="1"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true">
 
     <LinearLayout
             android:orientation="horizontal"
@@ -51,8 +54,8 @@
                 android:text="@string/main_screen_default_balance"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="textEnd"
-                android:layout_gravity="top|end"
+                android:textAlignment="textStart"
+                android:layout_gravity="bottom|start"
                 android:textColor="@android:color/primary_text_light"
                 android:textStyle="bold"
                 android:textSize="20sp"/>
