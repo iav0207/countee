@@ -4,6 +4,7 @@
 
     <string name="main_screen_welcome_message">Enter cost</string>
     <string name="main_screen_default_output">20 one\n30 two</string>
+    <string name="main_screen_default_balance">0</string>
     <string name="create_cost_button_message">Cost saved!</string>
     <string name="edit_message">2000 example</string>
     <string name="button_save_cost">Save</string>

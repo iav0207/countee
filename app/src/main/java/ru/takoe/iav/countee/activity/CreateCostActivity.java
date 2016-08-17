@@ -80,6 +80,7 @@ public class CreateCostActivity extends AppCompatActivity {
 
     private void updateOutputText() {
         getOutputArea().setText(getReadCostService().getCurrentMonthOutput());
+        getBalanceOutput().setText(getReadCostService().getCurrentBalance());
         ViewScroller.scrollToBottom(getScrollView());
     }
 
@@ -89,6 +90,10 @@ public class CreateCostActivity extends AppCompatActivity {
 
     private ScrollView getScrollView() {
         return (ScrollView) findViewById(R.id.scrollableOutputText);
+    }
+
+    private TextView getBalanceOutput() {
+        return (TextView) findViewById(R.id.balance_text);
     }
 
     private TextView getOutputArea() {
