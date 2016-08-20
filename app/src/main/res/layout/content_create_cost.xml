@@ -86,6 +86,8 @@
                     android:layout_height="match_parent"
                     android:text="@string/button_save_cost"
                     android:onClick="saveCost"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:background="@color/colorAccent"
                     android:layout_gravity="bottom|end"/>
 
         </LinearLayout>
