@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Countee</string>
     <string name="action_settings">Settings</string>
 
@@ -8,4 +9,8 @@
     <string name="create_cost_button_message">Cost saved!</string>
     <string name="edit_message">2000 example</string>
     <string name="button_save_cost">Save</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>

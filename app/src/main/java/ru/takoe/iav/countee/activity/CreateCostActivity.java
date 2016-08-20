@@ -16,6 +16,8 @@ import ru.takoe.iav.countee.properties.ApplicationProperties;
 
 public class CreateCostActivity extends AppCompatActivity {
 
+    private final DrawerLayoutRenderer drawerLayoutRenderer = new DrawerLayoutRenderer(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,8 +34,16 @@ public class CreateCostActivity extends AppCompatActivity {
             }
         });*/
 
+        drawerLayoutRenderer.renderDrawer();
+
         ApplicationProperties.setOutputDirectory(getFilesDir());
         updateOutputText();
+    }
+
+    @Override
+    public void setTitle(CharSequence title) {
+        if (getActionBar() != null)
+            getActionBar().setTitle(title);
     }
 
     @Override
