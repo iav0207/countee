@@ -88,7 +88,8 @@
                     android:onClick="saveCost"
                     android:textColor="@color/colorPrimaryDark"
                     android:background="@color/colorAccent"
-                    android:layout_gravity="bottom|end"/>
+                    android:layout_gravity="bottom|end" android:layout_marginBottom="6dp"
+                    android:elegantTextHeight="false"/>
 
         </LinearLayout>
 
