@@ -8,10 +8,10 @@
         android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
-    <include
-            layout="@layout/content_create_cost"
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/content_frame"/>
 
     <include layout="@layout/navigation_view" />
 

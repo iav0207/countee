@@ -1,4 +1,4 @@
-package ru.takoe.iav.countee.activity;
+package ru.takoe.iav.countee.fragment;
 
 import android.view.View;
 import android.widget.ScrollView;

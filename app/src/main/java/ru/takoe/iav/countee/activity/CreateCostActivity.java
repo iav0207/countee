@@ -1,41 +1,41 @@
 package ru.takoe.iav.countee.activity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import ru.iav.takoe.countee.service.CostOutputService;
-import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
+import ru.takoe.iav.countee.fragment.CreateCostFragment;
+import ru.takoe.iav.countee.fragment.SettingsFragment;
+import ru.takoe.iav.countee.fragment.content.SettingsFragmentContent;
 import ru.takoe.iav.countee.properties.ApplicationProperties;
+import ru.takoe.iav.countee.view.ViewProvider;
 
-public class CreateCostActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class CreateCostActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener,
+        CreateCostFragment.OnFragmentInteractionListener,
+        SettingsFragment.OnListFragmentInteractionListener {
+
+    private final ViewRenderer viewRenderer = new ViewRenderer(this);
+
+    private final ViewProvider viewProvider = new ViewProvider(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cost);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        setSupportActionBar(viewProvider.getToolbar());
+        addDrawerListener();
+        viewProvider.getNavigationView().setNavigationItemSelectedListener(this);
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+        ApplicationProperties.setOutputDirectory(getFilesDir());
+
+        viewRenderer.displayView(R.id.nav_add_cost);
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -45,9 +45,14 @@ public class CreateCostActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });*/
+    }
 
-        ApplicationProperties.setOutputDirectory(getFilesDir());
-        updateOutputText();
+    private void addDrawerListener() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, viewProvider.getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
     }
 
     @Override
@@ -81,66 +86,18 @@ public class CreateCostActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.nav_stats) {
-
-        } else if (id == R.id.nav_settings) {
-
-        } else {
-            // do nothing
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        viewRenderer.displayView(item.getItemId());
         return true;
     }
 
-    /**
-     * Called when user clicks the Save button
-     */
-    public void saveCost(View view) {
-        getSaveCostService().saveAsNewCost(getInputText());
-        clearInputText();
-        updateOutputText();
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
-    private String getInputText() {
-        return getInputField().getText().toString();
-    }
+    @Override
+    public void onListFragmentInteraction(SettingsFragmentContent.Item item) {
 
-    private void clearInputText() {
-        getInputField().setText("");
-    }
-
-    private void updateOutputText() {
-        getOutputArea().setText(getReadCostService().getCurrentMonthOutput());
-        getBalanceOutput().setText(getReadCostService().getCurrentBalance());
-        ViewScroller.scrollToBottom(getScrollView());
-    }
-
-    private EditText getInputField() {
-        return (EditText) findViewById(R.id.edit_message);
-    }
-
-    private ScrollView getScrollView() {
-        return (ScrollView) findViewById(R.id.scrollableOutputText);
-    }
-
-    private TextView getBalanceOutput() {
-        return (TextView) findViewById(R.id.balance_text);
-    }
-
-    private TextView getOutputArea() {
-        return (TextView) findViewById(R.id.output_text);
-    }
-
-    private CostOutputService getReadCostService() {
-        return CostOutputService.getInstance();
-    }
-
-    private SaveCostService getSaveCostService() {
-        return SaveCostService.getInstance();
     }
 
 }
