@@ -81,7 +81,6 @@ public class CreateCostActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         int id = item.getItemId();
 
         if (id == R.id.nav_stats) {
@@ -101,12 +100,9 @@ public class CreateCostActivity extends AppCompatActivity
      * Called when user clicks the Save button
      */
     public void saveCost(View view) {
-//        Intent intent = new Intent(this, SaveCostActivity.class);
         getSaveCostService().saveAsNewCost(getInputText());
         clearInputText();
         updateOutputText();
-        /*intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);*/
     }
 
     private String getInputText() {
