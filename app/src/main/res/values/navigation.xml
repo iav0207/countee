@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="navigation_elements">
-        <item>Add cost</item>
-        <item>See stats</item>
-        <item>Settings</item>
-    </string-array>
+    <string name="nav_add_cost">Add cost</string>
+    <string name="nav_stats">See stats</string>
+    <string name="nav_settings">Settings</string>
 
 </resources>
