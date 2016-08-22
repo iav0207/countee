@@ -4,6 +4,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -22,6 +23,10 @@ public class ViewProvider {
 
     public Toolbar getToolbar() {
         return (Toolbar) findViewById(R.id.toolbar);
+    }
+
+    public Button getSaveCostButton() {
+        return (Button) findViewById(R.id.save_cost_button);
     }
 
     public NavigationView getNavigationView() {

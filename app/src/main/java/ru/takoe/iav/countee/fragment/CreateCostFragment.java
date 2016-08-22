@@ -23,7 +23,7 @@ import ru.takoe.iav.countee.view.ViewProvider;
  * Use the {@link CreateCostFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateCostFragment extends Fragment {
+public class CreateCostFragment extends Fragment implements View.OnClickListener {
 
     private ViewProvider viewProvider;
 
@@ -62,6 +62,8 @@ public class CreateCostFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        viewProvider.getSaveCostButton().setOnClickListener(this);
         updateOutputText();
     }
 
@@ -104,10 +106,17 @@ public class CreateCostFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    @Override
+    public void onClick(View view) {
+        if (viewProvider.getSaveCostButton().getId() == view.getId()) {
+            saveCost();
+        }
+    }
+
     /**
      * Called when user clicks the Save button
      */
-    public void saveCost(View view) {
+    private void saveCost() {
         getSaveCostService().saveAsNewCost(getInputText());
         clearInputText();
         updateOutputText();
