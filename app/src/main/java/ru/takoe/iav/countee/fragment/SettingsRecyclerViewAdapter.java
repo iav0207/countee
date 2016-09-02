@@ -8,11 +8,12 @@ import android.widget.TextView;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.SettingsFragment.OnListFragmentInteractionListener;
 import ru.takoe.iav.countee.fragment.content.SettingsFragmentContent;
+import ru.takoe.iav.countee.fragment.content.SettingsFragmentContent.Item;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link Item} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
 public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRecyclerViewAdapter.ViewHolder> {
