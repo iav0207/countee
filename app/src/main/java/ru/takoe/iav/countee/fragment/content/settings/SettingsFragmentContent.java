@@ -1,4 +1,4 @@
-package ru.takoe.iav.countee.fragment.content;
+package ru.takoe.iav.countee.fragment.content.settings;
 
 import java.util.ArrayList;
 import java.util.HashMap;
