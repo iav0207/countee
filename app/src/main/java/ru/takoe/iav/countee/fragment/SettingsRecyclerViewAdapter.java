@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.SettingsFragment.OnListFragmentInteractionListener;
-import ru.takoe.iav.countee.fragment.content.SettingsFragmentContent;
-import ru.takoe.iav.countee.fragment.content.SettingsFragmentContent.Item;
+import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent;
+import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent.Item;
 
 import java.util.List;
 
