@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.CreateCostFragment;
 import ru.takoe.iav.countee.fragment.SettingsFragment;
+import ru.takoe.iav.countee.fragment.StatsFragment;
 import ru.takoe.iav.countee.fragment.content.SettingsFragmentContent;
 import ru.takoe.iav.countee.properties.ApplicationProperties;
 import ru.takoe.iav.countee.view.ViewProvider;
@@ -18,6 +19,7 @@ import ru.takoe.iav.countee.view.ViewProvider;
 public class CreateCostActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         CreateCostFragment.OnFragmentInteractionListener,
+        StatsFragment.OnFragmentInteractionListener,
         SettingsFragment.OnListFragmentInteractionListener {
 
     private final ViewRenderer viewRenderer = new ViewRenderer(this);
