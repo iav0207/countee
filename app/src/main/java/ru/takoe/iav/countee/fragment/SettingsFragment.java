@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.fragment.content.SettingsFragmentContent;
+import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent;
 
 /**
  * A fragment representing a list of Items.
