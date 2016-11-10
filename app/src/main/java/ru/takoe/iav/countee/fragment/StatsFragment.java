@@ -69,7 +69,9 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         createNewChart();
         createTypeface();
 
+        initializeDataGenerator();
         generateChartData();
+
         adjustLegend();
         adjustAxes();
 

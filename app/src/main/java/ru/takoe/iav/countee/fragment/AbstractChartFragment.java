@@ -22,8 +22,12 @@ public class AbstractChartFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        dataGenerator = new BarDataGenerator(getActivity().getAssets());
+        initializeDataGenerator();
         return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    protected void initializeDataGenerator() {
+        dataGenerator = new BarDataGenerator(getActivity().getAssets());
     }
 
     protected BarData generateBarData(int dataSets, float range, int count) {
