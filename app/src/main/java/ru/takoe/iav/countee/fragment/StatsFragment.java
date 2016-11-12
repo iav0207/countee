@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
@@ -66,7 +67,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
 
-        createNewChart();
+        setUpChart(view);
         createTypeface();
 
         initializeDataGenerator();
@@ -75,22 +76,24 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         adjustLegend();
         adjustAxes();
 
-        addChartToLayout(view);
-
         return view;
     }
 
-    private void createNewChart() {
-        mChart = new BarChart(getActivity());
+    private void setUpChart(View view) {
+        mChart = (BarChart) view.findViewById(R.id.bar_chart_1);
         mChart.getDescription().setEnabled(false);
         mChart.setOnChartGestureListener(this);
 
-        SimpleMarkerView mv = new SimpleMarkerView(getActivity(), R.layout.simple_marker_view);
-        mv.setChartView(mChart); // For bounds control
-        mChart.setMarker(mv);
+        mChart.setMarker(createMarkerView());
 
         mChart.setDrawGridBackground(false);
         mChart.setDrawBarShadow(false);
+    }
+
+    private MarkerView createMarkerView() {
+        SimpleMarkerView mv = new SimpleMarkerView(getActivity(), R.layout.simple_marker_view);
+        mv.setChartView(mChart); // For bounds control
+        return mv;
     }
 
     private void createTypeface() {
