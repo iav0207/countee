@@ -117,7 +117,7 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
 
     private void updateOutputText() {
         getOutputArea().setText(getReadCostService().getCurrentMonthOutput());
-        getBalanceOutput().setText(getReadCostService().getCurrentBalance());
+        getBalanceOutput().setText(getReadCostService().getCurrentBalanceOutput());
         ViewScroller.scrollToBottom(getScrollView());
     }
 
