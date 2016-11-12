@@ -13,6 +13,8 @@ public class ApplicationProperties {
 
     private static boolean writingDataActually = true;
 
+    private static boolean generateRandomDataForCharts = false;
+
     public static File getOutputDirectory() {
         return outputDirectory;
     }
@@ -37,4 +39,11 @@ public class ApplicationProperties {
         ApplicationProperties.writingDataActually = writingDataActually;
     }
 
+    public static boolean isGenerateRandomDataForCharts() {
+        return generateRandomDataForCharts;
+    }
+
+    public static void setGenerateRandomDataForCharts(boolean generateRandomDataForCharts) {
+        ApplicationProperties.generateRandomDataForCharts = generateRandomDataForCharts;
+    }
 }

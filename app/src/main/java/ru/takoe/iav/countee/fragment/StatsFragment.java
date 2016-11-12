@@ -13,11 +13,15 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.MarkerView;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import ru.takoe.iav.countee.R;
+import ru.takoe.iav.countee.fragment.content.stats.BalanceBarDataProvider;
 import ru.takoe.iav.countee.fragment.content.stats.SimpleMarkerView;
+import ru.takoe.iav.countee.properties.ApplicationProperties;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 /**
@@ -33,6 +37,8 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
     private ViewProvider viewProvider;
 
     private OnFragmentInteractionListener mListener;
+
+    private BalanceBarDataProvider dataProvider;
 
     private BarChart mChart;
 
@@ -70,11 +76,11 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         setUpChart(view);
         createTypeface();
 
-        initializeDataGenerator();
-        generateChartData();
+        setChartData();
 
         adjustLegend();
         adjustAxes();
+        refresh();
 
         return view;
     }
@@ -100,8 +106,14 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/OpenSans-Light.ttf");
     }
 
-    private void generateChartData() {
-        mChart.setData(generateBarData(1, 20000, 12));
+    private void setChartData() {
+        if (ApplicationProperties.isGenerateRandomDataForCharts()) {
+            initializeDataGenerator();
+            mChart.setData(generateBarData(1, 20000, 12));
+        } else {
+            dataProvider = new BalanceBarDataProvider(getActivity().getAssets());
+            mChart.setData(dataProvider.getFundsBarData());
+        }
     }
 
     private void adjustLegend() {
@@ -109,12 +121,23 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
     }
 
     private void adjustAxes() {
+        BarData data = mChart.getData();
+
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setTypeface(typeface);
-        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        leftAxis.setAxisMaximum(data.getYMax());
+        leftAxis.setAxisMinimum(data.getYMin());
+
+        XAxis xAxis = mChart.getXAxis();
+        xAxis.setAxisMinimum(data.getXMin());
+        xAxis.setAxisMaximum(data.getXMax());
 
         mChart.getAxisRight().setEnabled(false);
         mChart.getXAxis().setEnabled(false);
+    }
+
+    private void refresh() {
+        mChart.invalidate();
     }
 
     private void addChartToLayout(View view) {
