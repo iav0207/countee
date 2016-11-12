@@ -29,21 +29,19 @@ public class CostOutputService {
 
     private CostReader reader;
 
+    private BalanceCalculator balanceCalculator;
+
     public static CostOutputService getInstance() {
         return instance;
     }
 
     private CostOutputService() {
         reader = CostReader.getInstance();
+        balanceCalculator = BalanceCalculator.getInstance();
     }
 
-    public String getCurrentBalance() {
-        // TODO extract balance calculation to model module
-        BigDecimal balance = BigDecimal.ZERO;
-        for (Cost each : reader.readAllCosts()) {
-            balance = balance.subtract(each.getAmount());
-        }
-        return toString(balance);
+    public String getCurrentBalanceOutput() {
+        return toString(balanceCalculator.getCurrentBalance());
     }
 
     public String getCurrentMonthOutput() {
