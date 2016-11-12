@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.CreateCostFragment;
 import ru.takoe.iav.countee.fragment.SettingsFragment;
+import ru.takoe.iav.countee.fragment.StatsFragment;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 import javax.annotation.Nonnull;
@@ -37,7 +38,7 @@ class ViewRenderer {
                 title  = "Add cost";
                 break;
             case R.id.nav_stats:
-                fragment = CreateCostFragment.newInstance(getViewProvider());
+                fragment = StatsFragment.newInstance(getViewProvider());
                 title = "Stats";
                 break;
             case R.id.nav_settings:

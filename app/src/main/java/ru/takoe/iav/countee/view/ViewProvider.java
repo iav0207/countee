@@ -6,6 +6,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import ru.takoe.iav.countee.R;
@@ -47,6 +48,10 @@ public class ViewProvider {
 
     public TextView getOutputArea() {
         return (TextView) findViewById(R.id.output_text);
+    }
+
+    public FrameLayout getStatsLayout() {
+        return (FrameLayout) findViewById(R.id.statsLayout);
     }
 
     protected View findViewById(int id) {

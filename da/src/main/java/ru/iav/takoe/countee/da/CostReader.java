@@ -12,6 +12,7 @@ import java.util.List;
 import static ru.iav.takoe.countee.da.CostFileNamesFactory.getActualFile;
 import static ru.iav.takoe.countee.da.CostFileNamesFactory.getAllCostFiles;
 import static ru.iav.takoe.countee.logging.LogService.logError;
+import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 
 /**
  * Created by takoe on 16.08.16.
@@ -42,6 +43,7 @@ public class CostReader {
         }
     }
 
+    @Nonnull
     public List<Cost> readAllCosts() {
         try {
             List<Cost> result = new ArrayList<>();
@@ -66,9 +68,7 @@ public class CostReader {
     }
 
     private List<Cost> getCosts(CostsData data) {
-        List<Cost> costs = new ArrayList<>();
-        costs.addAll(data.getDescriptor().values());
-        return costs;
+        return defensiveCopy(data.getDescriptor().values());
     }
 
 }

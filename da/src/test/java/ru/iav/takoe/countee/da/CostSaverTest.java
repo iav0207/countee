@@ -52,15 +52,15 @@ public class CostSaverTest {
     @Test(expectedExceptions = PersistenceException.class)
     public void shouldThrowExceptionIfFileWritingFails() throws Exception {
         doReturn(getRandomString()).when(jsonConverter).serialize(anyCost());
-        doThrow(new RuntimeException()).when(writer).append(anyString(), any(File.class));
+        doThrow(new RuntimeException()).when(writer).append(anyString(), anyFile());
         costSaver.save(createCost());
     }
 
     @Test
     public void shouldBeSilentIfEverythingIsOk() throws Exception {
         doReturn(getRandomString()).when(jsonConverter).serialize(anyCost());
-        doReturn(new CostsData()).when(costReader).getDeserializedData();
-        doNothing().when(writer).append(anyString(), any(File.class));
+        doReturn(new CostsData()).when(costReader).getDeserializedData(anyFile());
+        doNothing().when(writer).append(anyString(), anyFile());
         costSaver.save(createCost());
     }
 
@@ -70,6 +70,10 @@ public class CostSaverTest {
 
     private static Cost anyCost() {
         return any(Cost.class);
+    }
+    
+    private static File anyFile() {
+        return any(File.class);
     }
 
 }
