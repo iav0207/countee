@@ -1,6 +1,5 @@
 package ru.iav.takoe.countee.utils;
 
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 
@@ -30,7 +29,11 @@ public class TestUtils {
     }
 
     public static Integer getRandomInteger() {
-        return RandomUtils.nextInt(0, Integer.MAX_VALUE);
+        return getRandomInteger(Integer.MAX_VALUE);
+    }
+
+    public static Integer getRandomInteger(int max) {
+        return RandomUtils.nextInt(0, max);
     }
 
     public static Boolean getRandomBoolean() {

@@ -8,9 +8,9 @@ import ru.iav.takoe.countee.utils.DateUtils;
 import ru.iav.takoe.countee.vo.Cost;
 
 import java.math.BigDecimal;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
@@ -36,7 +36,7 @@ public class FundsDataService {
     }
 
     public Map<DateTime, Float> getFundsData() {
-        Map<DateTime, Float> data = new LinkedHashMap<>();
+        Map<DateTime, Float> data = new TreeMap<>();
         Multimap<DateTime, Cost> costs = getAllCostsGroupedByDates();
         if (costs.isEmpty()) {
             return data;
