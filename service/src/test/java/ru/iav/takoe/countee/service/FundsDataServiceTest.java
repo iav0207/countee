@@ -124,7 +124,7 @@ public class FundsDataServiceTest {
     }
 
     private void callService() {
-        result = service.getFundsData();
+        result = service.getFundsDailyData();
     }
 
 }

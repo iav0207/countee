@@ -13,6 +13,10 @@ public class DateUtils {
         return day(now());
     }
 
+    public static DateTime month(Date date) {
+        return day(date).withDayOfMonth(1);
+    }
+
     public static DateTime day(Date date) {
         return new DateTime(date).withTimeAtStartOfDay();
     }

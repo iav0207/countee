@@ -8,6 +8,7 @@ import ru.iav.takoe.countee.utils.DateUtils;
 import ru.iav.takoe.countee.vo.Cost;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -35,7 +36,7 @@ public class FundsDataService {
         return instance;
     }
 
-    public Map<DateTime, Float> getFundsData() {
+    public Map<DateTime, Float> getFundsDailyData() {
         Map<DateTime, Float> data = new TreeMap<>();
         Multimap<DateTime, Cost> costs = getAllCostsGroupedByDates();
         if (costs.isEmpty()) {
@@ -57,6 +58,44 @@ public class FundsDataService {
         return data;
     }
 
+    // TODO refactor (extract, strategy/visitor), cover with tests
+    public Map<DateTime, Float> getFundsMonthlyData() {
+        Map<DateTime, Float> data = new TreeMap<>();
+        Multimap<DateTime, Cost> costs = getAllCostsGroupedByMonth();
+        if (costs.isEmpty()) {
+            return data;
+        }
+        BigDecimal funds = balanceCalculator.getBalance(costs.values());
+        TreeSet<DateTime> months = getMonthsSorted(costs.keySet());
+
+        for (DateTime eachMonthBackwards = months.last();
+             !eachMonthBackwards.isBefore(months.first());
+             eachMonthBackwards = eachMonthBackwards.minusMonths(1)) {
+
+            float monthAverage = 0f;
+            Collection<Cost> costsInThisMonth = costs.get(eachMonthBackwards);
+            for (Cost eachCostInThisMonth : costsInThisMonth) {
+                BigDecimal costAmount = eachCostInThisMonth.getAmount();
+                funds = funds.add(costAmount);
+                monthAverage = monthAverage + (f(funds) / costsInThisMonth.size());
+            }
+            data.put(eachMonthBackwards, monthAverage);
+        }
+        return data;
+    }
+
+    private static float f(BigDecimal bd) {
+        return bd.floatValue();
+    }
+
+    private TreeSet<DateTime> getMonthsSorted(Collection<DateTime> dates) {
+        TreeSet<DateTime> set = new TreeSet<>();
+        for (DateTime each : dates) {
+            set.add(each.withTimeAtStartOfDay().withDayOfMonth(1));
+        }
+        return set;
+    }
+
     /**
      * Get a multimap of all costs grouped for each day.
      *
@@ -73,8 +112,28 @@ public class FundsDataService {
         return multimap;
     }
 
+    /**
+     * Get a multimap of all costs grouped for each month.
+     *
+     * @return A {@link LinkedListMultimap}, <b>filled backwards</b>,
+     * i.e. from current month to the month day of statistics.
+     */
+    private Multimap<DateTime, Cost> getAllCostsGroupedByMonth() {
+        Multimap<DateTime, Cost> multimap = LinkedListMultimap.create();
+        List<Cost> allCosts = getAllCosts();
+        for (int i = allCosts.size() - 1; i >= 0; i--) {
+            Cost cost = allCosts.get(i);
+            multimap.put(month(cost), cost);
+        }
+        return multimap;
+    }
+
     private static DateTime day(Cost cost) {
         return DateUtils.day(cost.getTimestamp());
+    }
+
+    private static DateTime month(Cost cost) {
+        return DateUtils.month(cost.getTimestamp());
     }
 
     private List<Cost> getAllCosts() {
