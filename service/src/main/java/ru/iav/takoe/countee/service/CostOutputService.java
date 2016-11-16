@@ -29,7 +29,7 @@ public class CostOutputService {
 
     private CostReader reader;
 
-    private BalanceCalculator balanceCalculator;
+    private ru.iav.takoe.countee.service.model.BalanceCalculator balanceCalculator;
 
     public static CostOutputService getInstance() {
         return instance;
@@ -37,7 +37,7 @@ public class CostOutputService {
 
     private CostOutputService() {
         reader = CostReader.getInstance();
-        balanceCalculator = BalanceCalculator.getInstance();
+        balanceCalculator = ru.iav.takoe.countee.service.model.BalanceCalculator.getInstance();
     }
 
     public String getCurrentBalanceOutput() {

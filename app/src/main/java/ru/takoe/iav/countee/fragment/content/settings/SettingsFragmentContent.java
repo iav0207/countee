@@ -10,7 +10,6 @@ import java.util.Map;
  */
 public class SettingsFragmentContent {
 
-
     public static final List<Item> ITEMS = new ArrayList<>();
 
     public static final Map<String, Item> ITEM_MAP = new HashMap<>();

@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.service;
+package ru.iav.takoe.countee.service.model;
 
 import org.joda.time.DateTime;
 import org.testng.annotations.DataProvider;
@@ -18,7 +18,7 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 /**
  * Created by takoe on 12.11.16.
  */
-public class FundsDataServiceTestData {
+public class ChartsDataServiceTestData {
 
     @DataProvider(name = "getCostsForSpacedDates")
     public static Object[][] getCostsForSpacedDates() {

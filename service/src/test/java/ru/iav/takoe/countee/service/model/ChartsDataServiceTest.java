@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.service;
+package ru.iav.takoe.countee.service.model;
 
 import org.joda.time.DateTime;
 import org.mockito.Answers;
@@ -23,13 +23,12 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
-import static ru.iav.takoe.countee.service.FundsDataServiceTestData.bigD;
 import static ru.iav.takoe.countee.utils.DateUtils.day;
 
 /**
  * Created by takoe on 12.11.16.
  */
-public class FundsDataServiceTest {
+public class ChartsDataServiceTest {
 
     private static final CostDateComparator comparator = new CostDateComparator();
 
@@ -37,10 +36,10 @@ public class FundsDataServiceTest {
     private CostReader reader;
 
     @Mock(answer = Answers.CALLS_REAL_METHODS)
-    BalanceCalculator balanceCalculator;
+    ru.iav.takoe.countee.service.model.BalanceCalculator balanceCalculator;
 
     @InjectMocks
-    private FundsDataService service;
+    private ChartsDataService service;
 
     private Map<DateTime, Float> result;
 
@@ -68,7 +67,7 @@ public class FundsDataServiceTest {
     }
 
     @Test(invocationCount = 5,
-            dataProvider = "getCostsForSpacedDates", dataProviderClass = FundsDataServiceTestData.class)
+            dataProvider = "getCostsForSpacedDates", dataProviderClass = ChartsDataServiceTestData.class)
     public void shouldContainEachDayInPeriod(List<Cost> costs, Integer daysGap) throws Exception {
         doReturn(costs).when(reader).readAllCosts();
         callService();
@@ -84,14 +83,14 @@ public class FundsDataServiceTest {
         }
     }
 
-    @Test(dataProvider = "getRandomCosts", dataProviderClass = FundsDataServiceTestData.class)
+    @Test(dataProvider = "getRandomCosts", dataProviderClass = ChartsDataServiceTestData.class)
     public void shouldCurrentBalanceCorrespondToTheLastDateFundsValue(List<Cost> costs, BigDecimal expectedBalance)
             throws Exception {
         doReturn(costs).when(reader).readAllCosts();
         callService();
 
         if (costs.size() > 0) {
-            BigDecimal actualBalance = bigD(result.get(getMaxDateTime(result.keySet())));
+            BigDecimal actualBalance = ChartsDataServiceTestData.bigD(result.get(getMaxDateTime(result.keySet())));
             assertTrue(areEqual(actualBalance, expectedBalance));
         }
     }
@@ -124,7 +123,7 @@ public class FundsDataServiceTest {
     }
 
     private void callService() {
-        result = service.getFundsData();
+        result = service.getFundsDailyData();
     }
 
 }
