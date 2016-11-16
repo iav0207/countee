@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.service;
+package ru.iav.takoe.countee.service.model;
 
 import org.joda.time.DateTime;
 import org.testng.annotations.DataProvider;

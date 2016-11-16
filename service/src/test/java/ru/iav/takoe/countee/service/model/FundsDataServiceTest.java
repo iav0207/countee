@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.service;
+package ru.iav.takoe.countee.service.model;
 
 import org.joda.time.DateTime;
 import org.mockito.Answers;
@@ -23,7 +23,6 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
-import static ru.iav.takoe.countee.service.FundsDataServiceTestData.bigD;
 import static ru.iav.takoe.countee.utils.DateUtils.day;
 
 /**
@@ -37,7 +36,7 @@ public class FundsDataServiceTest {
     private CostReader reader;
 
     @Mock(answer = Answers.CALLS_REAL_METHODS)
-    BalanceCalculator balanceCalculator;
+    ru.iav.takoe.countee.service.model.BalanceCalculator balanceCalculator;
 
     @InjectMocks
     private FundsDataService service;
@@ -91,7 +90,7 @@ public class FundsDataServiceTest {
         callService();
 
         if (costs.size() > 0) {
-            BigDecimal actualBalance = bigD(result.get(getMaxDateTime(result.keySet())));
+            BigDecimal actualBalance = FundsDataServiceTestData.bigD(result.get(getMaxDateTime(result.keySet())));
             assertTrue(areEqual(actualBalance, expectedBalance));
         }
     }

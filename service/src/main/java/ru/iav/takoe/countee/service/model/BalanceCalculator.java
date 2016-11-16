@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.service;
+package ru.iav.takoe.countee.service.model;
 
 import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.vo.Cost;

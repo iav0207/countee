@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.service;
+package ru.iav.takoe.countee.service.model;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
