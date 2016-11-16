@@ -1,4 +1,4 @@
-package ru.takoe.iav.countee.fragment;
+package ru.takoe.iav.countee.fragment.content.settings;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,23 +6,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.fragment.SettingsFragment.OnListFragmentInteractionListener;
-import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent;
+import ru.takoe.iav.countee.fragment.SettingsFragment;
+import ru.takoe.iav.countee.fragment.SettingsFragment.OnFragmentInteractionListener;
 import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent.Item;
 
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Item} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link SettingsFragment.OnFragmentInteractionListener}.
  */
 public class SettingsRecyclerViewAdapter extends RecyclerView.Adapter<SettingsRecyclerViewAdapter.ViewHolder> {
 
     private final List<SettingsFragmentContent.Item> mValues;
-    private final OnListFragmentInteractionListener mListener;
+    private final OnFragmentInteractionListener mListener;
 
     public SettingsRecyclerViewAdapter(List<SettingsFragmentContent.Item> items,
-                                       OnListFragmentInteractionListener listener) {
+                                       SettingsFragment.OnFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

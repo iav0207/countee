@@ -11,11 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent;
+import ru.takoe.iav.countee.fragment.content.settings.SettingsRecyclerViewAdapter;
 
 /**
  * A fragment representing a list of Items.
  * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
 public class SettingsFragment extends Fragment {
@@ -23,7 +24,7 @@ public class SettingsFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final int VAL_COLUMN_COUNT = 1;
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+    private OnFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -73,11 +74,11 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement OnFragmentInteractionListener");
         }
     }
 
@@ -97,7 +98,7 @@ public class SettingsFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnListFragmentInteractionListener {
+    public interface OnFragmentInteractionListener {
         void onListFragmentInteraction(SettingsFragmentContent.Item item);
     }
 }

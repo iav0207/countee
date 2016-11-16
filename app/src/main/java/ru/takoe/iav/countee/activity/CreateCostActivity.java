@@ -12,6 +12,7 @@ import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.CreateCostFragment;
 import ru.takoe.iav.countee.fragment.SettingsFragment;
 import ru.takoe.iav.countee.fragment.StatsFragment;
+import ru.takoe.iav.countee.fragment.content.common.StringItem;
 import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent;
 import ru.takoe.iav.countee.properties.ApplicationProperties;
 import ru.takoe.iav.countee.view.ViewProvider;
@@ -20,7 +21,7 @@ public class CreateCostActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
         CreateCostFragment.OnFragmentInteractionListener,
         StatsFragment.OnFragmentInteractionListener,
-        SettingsFragment.OnListFragmentInteractionListener {
+        SettingsFragment.OnFragmentInteractionListener {
 
     private final ViewRenderer viewRenderer = new ViewRenderer(this);
 
@@ -93,7 +94,7 @@ public class CreateCostActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
+    public void onListFragmentInteraction(StringItem item) {
 
     }
 
@@ -102,4 +103,8 @@ public class CreateCostActivity extends AppCompatActivity implements
 
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

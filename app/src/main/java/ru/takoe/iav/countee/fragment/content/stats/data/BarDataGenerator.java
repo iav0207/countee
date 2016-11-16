@@ -1,4 +1,4 @@
-package ru.takoe.iav.countee.fragment.content.stats;
+package ru.takoe.iav.countee.fragment.content.stats.data;
 
 import android.content.res.AssetManager;
 import android.graphics.Color;

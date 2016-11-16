@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="chart_prompt">Choose chart</string>
+
+    <string-array name="charts_array">
+        <item>Funds, daily</item>
+        <item>Funds, monthly</item>
+        <item>Costs, daily</item>
+        <item>Costs, monthly</item>
+    </string-array>
+
+    <!--<string name="chart_funds_daily">Funds, daily</string>
+    <string name="chart_funds_monthly">Funds, monthly</string>
+
+    <string name="chart_costs_daily">Costs, daily</string>
+    <string name="chart_costs_monthly">Costs, monthly</string>-->
+
+</resources>

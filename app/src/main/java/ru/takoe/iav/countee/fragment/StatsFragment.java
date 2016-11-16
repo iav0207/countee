@@ -2,7 +2,6 @@ package ru.takoe.iav.countee.fragment;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Spinner;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.components.XAxis;
@@ -19,8 +19,13 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.fragment.content.stats.BalanceBarDataProvider;
+import ru.takoe.iav.countee.fragment.content.common.StringItem;
+import ru.takoe.iav.countee.fragment.content.common.StringItemList;
+import ru.takoe.iav.countee.fragment.content.stats.ChartsRecyclerViewAdapter;
 import ru.takoe.iav.countee.fragment.content.stats.SimpleMarkerView;
+import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentContent;
+import ru.takoe.iav.countee.fragment.content.stats.data.FundsDailyBarDataProvider;
+import ru.takoe.iav.countee.fragment.listener.ChartItemSelectedListener;
 import ru.takoe.iav.countee.properties.ApplicationProperties;
 import ru.takoe.iav.countee.view.ViewProvider;
 
@@ -38,7 +43,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
 
     private OnFragmentInteractionListener mListener;
 
-    private BalanceBarDataProvider dataProvider;
+    private FundsDailyBarDataProvider dataProvider;
 
     private BarChart mChart;
 
@@ -75,6 +80,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
 
         setUpChart(view);
         createTypeface();
+        addItemsOnSpinner(view);
 
         setChartData();
 
@@ -83,6 +89,14 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         refresh();
 
         return view;
+    }
+
+    private void addItemsOnSpinner(View view) {
+        Spinner chartTypeSpinner = (Spinner) view.findViewById(R.id.chartSpinner);
+        StringItemList items = StatsFragmentContent.getItems(getResources());
+
+        chartTypeSpinner.setAdapter(new ChartsRecyclerViewAdapter(items, mListener));
+        chartTypeSpinner.setOnItemSelectedListener(new ChartItemSelectedListener(mChart, getActivity().getAssets()));
     }
 
     private void setUpChart(View view) {
@@ -111,7 +125,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
             initializeDataGenerator();
             mChart.setData(generateBarData(1, 20000, 12));
         } else {
-            dataProvider = new BalanceBarDataProvider(getActivity().getAssets());
+            dataProvider = new FundsDailyBarDataProvider(getActivity().getAssets());
             mChart.setData(dataProvider.getFundsBarData());
         }
     }
@@ -145,9 +159,9 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         statsLayout.addView(mChart);
     }
 
-    public void onButtonPressed(Uri uri) {
+    public void onButtonPressed(StringItem item) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+            mListener.onListFragmentInteraction(item);
         }
     }
 
@@ -220,7 +234,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(Uri uri);
+        void onListFragmentInteraction(StringItem item);
     }
 
 }
