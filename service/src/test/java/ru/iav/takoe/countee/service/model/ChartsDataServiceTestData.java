@@ -18,7 +18,7 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 /**
  * Created by takoe on 12.11.16.
  */
-public class FundsDataServiceTestData {
+public class ChartsDataServiceTestData {
 
     @DataProvider(name = "getCostsForSpacedDates")
     public static Object[][] getCostsForSpacedDates() {

@@ -31,7 +31,7 @@ public class FundsMonthlyDataProvider extends AbstractBarDataProvider {
 
     @Override
     protected Map<DateTime, Float> getDataFromService() {
-        return getFundsDataService().getFundsMonthlyData();
+        return getDataService().getFundsMonthlyData();
     }
 
     @Override

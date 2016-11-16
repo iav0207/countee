@@ -6,7 +6,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import org.joda.time.DateTime;
-import ru.iav.takoe.countee.service.model.FundsDataService;
+import ru.iav.takoe.countee.service.model.ChartsDataService;
 
 import java.util.List;
 import java.util.Map;
@@ -45,8 +45,8 @@ public abstract class AbstractBarDataProvider {
 
     protected abstract Map<DateTime, Float> getDataFromService();
 
-    protected FundsDataService getFundsDataService() {
-        return FundsDataService.getInstance();
+    protected ChartsDataService getDataService() {
+        return ChartsDataService.getInstance();
     }
 
     protected abstract String caption();

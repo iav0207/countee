@@ -31,7 +31,7 @@ public class FundsDailyBarDataProvider extends AbstractBarDataProvider {
 
     @Override
     protected Map<DateTime, Float> getDataFromService() {
-        return getFundsDataService().getFundsDailyData();
+        return getDataService().getFundsDailyData();
     }
 
     @Override
