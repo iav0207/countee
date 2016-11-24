@@ -9,8 +9,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.iav.takoe.countee.da.CostFileNamesFactory.getActualFile;
-import static ru.iav.takoe.countee.da.CostFileNamesFactory.getAllCostFiles;
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 
@@ -21,6 +19,8 @@ public class CostReader {
 
     private static CostReader instance = new CostReader();
 
+    private CostFileNamesFactory fileNamesFactory;
+
     private JsonParser jsonParser;
 
     private LocalReader reader;
@@ -30,14 +30,16 @@ public class CostReader {
     }
 
     private CostReader() {
+        fileNamesFactory = CostFileNamesFactory.getInstance();
         jsonParser = JsonParser.getInstance();
         reader = LocalReader.getInstance();
     }
 
+    @Nonnull
     public List<Cost> readCostsForThisMonth() {
         try {
             return getCosts(getDeserializedData(getActualFile()));
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             logError(e.getMessage());
             return new ArrayList<>();
         }
@@ -51,7 +53,7 @@ public class CostReader {
                 result.addAll(getCosts(getDeserializedData(eachCostFile)));
             }
             return result;
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
             logError(e.getMessage());
             return new ArrayList<>();
         }
@@ -69,6 +71,14 @@ public class CostReader {
 
     private List<Cost> getCosts(CostsData data) {
         return defensiveCopy(data.getDescriptor().values());
+    }
+
+    private File getActualFile() {
+        return fileNamesFactory.getActualFile();
+    }
+
+    private List<File> getAllCostFiles() {
+        return fileNamesFactory.getAllCostFiles();
     }
 
 }

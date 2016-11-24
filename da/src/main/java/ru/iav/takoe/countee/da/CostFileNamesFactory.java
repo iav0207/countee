@@ -9,11 +9,14 @@ import java.util.List;
 
 import static java.util.Arrays.asList;
 import static ru.iav.takoe.countee.utils.DateUtils.now;
+import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 /**
  * Created by takoe on 25.07.16.
  */
 class CostFileNamesFactory {
+
+    private static CostFileNamesFactory instance;
 
     private static final String outputPath = "/costs/";
 
@@ -21,14 +24,25 @@ class CostFileNamesFactory {
 
     private static final String extension = ".cnt";
 
-    private static FileFactory fileFactory = FileFactory.getInstance();
+    private FileFactory fileFactory;
 
-    static List<File> getAllCostFiles() {
+    private CostFileNamesFactory() {
+        fileFactory = FileFactory.getInstance();
+    }
+
+    static CostFileNamesFactory getInstance() {
+        if (isNull(instance)) {
+            instance = new CostFileNamesFactory();
+        }
+        return instance;
+    }
+
+    List<File> getAllCostFiles() {
         File[] costFiles = fileFactory.getFileForName(outputPath).listFiles();
         return costFiles == null ? new ArrayList<File>() : asList(costFiles);
     }
 
-    static File getActualFile() {
+    File getActualFile() {
         return fileFactory.create(getActualFileName());
     }
 

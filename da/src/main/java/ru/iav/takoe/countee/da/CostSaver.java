@@ -7,14 +7,16 @@ import ru.iav.takoe.countee.vo.Cost;
 import ru.takoe.iav.countee.properties.ApplicationProperties;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 
-import static ru.iav.takoe.countee.da.CostFileNamesFactory.getActualFile;
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.logging.LogService.logInfo;
 
 public class CostSaver {
 
     private static CostSaver instance;
+
+    private CostFileNamesFactory fileNamesFactory;
 
     private CostReader costReader;
 
@@ -23,6 +25,7 @@ public class CostSaver {
     private LocalWriter writer;
 
     private CostSaver() {
+        fileNamesFactory = CostFileNamesFactory.getInstance();
         costReader = CostReader.getInstance();
         jsonConverter = JsonConverter.getInstance();
         writer = LocalWriter.getInstance();
@@ -65,6 +68,10 @@ public class CostSaver {
 
     private void writeToFile(String json)  {
         writer.append(json, getActualFile());
+    }
+
+    private File getActualFile() {
+        return fileNamesFactory.getActualFile();
     }
 
     private static void handle(Exception e) throws PersistenceException {
