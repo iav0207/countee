@@ -63,9 +63,6 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
         XAxis xAxis = chart.getXAxis();
         xAxis.setAxisMinimum(data.getXMin() - 0.5f);
         xAxis.setAxisMaximum(data.getXMax() + 0.5f);
-
-        chart.getAxisRight().setEnabled(false);
-        chart.getXAxis().setEnabled(false);
     }
 
 }

@@ -13,9 +13,6 @@ import android.widget.FrameLayout;
 import android.widget.Spinner;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.MarkerView;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import ru.takoe.iav.countee.R;
@@ -82,7 +79,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         createTypeface();
         addItemsOnSpinner(view);
 
-        setChartData();
+        // setChartData(); chart data is set on dropdown list activation
 
         adjustLegend();
         adjustAxes();
@@ -135,17 +132,8 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
     }
 
     private void adjustAxes() {
-        BarData data = mChart.getData();
-
-        YAxis leftAxis = mChart.getAxisLeft();
-        leftAxis.setTypeface(typeface);
-        leftAxis.setAxisMaximum(data.getYMax());
-        leftAxis.setAxisMinimum(data.getYMin());
-
-        XAxis xAxis = mChart.getXAxis();
-        xAxis.setAxisMinimum(data.getXMin());
-        xAxis.setAxisMaximum(data.getXMax());
-
+        mChart.getAxisLeft().setTypeface(typeface);
+        mChart.getXAxis().setTypeface(typeface);
         mChart.getAxisRight().setEnabled(false);
         mChart.getXAxis().setEnabled(false);
     }
