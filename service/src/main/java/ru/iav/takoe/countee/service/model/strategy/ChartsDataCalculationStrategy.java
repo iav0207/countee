@@ -14,30 +14,30 @@ import java.util.TreeMap;
 /**
  * Created by takoe on 16.11.16.
  */
-public abstract class ChartsDataCalculationStrategy {
+abstract class ChartsDataCalculationStrategy {
 
     private final List<Cost> costs;
 
-    protected Map<DateTime, Float> result;
+    Map<DateTime, Float> result;
 
-    protected Multimap<DateTime, Cost> costMultimap;
+    Multimap<DateTime, Cost> costMultimap;
 
-    public ChartsDataCalculationStrategy(@Nonnull List<Cost> costs) {
+    ChartsDataCalculationStrategy(@Nonnull List<Cost> costs) {
         this.costs = costs;
         result = new TreeMap<>();
     }
 
     public abstract Map<DateTime, Float> execute();
 
-    protected List<Cost> costs() {
+    List<Cost> costs() {
         return costs;
     }
 
-    protected BigDecimal getBalance() {
+    BigDecimal getBalance() {
         return BalanceCalculator.getInstance().getBalance(costs);
     }
 
-    protected static DateCostMultimapBuilder multimapBuilder() {
+    static DateCostMultimapBuilder multimapBuilder() {
         return DateCostMultimapBuilder.getInstance();
     }
 

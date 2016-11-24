@@ -1,10 +1,11 @@
 package ru.iav.takoe.countee.persistence.file;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
-import static ru.iav.takoe.countee.logging.LogService.logDebug;
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.logging.LogService.logInfo;
 
@@ -22,26 +23,13 @@ public class LocalWriter {
     }
 
     public void append(@Nonnull String text, @Nonnull File file) {
-        Writer writer = null;
         boolean append = false;
-        try {
-            writer = new BufferedWriter(new FileWriter(file, append));
+        try (FileWriter fileWriter = new FileWriter(file, append);
+             BufferedWriter writer = new BufferedWriter(fileWriter)) {
             writer.write(text);
             logInfo("Written to file " + file.getAbsolutePath());
         } catch (IOException ioe) {
             logError("Couldn't write to file " + file.getName(), ioe);
-        } finally {
-            close(writer);
-        }
-    }
-
-    private static void close(@Nullable Closeable c) {
-        try {
-            if (c != null) {
-                c.close();
-            }
-        } catch (Exception e) {
-            logDebug(e);
         }
     }
 

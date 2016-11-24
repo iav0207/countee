@@ -13,7 +13,6 @@ import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 /**
  * TODO extract balance calculation to model module
- * TODO cover with tests
  */
 public class BalanceCalculator {
 
@@ -45,7 +44,7 @@ public class BalanceCalculator {
 
     @Nonnull
     private BigDecimal amountOf(@Nullable Cost cost) {
-        return isNull(cost) ? BigDecimal.ZERO : cost.getAmount();
+        return isNull(cost) || isNull(cost.getAmount()) ? BigDecimal.ZERO : cost.getAmount();
     }
 
 }

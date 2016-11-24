@@ -37,7 +37,7 @@ public class FundsMonthlyStrategy extends ChartsDataCalculationStrategy {
             for (Cost eachCostInThisMonth : costsInThisMonth) {
                 BigDecimal costAmount = eachCostInThisMonth.getAmount();
                 funds = funds.add(costAmount);
-                monthAverage = monthAverage + (funds.floatValue() / costsInThisMonth.size());
+                monthAverage += funds.floatValue() / costsInThisMonth.size();
             }
             result.put(eachMonthBackwards, monthAverage);
         }

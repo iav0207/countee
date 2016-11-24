@@ -36,7 +36,7 @@ public class ChartsDataServiceTest {
     private CostReader reader;
 
     @Mock(answer = Answers.CALLS_REAL_METHODS)
-    ru.iav.takoe.countee.service.model.BalanceCalculator balanceCalculator;
+    BalanceCalculator balanceCalculator;
 
     @InjectMocks
     private ChartsDataService service;
