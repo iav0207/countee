@@ -62,7 +62,11 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
         viewProvider.getSaveCostButton().setOnClickListener(this);
         updateOutputText();
     }
