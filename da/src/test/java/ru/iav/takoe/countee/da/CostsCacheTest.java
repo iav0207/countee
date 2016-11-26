@@ -46,9 +46,7 @@ public class CostsCacheTest {
         List<Cost> allCosts = listOfCosts();
         cache.put(allCosts);
         List<Cost> result = cache.getAllCosts();
-        for (Cost each : allCosts) {
-            assertTrue(result.contains(each));
-        }
+        assertTrue(result.containsAll(allCosts));
     }
 
     @Test
@@ -59,6 +57,19 @@ public class CostsCacheTest {
         for (Cost each : allCosts) {
             assertEquals(result.contains(each), thisMonthStart().isBefore(dateOf(each)));
         }
+    }
+
+    @Test
+    public void shouldClearAllPreviousDataOnPut() throws Exception {
+        List<Cost> previousCosts = listOfCosts();
+        List<Cost> newCosts = listOfCosts();
+        cache.put(previousCosts);
+        cache.put(newCosts);
+        List<Cost> result = cache.getAllCosts();
+        for (Cost each : previousCosts) {
+            assertFalse(result.contains(each));
+        }
+        assertTrue(result.containsAll(newCosts));
     }
 
     private static DateTime thisMonthStart() {

@@ -62,9 +62,11 @@ public class CostReader {
 
     private void putAllCostsToCacheIfItIsEmpty() {
         if (cache.isEmpty()) {
+            List<Cost> allCosts = new ArrayList<>();
             for (File eachCostFile : getAllCostFiles()) {
-                cache.put(getCostsFrom(eachCostFile));
+                allCosts.addAll(getCostsFrom(eachCostFile));
             }
+            cache.put(allCosts);
         }
     }
 
