@@ -20,6 +20,8 @@ public class CostSaver {
 
     private CostReader costReader;
 
+    private Invalidable cache;
+
     private JsonConverter jsonConverter;
 
     private LocalWriter writer;
@@ -27,6 +29,7 @@ public class CostSaver {
     private CostSaver() {
         fileNamesFactory = CostFileNamesFactory.getInstance();
         costReader = CostReader.getInstance();
+        cache = CostsCache.getInstance();
         jsonConverter = JsonConverter.getInstance();
         writer = LocalWriter.getInstance();
     }
@@ -47,6 +50,8 @@ public class CostSaver {
             logInfo("Cost saved!");
         } catch (Exception e) {
             handle(e);
+        } finally {
+            cache.invalidate();
         }
     }
 

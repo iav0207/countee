@@ -2,7 +2,9 @@ package ru.iav.takoe.countee.da;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.iav.takoe.countee.da.exception.PersistenceException;
 import ru.iav.takoe.countee.json.JsonConverter;
@@ -14,7 +16,12 @@ import java.io.File;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
@@ -33,6 +40,9 @@ public class CostSaverTest {
     @Mock
     private CostReader costReader;
 
+    @Mock
+    private CostsCache cache;
+
     @InjectMocks
     private CostSaver costSaver;
 
@@ -41,6 +51,11 @@ public class CostSaverTest {
     @BeforeClass
     public void init() {
         initMocks(this);
+    }
+
+    @BeforeMethod
+    public void reset() {
+        Mockito.reset(cache);
     }
 
     @Test(expectedExceptions = PersistenceException.class)
@@ -58,10 +73,22 @@ public class CostSaverTest {
 
     @Test
     public void shouldBeSilentIfEverythingIsOk() throws Exception {
+        configureDependenciesToRunOk();
+        costSaver.save(createCost());
+    }
+
+    @Test
+    public void shouldInvalidateCacheOnCostSaving() throws Exception {
+        configureDependenciesToRunOk();
+        verify(cache, never()).invalidate();
+        costSaver.save(createCost());
+        verify(cache, times(1)).invalidate();
+    }
+
+    private void configureDependenciesToRunOk() {
         doReturn(getRandomString()).when(jsonConverter).serialize(anyCost());
         doReturn(new CostsData()).when(costReader).getDeserializedData(anyFile());
         doNothing().when(writer).append(anyString(), anyFile());
-        costSaver.save(createCost());
     }
 
     private Cost createCost() {
