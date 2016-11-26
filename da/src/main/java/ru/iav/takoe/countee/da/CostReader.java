@@ -9,8 +9,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.iav.takoe.countee.da.CostFileNamesFactory.getActualFile;
-import static ru.iav.takoe.countee.da.CostFileNamesFactory.getAllCostFiles;
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 
@@ -21,23 +19,31 @@ public class CostReader {
 
     private static CostReader instance = new CostReader();
 
+    private CostFileNamesFactory fileNamesFactory;
+
     private JsonParser jsonParser;
 
     private LocalReader reader;
+
+    private CostsCache cache;
 
     public static CostReader getInstance() {
         return instance;
     }
 
     private CostReader() {
+        fileNamesFactory = CostFileNamesFactory.getInstance();
         jsonParser = JsonParser.getInstance();
         reader = LocalReader.getInstance();
+        cache = CostsCache.getInstance();
     }
 
+    @Nonnull
     public List<Cost> readCostsForThisMonth() {
         try {
-            return getCosts(getDeserializedData(getActualFile()));
-        } catch (Exception e) {
+            putAllCostsToCacheIfItIsEmpty();
+            return cache.getCostsForThisMonth();
+        } catch (RuntimeException e) {
             logError(e.getMessage());
             return new ArrayList<>();
         }
@@ -46,15 +52,26 @@ public class CostReader {
     @Nonnull
     public List<Cost> readAllCosts() {
         try {
-            List<Cost> result = new ArrayList<>();
-            for (File eachCostFile : getAllCostFiles()) {
-                result.addAll(getCosts(getDeserializedData(eachCostFile)));
-            }
-            return result;
-        } catch (Exception e) {
+            putAllCostsToCacheIfItIsEmpty();
+            return cache.getAllCosts();
+        } catch (RuntimeException e) {
             logError(e.getMessage());
             return new ArrayList<>();
         }
+    }
+
+    private void putAllCostsToCacheIfItIsEmpty() {
+        if (cache.isEmpty()) {
+            List<Cost> allCosts = new ArrayList<>();
+            for (File eachCostFile : getAllCostFiles()) {
+                allCosts.addAll(getCostsFrom(eachCostFile));
+            }
+            cache.put(allCosts);
+        }
+    }
+
+    private List<Cost> getCostsFrom(File file) {
+        return getCosts(getDeserializedData(file));
     }
 
     @Nonnull
@@ -69,6 +86,10 @@ public class CostReader {
 
     private List<Cost> getCosts(CostsData data) {
         return defensiveCopy(data.getDescriptor().values());
+    }
+
+    private List<File> getAllCostFiles() {
+        return fileNamesFactory.getAllCostFiles();
     }
 
 }

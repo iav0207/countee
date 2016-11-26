@@ -1,5 +1,7 @@
 package ru.iav.takoe.countee.vo;
 
+import com.google.common.base.Objects;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -60,18 +62,13 @@ public class Cost implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Cost cost = (Cost) o;
-
-        if (uuid != null ? !uuid.equals(cost.uuid) : cost.uuid != null) return false;
-        return amount != null ? amount.equals(cost.amount) : cost.amount == null;
-
+        return Objects.equal(uuid, cost.uuid) &&
+                Objects.equal(amount, cost.amount);
     }
 
     @Override
     public int hashCode() {
-        int result = uuid != null ? uuid.hashCode() : 0;
-        result = 31 * result + (amount != null ? amount.hashCode() : 0);
-        return result;
+        return Objects.hashCode(uuid, amount);
     }
 }
