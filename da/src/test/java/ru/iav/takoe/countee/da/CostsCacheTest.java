@@ -6,7 +6,6 @@ import org.testng.annotations.Test;
 import ru.iav.takoe.countee.vo.Cost;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,6 +15,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
+import static ru.iav.takoe.countee.utils.TestUtils.getRandomDateOfLastYear;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
@@ -80,18 +80,10 @@ public class CostsCacheTest {
     private Cost cost() {
         Cost cost = mock(Cost.class);
         doReturn(UUID.randomUUID()).when(cost).getUuid();
-        doReturn(randomDateOfLastYear()).when(cost).getTimestamp();
+        doReturn(getRandomDateOfLastYear()).when(cost).getTimestamp();
         doReturn(getRandomBigDecimal()).when(cost).getAmount();
         doReturn(getRandomString()).when(cost).getComment();
         return cost;
-    }
-
-    private Date randomDateOfLastYear() {
-        return DateTime.now()
-                .minusMonths(getRandomInteger(12))
-                .minusDays(getRandomInteger(30))
-                .minusHours(getRandomInteger(24))
-                .toDate();
     }
 
 }

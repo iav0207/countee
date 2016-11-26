@@ -2,6 +2,7 @@ package ru.iav.takoe.countee.utils;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
+import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -18,6 +19,14 @@ public class TestUtils {
 
     public static Date getRandomDate() {
         return new Date(getRandomLong());
+    }
+
+    public static Date getRandomDateOfLastYear() {
+        return DateTime.now()
+                .minusMonths(getRandomInteger(12))
+                .minusDays(getRandomInteger(30))
+                .minusHours(getRandomInteger(24))
+                .toDate();
     }
 
     public static BigDecimal getRandomBigDecimal() {

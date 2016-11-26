@@ -25,6 +25,8 @@ public class CostReader {
 
     private LocalReader reader;
 
+    private CostsCache cache;
+
     public static CostReader getInstance() {
         return instance;
     }
@@ -33,12 +35,14 @@ public class CostReader {
         fileNamesFactory = CostFileNamesFactory.getInstance();
         jsonParser = JsonParser.getInstance();
         reader = LocalReader.getInstance();
+        cache = CostsCache.getInstance();
     }
 
     @Nonnull
     public List<Cost> readCostsForThisMonth() {
         try {
-            return getCosts(getDeserializedData(getActualFile()));
+            putAllCostsToCacheIfItIsEmpty();
+            return cache.getCostsForThisMonth();
         } catch (RuntimeException e) {
             logError(e.getMessage());
             return new ArrayList<>();
@@ -48,15 +52,24 @@ public class CostReader {
     @Nonnull
     public List<Cost> readAllCosts() {
         try {
-            List<Cost> result = new ArrayList<>();
-            for (File eachCostFile : getAllCostFiles()) {
-                result.addAll(getCosts(getDeserializedData(eachCostFile)));
-            }
-            return result;
+            putAllCostsToCacheIfItIsEmpty();
+            return cache.getAllCosts();
         } catch (RuntimeException e) {
             logError(e.getMessage());
             return new ArrayList<>();
         }
+    }
+
+    private void putAllCostsToCacheIfItIsEmpty() {
+        if (cache.isEmpty()) {
+            for (File eachCostFile : getAllCostFiles()) {
+                cache.put(getCostsFrom(eachCostFile));
+            }
+        }
+    }
+
+    private List<Cost> getCostsFrom(File file) {
+        return getCosts(getDeserializedData(file));
     }
 
     @Nonnull
@@ -71,10 +84,6 @@ public class CostReader {
 
     private List<Cost> getCosts(CostsData data) {
         return defensiveCopy(data.getDescriptor().values());
-    }
-
-    private File getActualFile() {
-        return fileNamesFactory.getActualFile();
     }
 
     private List<File> getAllCostFiles() {

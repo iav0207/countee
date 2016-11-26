@@ -3,6 +3,7 @@ package ru.iav.takoe.countee.da;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -26,6 +27,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
+import static ru.iav.takoe.countee.utils.TestUtils.getRandomDateOfLastYear;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 
 /**
@@ -42,6 +44,9 @@ public class CostReaderTest {
     @Mock
     private LocalReader localReader;
 
+    @Spy
+    private CostsCache cache;
+
     @InjectMocks
     private CostReader costReader;
 
@@ -52,7 +57,7 @@ public class CostReaderTest {
 
     @BeforeMethod
     public void reset() {
-        Mockito.reset(costFileNamesFactory, jsonParser, localReader);
+        Mockito.reset(costFileNamesFactory, jsonParser, localReader, cache);
     }
 
     @Test
@@ -72,25 +77,25 @@ public class CostReaderTest {
     public void shouldReturnListOfAllCostsReturnedByParserIfEverythingIsOk() throws Exception {
         letFileFactoryReturnAllFiles();
         doReturn("json").when(localReader).read(any(File.class));
-        List<Cost> listOfCosts = listOfCosts();
-        letParserReturn(costsData(listOfCosts));
-        assertEquals(costReader.readCostsForThisMonth(), listOfCosts);
+        List<Cost> allCosts = listOfCosts();
+        doReturn(allCosts).when(cache).getAllCosts();
+        assertEquals(costReader.readAllCosts(), allCosts);
     }
 
     @Test
     public void shouldSilentlyReturnEmptyListForThisMonthIfAnyExceptionIsThrown() throws Exception {
-        letFileFactoryReturnActualFile();
+        letFileFactoryReturnAllFiles();
         letParserThrowRuntimeException();
         assertResultIsEmptyList();
     }
 
     @Test
     public void shouldReturnListOfMonthCostsReturnedByParserIfEverythingIsOk() throws Exception {
-        letFileFactoryReturnActualFile();
+        letFileFactoryReturnAllFiles();
         doReturn("json").when(localReader).read(any(File.class));
-        List<Cost> listOfCosts = listOfCosts();
-        letParserReturn(costsData(listOfCosts));
-        assertEquals(costReader.readCostsForThisMonth(), listOfCosts);
+        List<Cost> listOfCostsForThisMonth = listOfCosts();
+        doReturn(listOfCostsForThisMonth).when(cache).getCostsForThisMonth();
+        assertEquals(costReader.readCostsForThisMonth(), listOfCostsForThisMonth);
     }
 
     private void assertResultIsEmptyList() throws Exception {
@@ -101,9 +106,6 @@ public class CostReaderTest {
 
     private void letFileFactoryReturnAllFiles() {
         doReturn(listOfFiles()).when(costFileNamesFactory).getAllCostFiles();
-    }
-
-    private void letFileFactoryReturnActualFile() {
         doReturn(file()).when(costFileNamesFactory).getActualFile();
     }
 
@@ -143,6 +145,7 @@ public class CostReaderTest {
     private Cost cost() {
         Cost cost = mock(Cost.class);
         doReturn(UUID.randomUUID()).when(cost).getUuid();
+        doReturn(getRandomDateOfLastYear()).when(cost).getTimestamp();
         doReturn(getRandomBigDecimal()).when(cost).getAmount();
         return cost;
     }
