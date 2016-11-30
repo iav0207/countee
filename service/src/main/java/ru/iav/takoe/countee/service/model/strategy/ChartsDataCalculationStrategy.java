@@ -2,7 +2,7 @@ package ru.iav.takoe.countee.service.model.strategy;
 
 import com.google.common.collect.Multimap;
 import org.joda.time.DateTime;
-import ru.iav.takoe.countee.service.model.BalanceCalculator;
+import ru.iav.takoe.countee.service.BalanceService;
 import ru.iav.takoe.countee.vo.Cost;
 
 import javax.annotation.Nonnull;
@@ -34,7 +34,7 @@ abstract class ChartsDataCalculationStrategy {
     }
 
     BigDecimal getBalance() {
-        return BalanceCalculator.getInstance().getBalance(costs);
+        return BalanceService.getInstance().getBalance(costs);
     }
 
     static DateCostMultimapBuilder multimapBuilder() {
