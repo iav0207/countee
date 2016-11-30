@@ -6,7 +6,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import org.joda.time.DateTime;
-import ru.iav.takoe.countee.service.model.ChartsDataService;
+import ru.iav.takoe.countee.service.ChartsDataService;
 
 import java.util.List;
 import java.util.Map;
