@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.service.model.strategy;
+package ru.iav.takoe.countee.model.strategy;
 
 import org.joda.time.DateTime;
 import ru.iav.takoe.countee.vo.Cost;

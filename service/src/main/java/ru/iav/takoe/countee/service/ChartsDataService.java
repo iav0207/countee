@@ -1,9 +1,9 @@
-package ru.iav.takoe.countee.service.model;
+package ru.iav.takoe.countee.service;
 
 import org.joda.time.DateTime;
 import ru.iav.takoe.countee.da.CostReader;
-import ru.iav.takoe.countee.service.model.strategy.FundsDailyStrategy;
-import ru.iav.takoe.countee.service.model.strategy.FundsMonthlyStrategy;
+import ru.iav.takoe.countee.model.strategy.FundsDailyStrategy;
+import ru.iav.takoe.countee.model.strategy.FundsMonthlyStrategy;
 import ru.iav.takoe.countee.vo.Cost;
 
 import java.util.List;

@@ -1,6 +1,5 @@
-package ru.iav.takoe.countee.service.model;
+package ru.iav.takoe.countee.model;
 
-import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.vo.Cost;
 
 import javax.annotation.Nonnull;
@@ -12,25 +11,19 @@ import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 /**
- * TODO extract balance calculation to model module
+ * Created by takoe on 30.11.16.
  */
 public class BalanceCalculator {
 
-    private static BalanceCalculator instance = new BalanceCalculator();
+    private static BalanceCalculator instance;
 
-    private CostReader reader;
-
-    private BalanceCalculator() {
-        reader = CostReader.getInstance();
-    }
+    private BalanceCalculator() {}
 
     public static BalanceCalculator getInstance() {
+        if (isNull(instance)) {
+            instance = new BalanceCalculator();
+        }
         return instance;
-    }
-
-    @Nonnull
-    public BigDecimal getCurrentBalance() {
-        return getBalance(reader.readAllCosts());
     }
 
     @Nonnull

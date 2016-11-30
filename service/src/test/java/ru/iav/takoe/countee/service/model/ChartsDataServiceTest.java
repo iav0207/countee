@@ -7,7 +7,9 @@ import org.mockito.Mock;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.iav.takoe.countee.da.CostReader;
-import ru.iav.takoe.countee.service.comparator.CostDateComparator;
+import ru.iav.takoe.countee.service.BalanceService;
+import ru.iav.takoe.countee.service.ChartsDataService;
+import ru.iav.takoe.countee.model.comparator.CostDateComparator;
 import ru.iav.takoe.countee.vo.Cost;
 
 import java.math.BigDecimal;
@@ -36,7 +38,7 @@ public class ChartsDataServiceTest {
     private CostReader reader;
 
     @Mock(answer = Answers.CALLS_REAL_METHODS)
-    BalanceCalculator balanceCalculator;
+    BalanceService balanceService;
 
     @InjectMocks
     private ChartsDataService service;

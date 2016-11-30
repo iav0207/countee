@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.service.comparator;
+package ru.iav.takoe.countee.model.comparator;
 
 import ru.iav.takoe.countee.vo.Cost;
 

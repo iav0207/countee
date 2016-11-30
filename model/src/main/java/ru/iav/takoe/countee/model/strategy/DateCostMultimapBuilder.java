@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.service.model.strategy;
+package ru.iav.takoe.countee.model.strategy;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -8,8 +8,8 @@ import ru.iav.takoe.countee.vo.Cost;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-import static ru.iav.takoe.countee.service.CostDateUtil.day;
-import static ru.iav.takoe.countee.service.CostDateUtil.month;
+import static ru.iav.takoe.countee.model.CostDateUtil.day;
+import static ru.iav.takoe.countee.model.CostDateUtil.month;
 
 /**
  * Created by takoe on 16.11.16.
