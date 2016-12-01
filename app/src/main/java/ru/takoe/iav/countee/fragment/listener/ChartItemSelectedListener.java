@@ -7,42 +7,35 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
-import ru.takoe.iav.countee.fragment.content.stats.data.AbstractBarDataProvider;
-import ru.takoe.iav.countee.fragment.content.stats.data.CostsDailyBarDataProvider;
-import ru.takoe.iav.countee.fragment.content.stats.data.CostsMonthlyBarDataProvider;
-import ru.takoe.iav.countee.fragment.content.stats.data.FundsDailyBarDataProvider;
-import ru.takoe.iav.countee.fragment.content.stats.data.FundsMonthlyDataProvider;
+import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentSelectionHolder;
+import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
+import ru.takoe.iav.countee.view.spinner.MultiSpinner;
 
 import javax.annotation.Nonnull;
 
 /**
  * Created by takoe on 14.11.16.
  */
-public class ChartItemSelectedListener implements AdapterView.OnItemSelectedListener {
+public class ChartItemSelectedListener implements AdapterView.OnItemSelectedListener,
+        MultiSpinner.MultiSpinnerListener {
 
     private BarChart chart;
 
-    private FundsDailyBarDataProvider fundsDailyBarDataProvider;
+    private BarDataFacade barDataFacade;
 
-    private FundsMonthlyDataProvider fundsMonthlyDataProvider;
-
-    private CostsDailyBarDataProvider costsDailyBarDataProvider;
-
-    private CostsMonthlyBarDataProvider costsMonthlyBarDataProvider;
+    private StatsFragmentSelectionHolder selectionHolder;
 
     public ChartItemSelectedListener(@Nonnull BarChart chart, AssetManager assets) {
         this.chart = chart;
-        this.fundsDailyBarDataProvider = new FundsDailyBarDataProvider(assets);
-        this.fundsMonthlyDataProvider = new FundsMonthlyDataProvider(assets);
-        this.costsDailyBarDataProvider = new CostsDailyBarDataProvider(assets);
-        this.costsMonthlyBarDataProvider = new CostsMonthlyBarDataProvider(assets);
+        barDataFacade = new BarDataFacade(assets);
+        selectionHolder = new StatsFragmentSelectionHolder();
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        chart.setData(getBarData(i));
-        adjustAxes(i);
-        chart.invalidate();
+    public void onItemSelected(AdapterView<?> adapterView, View view, int selectedChartType, long l) {
+        setData(getBarData(selectedChartType));
+        adjustAxes(selectedChartType);
+        refresh();
     }
 
     @Override
@@ -50,18 +43,32 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
         // do nothing
     }
 
-    private BarData getBarData(int selectedItemNum) {
-        return getBarDataProvider(selectedItemNum).getBarData();
+    @Override
+    public void onItemsSelected(boolean[] selected) {
+        setData(getBarData(selected));
+        refresh();
     }
 
-    private AbstractBarDataProvider getBarDataProvider(int selectedItemNum) {
-        switch (selectedItemNum) {
-            case 0: return fundsDailyBarDataProvider;
-            case 1: return fundsMonthlyDataProvider;
-            case 2: return costsDailyBarDataProvider;
-            case 3: return costsMonthlyBarDataProvider;
-            default: return fundsDailyBarDataProvider;
-        }
+    private void setData(BarData data) {
+        chart.setData(data);
+    }
+
+    private void refresh() {
+        chart.invalidate();
+    }
+
+    private BarData getBarData(int selectedItemNum) {
+        selectionHolder.setChartType(selectedItemNum);
+        return getData();
+    }
+
+    private BarData getBarData(boolean[] selected) {
+        selectionHolder.setFilters(selected);
+        return getData();
+    }
+
+    private BarData getData() {
+        return barDataFacade.getData(selectionHolder.getChartType(), selectionHolder.getFilters());
     }
 
     private void adjustAxes(int selectedItemNum) {
@@ -69,7 +76,7 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setAxisMaximum(data.getYMax());
-        leftAxis.setAxisMinimum(selectedItemNum > 1 ? data.getYMin() : 0f);
+        leftAxis.setAxisMinimum(selectedItemNum > 1 ? Math.min(data.getYMin(), 0f) : 0f);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setAxisMinimum(data.getXMin() - 0.5f);

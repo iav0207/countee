@@ -3,6 +3,7 @@ package ru.iav.takoe.countee.service;
 import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.vo.Cost;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
@@ -28,6 +29,7 @@ public class CostCommentsService {
         reader = CostReader.getInstance();
     }
 
+    @Nonnull
     public Set<String> getAllCommentsSet() {
         Set<String> commentsSet = new TreeSet<>();
         List<Cost> allCosts = reader.readAllCosts();

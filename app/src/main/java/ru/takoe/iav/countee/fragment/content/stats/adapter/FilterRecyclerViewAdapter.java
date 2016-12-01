@@ -1,4 +1,4 @@
-package ru.takoe.iav.countee.fragment.content.stats;
+package ru.takoe.iav.countee.fragment.content.stats.adapter;
 
 import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
@@ -15,11 +15,10 @@ import ru.takoe.iav.countee.fragment.content.common.StringItemList;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 /**
- * Created by takoe on 15.11.16.
+ * Created by takoe on 01.12.16.
  */
-public class ChartsRecyclerViewAdapter extends RecyclerView.Adapter<ChartsRecyclerViewAdapter.ViewHolder>
-        implements SpinnerAdapter{
-
+public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecyclerViewAdapter.ViewHolder>
+        implements SpinnerAdapter {
 
     private final StringItemList mValues;
 
@@ -27,7 +26,7 @@ public class ChartsRecyclerViewAdapter extends RecyclerView.Adapter<ChartsRecycl
 
     private LayoutInflater inflater;
 
-    public ChartsRecyclerViewAdapter(StringItemList items,
+    public FilterRecyclerViewAdapter(StringItemList items,
                                      StatsFragment.OnFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
@@ -35,7 +34,7 @@ public class ChartsRecyclerViewAdapter extends RecyclerView.Adapter<ChartsRecycl
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater(parent).inflate(R.layout.charts_item, parent, false);
+        View view = inflater(parent).inflate(R.layout.filter_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -93,8 +92,8 @@ public class ChartsRecyclerViewAdapter extends RecyclerView.Adapter<ChartsRecycl
     }
 
     private View getStandardView(int position, ViewGroup parent, boolean dropdown) {
-        View row = inflater(parent).inflate(R.layout.charts_item, parent, false);
-        TextView title = (TextView) row.findViewById(R.id.charts_item_name);
+        View row = inflater(parent).inflate(R.layout.filter_item, parent, false);
+        TextView title = (TextView) row.findViewById(R.id.filter_item_name);
         title.setText(mValues.getItem(position).getContent());
         if (!dropdown) {
             title.setAlpha(0.5f);
