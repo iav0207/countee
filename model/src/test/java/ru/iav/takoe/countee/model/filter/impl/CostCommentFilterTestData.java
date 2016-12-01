@@ -1,6 +1,7 @@
-package ru.iav.takoe.countee.model.map;
+package ru.iav.takoe.countee.model.filter.impl;
 
 import org.testng.annotations.DataProvider;
+import ru.iav.takoe.countee.model.filter.impl.CostCommentFilter;
 import ru.iav.takoe.countee.vo.Cost;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import static ru.iav.takoe.countee.model.utils.CounteeTestUtils.listOfCostsWithC
  */
 public class CostCommentFilterTestData {
 
-    static final CostCommentFilter
+    static final ru.iav.takoe.countee.model.filter.impl.CostCommentFilter
             simpleFilter = CostCommentFilter.from("a", "b", "c", " ", "010 t"),
             nullableFilter = CostCommentFilter.from("a", "b", null, "c", " ", "", "010 t");
 

@@ -1,5 +1,6 @@
-package ru.iav.takoe.countee.model.map;
+package ru.iav.takoe.countee.model.filter.impl;
 
+import ru.iav.takoe.countee.model.filter.CostFilter;
 import ru.iav.takoe.countee.vo.Cost;
 
 import javax.annotation.Nonnull;
@@ -19,7 +20,7 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 /**
  * Created by takoe on 30.11.16.
  */
-public class CostCommentFilter {
+public class CostCommentFilter implements CostFilter {
 
     private static final String DEFAULT_STRING = getRandomString(30);
 
@@ -46,6 +47,7 @@ public class CostCommentFilter {
         return new CostCommentFilter(comments);
     }
 
+    @Override
     @Nonnull
     public List<Cost> filter(@Nullable List<Cost> costs) {
         List<Cost> filteredList = new ArrayList<>();
