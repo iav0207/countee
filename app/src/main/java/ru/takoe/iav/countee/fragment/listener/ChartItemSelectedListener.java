@@ -7,6 +7,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
+import ru.takoe.iav.countee.fragment.content.stats.data.AbstractBarDataProvider;
 import ru.takoe.iav.countee.fragment.content.stats.data.CostsDailyBarDataProvider;
 import ru.takoe.iav.countee.fragment.content.stats.data.CostsMonthlyBarDataProvider;
 import ru.takoe.iav.countee.fragment.content.stats.data.FundsDailyBarDataProvider;
@@ -44,19 +45,23 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
         chart.invalidate();
     }
 
-    private BarData getBarData(int selectedItemNum) {
-        switch (selectedItemNum) {
-            case 0: return fundsDailyBarDataProvider.getBarData();
-            case 1: return fundsMonthlyDataProvider.getBarData();
-            case 2: return costsDailyBarDataProvider.getBarData();
-            case 3: return costsMonthlyBarDataProvider.getBarData();
-            default: return fundsDailyBarDataProvider.getBarData();
-        }
-    }
-
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         // do nothing
+    }
+
+    private BarData getBarData(int selectedItemNum) {
+        return getBarDataProvider(selectedItemNum).getBarData();
+    }
+
+    private AbstractBarDataProvider getBarDataProvider(int selectedItemNum) {
+        switch (selectedItemNum) {
+            case 0: return fundsDailyBarDataProvider;
+            case 1: return fundsMonthlyDataProvider;
+            case 2: return costsDailyBarDataProvider;
+            case 3: return costsMonthlyBarDataProvider;
+            default: return fundsDailyBarDataProvider;
+        }
     }
 
     private void adjustAxes(int selectedItemNum) {
