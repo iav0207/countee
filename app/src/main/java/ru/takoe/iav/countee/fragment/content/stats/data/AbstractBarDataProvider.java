@@ -25,7 +25,7 @@ public abstract class AbstractBarDataProvider {
         this.colorGenerator = new BarDataColorGenerator();
     }
 
-    public BarData getFundsBarData() {
+    public BarData getBarData() {
         BarData data = new BarData(createDataSet());
         data.setValueTypeface(typeface);
         return data;

@@ -12,6 +12,7 @@ import ru.iav.takoe.countee.vo.Cost;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 
@@ -43,17 +44,17 @@ public class ChartsDataService {
     }
 
     @Nonnull
-    public Map<DateTime, Float> getCostsDailyData(@Nonnull String... commentsToFilter) {
+    public Map<DateTime, Float> getCostsDailyData(@Nonnull Set<String> commentsToFilter) {
         return new CostsDailyStrategy(getFilteredCosts(commentsToFilter)).execute();
     }
 
     @Nonnull
-    public Map<DateTime, Float> getCostsMonthlyData(@Nonnull String... commentsToFilter) {
+    public Map<DateTime, Float> getCostsMonthlyData(@Nonnull Set<String> commentsToFilter) {
         return new CostsMonthlyStrategy(getFilteredCosts(commentsToFilter)).execute();
     }
 
     @Nonnull
-    private List<Cost> getFilteredCosts(@Nonnull String... comments) {
+    private List<Cost> getFilteredCosts(@Nonnull Set<String> comments) {
         return CostCommentFilter.from(comments).filter(getAllCosts());
     }
 

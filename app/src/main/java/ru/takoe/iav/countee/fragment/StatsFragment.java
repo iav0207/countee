@@ -123,7 +123,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
             mChart.setData(generateBarData(1, 20000, 12));
         } else {
             dataProvider = new FundsDailyBarDataProvider(getActivity().getAssets());
-            mChart.setData(dataProvider.getFundsBarData());
+            mChart.setData(dataProvider.getBarData());
         }
     }
 

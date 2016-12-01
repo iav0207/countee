@@ -7,6 +7,8 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
+import ru.takoe.iav.countee.fragment.content.stats.data.CostsDailyBarDataProvider;
+import ru.takoe.iav.countee.fragment.content.stats.data.CostsMonthlyBarDataProvider;
 import ru.takoe.iav.countee.fragment.content.stats.data.FundsDailyBarDataProvider;
 import ru.takoe.iav.countee.fragment.content.stats.data.FundsMonthlyDataProvider;
 
@@ -23,21 +25,33 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
 
     private FundsMonthlyDataProvider fundsMonthlyDataProvider;
 
+    private CostsDailyBarDataProvider costsDailyBarDataProvider;
+
+    private CostsMonthlyBarDataProvider costsMonthlyBarDataProvider;
+
     public ChartItemSelectedListener(@Nonnull BarChart chart, AssetManager assets) {
         this.chart = chart;
         this.fundsDailyBarDataProvider = new FundsDailyBarDataProvider(assets);
         this.fundsMonthlyDataProvider = new FundsMonthlyDataProvider(assets);
+        this.costsDailyBarDataProvider = new CostsDailyBarDataProvider(assets);
+        this.costsMonthlyBarDataProvider = new CostsMonthlyBarDataProvider(assets);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if ((i % 2) > 0) {
-            chart.setData(getMonthlyData());
-        } else {
-            chart.setData(getDailyData());
-        }
-        adjustAxes();
+        chart.setData(getBarData(i));
+        adjustAxes(i);
         chart.invalidate();
+    }
+
+    private BarData getBarData(int selectedItemNum) {
+        switch (selectedItemNum) {
+            case 0: return fundsDailyBarDataProvider.getBarData();
+            case 1: return fundsMonthlyDataProvider.getBarData();
+            case 2: return costsDailyBarDataProvider.getBarData();
+            case 3: return costsMonthlyBarDataProvider.getBarData();
+            default: return fundsDailyBarDataProvider.getBarData();
+        }
     }
 
     @Override
@@ -45,20 +59,12 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
         // do nothing
     }
 
-    private BarData getDailyData() {
-        return fundsDailyBarDataProvider.getFundsBarData();
-    }
-
-    private BarData getMonthlyData() {
-        return fundsMonthlyDataProvider.getFundsBarData();
-    }
-
-    private void adjustAxes() {
+    private void adjustAxes(int selectedItemNum) {
         BarData data = chart.getData();
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setAxisMaximum(data.getYMax());
-        leftAxis.setAxisMinimum(0f);
+        leftAxis.setAxisMinimum(selectedItemNum > 1 ? data.getYMin() : 0f);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setAxisMinimum(data.getXMin() - 0.5f);
