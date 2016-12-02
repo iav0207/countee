@@ -34,7 +34,7 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int selectedChartType, long l) {
         setData(getBarData(selectedChartType));
-        adjustAxes(selectedChartType);
+        adjustAxes();
         refresh();
     }
 
@@ -46,6 +46,7 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
     @Override
     public void onItemsSelected(boolean[] selected) {
         setData(getBarData(selected));
+        adjustAxes();
         refresh();
     }
 
@@ -71,12 +72,13 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
         return barDataFacade.getData(selectionHolder.getChartType(), selectionHolder.getFilters());
     }
 
-    private void adjustAxes(int selectedItemNum) {
+    private void adjustAxes() {
         BarData data = chart.getData();
+        int selectedChartType = selectionHolder.getChartType();
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setAxisMaximum(data.getYMax());
-        leftAxis.setAxisMinimum(selectedItemNum > 1 ? Math.min(data.getYMin(), 0f) : 0f);
+        leftAxis.setAxisMinimum(selectedChartType > 1 ? Math.min(data.getYMin(), 0f) : 0f);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setAxisMinimum(data.getXMin() - 0.5f);
