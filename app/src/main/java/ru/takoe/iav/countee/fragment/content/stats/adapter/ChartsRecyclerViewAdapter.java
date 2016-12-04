@@ -1,4 +1,4 @@
-package ru.takoe.iav.countee.fragment.content.stats;
+package ru.takoe.iav.countee.fragment.content.stats.adapter;
 
 import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
@@ -98,6 +98,7 @@ public class ChartsRecyclerViewAdapter extends RecyclerView.Adapter<ChartsRecycl
         title.setText(mValues.getItem(position).getContent());
         if (!dropdown) {
             title.setAlpha(0.5f);
+            title.setText(R.string.chart_prompt);
         }
         return row;
     }

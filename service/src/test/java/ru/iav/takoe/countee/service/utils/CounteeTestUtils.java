@@ -33,5 +33,19 @@ public class CounteeTestUtils {
         doReturn(UUID.randomUUID()).when(mock).getUuid();
         return mock;
     }
+
+    public static List<Cost> listOfCostsWithComments(String... comments) {
+        List<Cost> list = new ArrayList<>();
+        for (String each : comments) {
+            list.add(costWithComment(each));
+        }
+        return list;
+    }
+
+    public static Cost costWithComment(String comment) {
+        Cost mock = mock(Cost.class);
+        doReturn(comment).when(mock).getComment();
+        return mock;
+    }
     
 }

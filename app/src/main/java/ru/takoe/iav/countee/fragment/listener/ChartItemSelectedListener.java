@@ -7,58 +7,72 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
-import ru.takoe.iav.countee.fragment.content.stats.data.FundsDailyBarDataProvider;
-import ru.takoe.iav.countee.fragment.content.stats.data.FundsMonthlyDataProvider;
+import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentSelectionHolder;
+import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
+import ru.takoe.iav.countee.view.spinner.MultiSpinner;
 
 import javax.annotation.Nonnull;
 
 /**
  * Created by takoe on 14.11.16.
  */
-public class ChartItemSelectedListener implements AdapterView.OnItemSelectedListener {
+public class ChartItemSelectedListener implements AdapterView.OnItemSelectedListener,
+        MultiSpinner.MultiSpinnerListener {
 
     private BarChart chart;
 
-    private FundsDailyBarDataProvider fundsDailyBarDataProvider;
+    private BarDataFacade barDataFacade;
 
-    private FundsMonthlyDataProvider fundsMonthlyDataProvider;
+    private StatsFragmentSelectionHolder selectionHolder;
 
     public ChartItemSelectedListener(@Nonnull BarChart chart, AssetManager assets) {
         this.chart = chart;
-        this.fundsDailyBarDataProvider = new FundsDailyBarDataProvider(assets);
-        this.fundsMonthlyDataProvider = new FundsMonthlyDataProvider(assets);
+        barDataFacade = new BarDataFacade(assets);
+        selectionHolder = new StatsFragmentSelectionHolder();
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        if ((i % 2) > 0) {
-            chart.setData(getMonthlyData());
-        } else {
-            chart.setData(getDailyData());
-        }
-        adjustAxes();
-        chart.invalidate();
+    public void onItemSelected(AdapterView<?> adapterView, View view, int selectedChartType, long l) {
+        selectionHolder.setChartType(selectedChartType);
+        rebuild();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        // do nothing
+        rebuild(selectionHolder.getFilters());
     }
 
-    private BarData getDailyData() {
-        return fundsDailyBarDataProvider.getFundsBarData();
+    @Override
+    public void onItemsSelected(boolean[] selected) {
+        rebuild(selected);
     }
 
-    private BarData getMonthlyData() {
-        return fundsMonthlyDataProvider.getFundsBarData();
+    private void rebuild(boolean[] selected) {
+        selectionHolder.setFilters(selected);
+        rebuild();
+    }
+
+    private void rebuild() {
+        setData(getBarData());
+        adjustAxes();
+        chart.invalidate();
+    }
+
+    private BarData getBarData() {
+        return barDataFacade.getData(selectionHolder.getChartType(), selectionHolder.getFilters());
+    }
+
+    private void setData(BarData data) {
+        chart.setData(data);
     }
 
     private void adjustAxes() {
         BarData data = chart.getData();
+        int selectedChartType = selectionHolder.getChartType();
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setAxisMaximum(data.getYMax());
-        leftAxis.setAxisMinimum(0f);
+        leftAxis.setAxisMinimum(selectedChartType > 1 ? Math.min(data.getYMin(), 0f) : 0f);
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setAxisMinimum(data.getXMin() - 0.5f);

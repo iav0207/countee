@@ -10,11 +10,11 @@ import java.util.Map;
 import java.util.TreeSet;
 
 /**
- * Created by takoe on 16.11.16.
+ * TODO cover with tests
  */
-public class FundsDailyStrategy extends TimelineChartsCalculationStrategy {
+public class CostsDailyStrategy extends TimelineChartsCalculationStrategy {
 
-    public FundsDailyStrategy(@Nonnull List<Cost> costs) {
+    public CostsDailyStrategy(@Nonnull List<Cost> costs) {
         super(costs);
     }
 
@@ -24,18 +24,14 @@ public class FundsDailyStrategy extends TimelineChartsCalculationStrategy {
         if (costMultimap.isEmpty()) {
             return result;
         }
-        BigDecimal funds = getBalance();
         TreeSet<DateTime> days = createDatesSet();
 
         for (DateTime eachDayBackwards = days.last();
              !eachDayBackwards.isBefore(days.first());
              eachDayBackwards = eachDayBackwards.minusDays(1)) {
 
-            result.put(eachDayBackwards, funds.floatValue());
-
-            for (Cost eachCostInThisDay : costMultimap.get(eachDayBackwards)) {
-                funds = funds.add(eachCostInThisDay.getAmount());
-            }
+            BigDecimal dailySum = sum(costMultimap.get(eachDayBackwards));
+            result.put(eachDayBackwards, dailySum.floatValue());
         }
         return result;
     }

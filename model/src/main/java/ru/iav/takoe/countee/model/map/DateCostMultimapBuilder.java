@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.model.strategy;
+package ru.iav.takoe.countee.model.map;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
@@ -14,7 +14,7 @@ import static ru.iav.takoe.countee.model.CostDateUtil.month;
 /**
  * Created by takoe on 16.11.16.
  */
-class DateCostMultimapBuilder {
+public class DateCostMultimapBuilder {
 
     private static DateCostMultimapBuilder instance = new DateCostMultimapBuilder();
 
@@ -31,7 +31,7 @@ class DateCostMultimapBuilder {
      * i.e. from current day to the first day of statistics.
      */
     @Nonnull
-    Multimap<DateTime, Cost> groupByDays(List<Cost> costs) {
+    public Multimap<DateTime, Cost> groupByDays(List<Cost> costs) {
         Multimap<DateTime, Cost> multimap = LinkedListMultimap.create();
         for (int i = costs.size() - 1; i >= 0; i--) {
             Cost cost = costs.get(i);
@@ -47,7 +47,7 @@ class DateCostMultimapBuilder {
      * i.e. from current month to the first month of statistics.
      */
     @Nonnull
-    Multimap<DateTime, Cost> groupByMonths(List<Cost> costs) {
+    public Multimap<DateTime, Cost> groupByMonths(List<Cost> costs) {
         Multimap<DateTime, Cost> multimap = LinkedListMultimap.create();
         for (int i = costs.size() - 1; i >= 0; i--) {
             Cost cost = costs.get(i);

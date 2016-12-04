@@ -2,6 +2,7 @@
 <resources>
 
     <string name="chart_prompt">Choose chart</string>
+    <string name="filter_prompt">Filter costs</string>
 
     <string-array name="charts_array">
         <item>Funds, daily</item>

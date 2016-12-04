@@ -22,9 +22,25 @@ public class StringItemList {
         return list;
     }
 
-    public void addItem(StringItem item) {
+    public static StringItemList fromStrings(Iterable<String> itemNames) {
+        StringItemList list = new StringItemList();
+        for (String each : itemNames) {
+            list.addItem(StringItem.fromString(each));
+        }
+        return list;
+    }
+
+    private void addItem(StringItem item) {
         items.add(item);
         map.put(item.getId(), item);
+    }
+
+    public String[] toStringArray() {
+        String[] array = new String[items.size()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = getItem(i).getContent();
+        }
+        return array;
     }
 
     public int size() {
