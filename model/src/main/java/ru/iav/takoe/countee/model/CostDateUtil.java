@@ -4,17 +4,23 @@ import org.joda.time.DateTime;
 import ru.iav.takoe.countee.utils.DateUtils;
 import ru.iav.takoe.countee.vo.Cost;
 
+import javax.annotation.Nullable;
+
+import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
+
 /**
  * Created by takoe on 16.11.16.
  */
 public class CostDateUtil {
 
-    public static DateTime day(Cost cost) {
-        return DateUtils.day(cost.getTimestamp());
+    @Nullable
+    public static DateTime day(@Nullable Cost cost) {
+        return isNull(cost) ? null : DateUtils.day(cost.getTimestamp());
     }
 
-    public static DateTime month(Cost cost) {
-        return DateUtils.month(cost.getTimestamp());
+    @Nullable
+    public static DateTime month(@Nullable Cost cost) {
+        return isNull(cost) ? null : DateUtils.month(cost.getTimestamp());
     }
 
 }

@@ -1,5 +1,6 @@
 package ru.iav.takoe.countee.service.utils;
 
+import org.joda.time.DateTime;
 import ru.iav.takoe.countee.vo.Cost;
 
 import java.util.ArrayList;
@@ -32,6 +33,12 @@ public class CounteeTestUtils {
         doReturn(getRandomDateOfLastYear()).when(mock).getTimestamp();
         doReturn(UUID.randomUUID()).when(mock).getUuid();
         return mock;
+    }
+
+    public static Cost cost(DateTime dateTime) {
+        Cost cost = mock(Cost.class);
+        doReturn(dateTime.toDate()).when(cost).getTimestamp();
+        return cost;
     }
 
     public static List<Cost> listOfCostsWithComments(String... comments) {

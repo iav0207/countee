@@ -2,6 +2,7 @@ package ru.iav.takoe.countee.da;
 
 import ru.iav.takoe.countee.persistence.file.FileFactory;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,16 +38,17 @@ class CostFileNamesFactory {
         return instance;
     }
 
+    @Nonnull
     List<File> getAllCostFiles() {
         File[] costFiles = fileFactory.getFileForName(outputPath).listFiles();
-        return costFiles == null ? new ArrayList<File>() : asList(costFiles);
+        return isNull(costFiles) ? new ArrayList<File>() : asList(costFiles);
     }
 
     File getActualFile() {
         return fileFactory.create(getActualFileName());
     }
 
-    static String getActualFileName() {
+    private static String getActualFileName() {
         SimpleDateFormat sdf = new SimpleDateFormat(fileNameFormat);
         return outputPath + sdf.format(now()) + extension;
     }

@@ -4,15 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
+import ru.takoe.iav.countee.fragment.content.stats.addcost.CreateCostPagerAdapter;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 /**
@@ -28,6 +30,10 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     private ViewProvider viewProvider;
 
     private OnFragmentInteractionListener mListener;
+
+    private ViewPager viewPager;
+
+    private FragmentStatePagerAdapter pagerAdapter;
 
     public CreateCostFragment() {
         // Required empty public constructor
@@ -56,7 +62,12 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.content_create_cost, container, false);
+        View rootView = inflater.inflate(R.layout.content_create_cost, container, false);
+
+        viewPager = (ViewPager) rootView.findViewById(R.id.create_cost_view_pager);
+        pagerAdapter = new CreateCostPagerAdapter(getChildFragmentManager());
+        viewPager.setAdapter(pagerAdapter);
+        return rootView;
     }
 
     @Override
@@ -68,7 +79,7 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     public void onStart() {
         super.onStart();
         viewProvider.getSaveCostButton().setOnClickListener(this);
-        updateOutputText();
+        updateOutput();
     }
 
     public void onButtonPressed(Uri uri) {
@@ -107,7 +118,7 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     private void saveCost() {
         getSaveCostService().saveAsNewCost(getInputText());
         clearInputText();
-        updateOutputText();
+        updateOutput();
     }
 
     private String getInputText() {
@@ -118,26 +129,21 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
         getInputField().setText("");
     }
 
-    private void updateOutputText() {
-        getOutputArea().setText(getReadCostService().getCurrentMonthOutput());
+    private void updateOutput() {
         getBalanceOutput().setText(getReadCostService().getCurrentBalanceOutput());
-        ViewScroller.scrollToBottom(getScrollView());
+        setCurrentMonthView();
+    }
+
+    private void setCurrentMonthView() {
+        viewPager.setCurrentItem(pagerAdapter.getCount());
     }
 
     private EditText getInputField() {
         return viewProvider.getInputField();
     }
 
-    private ScrollView getScrollView() {
-        return viewProvider.getScrollView();
-    }
-
     private TextView getBalanceOutput() {
         return viewProvider.getBalanceOutput();
-    }
-
-    private TextView getOutputArea() {
-        return viewProvider.getOutputArea();
     }
 
     private CostOutputService getReadCostService() {

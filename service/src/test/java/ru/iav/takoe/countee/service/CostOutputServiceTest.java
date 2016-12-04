@@ -21,6 +21,9 @@ public class CostOutputServiceTest {
     @Mock
     private CostReader costReader;
 
+    @Mock
+    private MonthOutputService monthOutputService;
+
     @InjectMocks
     private CostOutputService service;
 

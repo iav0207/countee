@@ -1,7 +1,9 @@
 package ru.takoe.iav.countee.view;
 
 import android.support.design.widget.NavigationView;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
@@ -16,10 +18,14 @@ import ru.takoe.iav.countee.R;
  */
 public class ViewProvider {
 
-    private final AppCompatActivity activity;
+    private final FragmentActivity activity;
 
-    public ViewProvider(AppCompatActivity activity) {
+    public ViewProvider(FragmentActivity activity) {
         this.activity = activity;
+    }
+
+    public static ViewProvider createFor(Fragment fragment) {
+        return new ViewProvider(fragment.getActivity());
     }
 
     public Toolbar getToolbar() {
@@ -48,6 +54,10 @@ public class ViewProvider {
 
     public TextView getOutputArea() {
         return (TextView) findViewById(R.id.output_text);
+    }
+
+    public ViewPager getViewPager() {
+        return (ViewPager) findViewById(R.id.create_cost_view_pager);
     }
 
     public FrameLayout getStatsLayout() {
