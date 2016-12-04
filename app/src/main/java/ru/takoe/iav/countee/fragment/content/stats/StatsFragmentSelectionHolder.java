@@ -7,7 +7,7 @@ public class StatsFragmentSelectionHolder {
 
     private int chartType = 0;
 
-    private boolean[] filters = new boolean[1];
+    private boolean[] filters = new boolean[StatsFragmentContent.getFilterSpinnerItems().size()];
 
     public int getChartType() {
         return chartType;

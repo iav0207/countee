@@ -10,7 +10,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.FrameLayout;
 import android.widget.Spinner;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.MarkerView;
@@ -22,13 +21,10 @@ import ru.takoe.iav.countee.fragment.content.common.StringItemList;
 import ru.takoe.iav.countee.fragment.content.stats.SimpleMarkerView;
 import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentContent;
 import ru.takoe.iav.countee.fragment.content.stats.adapter.ChartsRecyclerViewAdapter;
-import ru.takoe.iav.countee.fragment.content.stats.data.FundsDailyBarDataProvider;
 import ru.takoe.iav.countee.fragment.listener.ChartItemSelectedListener;
-import ru.takoe.iav.countee.properties.ApplicationProperties;
+import ru.takoe.iav.countee.view.TypefaceHolder;
 import ru.takoe.iav.countee.view.ViewProvider;
 import ru.takoe.iav.countee.view.spinner.MultiSpinner;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,9 +75,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
 
         setUpChart(view);
         createTypeface();
-        ChartItemSelectedListener listener = new ChartItemSelectedListener(mChart, getActivity().getAssets());
-        addItemsOnChartSpinner(view, listener);
-        addItemsOnFilterSpinner(view, listener);
+        createSpinners(view);
 
         // setChartData(); chart data is set on dropdown list activation
 
@@ -90,6 +84,12 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         refresh();
 
         return view;
+    }
+
+    private void createSpinners(View view) {
+        ChartItemSelectedListener listener = new ChartItemSelectedListener(mChart, getActivity().getAssets());
+        addItemsOnChartSpinner(view, listener);
+        addItemsOnFilterSpinner(view, listener);
     }
 
     private void addItemsOnChartSpinner(View view, AdapterView.OnItemSelectedListener listener) {
@@ -102,7 +102,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
 
     private void addItemsOnFilterSpinner(View view, MultiSpinner.MultiSpinnerListener listener) {
         MultiSpinner filterSpinner = (MultiSpinner) view.findViewById(R.id.filterSpinner);
-        List<String> items = StatsFragmentContent.getFilterSpinnerItemsList();
+        StringItemList items = StatsFragmentContent.getFilterSpinnerItems();
 
         filterSpinner.setItems(items, listener);
     }
@@ -125,17 +125,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
     }
 
     private void createTypeface() {
-        typeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/OpenSans-Light.ttf");
-    }
-
-    private void setChartData() {
-        if (ApplicationProperties.isGenerateRandomDataForCharts()) {
-            initializeDataGenerator();
-            mChart.setData(generateBarData(1, 20000, 12));
-        } else {
-            FundsDailyBarDataProvider dataProvider = new FundsDailyBarDataProvider(getActivity().getAssets());
-            mChart.setData(dataProvider.getBarData());
-        }
+        typeface = TypefaceHolder.getCommonTypeface(getActivity().getAssets());
     }
 
     private void adjustLegend() {
@@ -151,17 +141,6 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
 
     private void refresh() {
         mChart.invalidate();
-    }
-
-    private void addChartToLayout(View view) {
-        FrameLayout statsLayout = (FrameLayout) view.findViewById(R.id.statsLayout);
-        statsLayout.addView(mChart);
-    }
-
-    public void onButtonPressed(StringItem item) {
-        if (mListener != null) {
-            mListener.onListFragmentInteraction(item);
-        }
     }
 
     @Override

@@ -93,7 +93,7 @@ public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecycl
 
     private View getStandardView(int position, ViewGroup parent, boolean dropdown) {
         View row = inflater(parent).inflate(R.layout.filter_item, parent, false);
-        TextView title = (TextView) row.findViewById(R.id.filter_item_name);
+        TextView title = (TextView) row.findViewById(R.id.filter_item);
         title.setText(mValues.getItem(position).getContent());
         if (!dropdown) {
             title.setAlpha(0.5f);

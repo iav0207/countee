@@ -7,6 +7,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
+import com.google.common.primitives.Booleans;
 import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentSelectionHolder;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
 import ru.takoe.iav.countee.view.spinner.MultiSpinner;
@@ -34,19 +35,21 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int selectedChartType, long l) {
         setData(getBarData(selectedChartType));
-        adjustAxes();
         refresh();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        // do nothing
+        rebuild(selectionHolder.getFilters());
     }
 
     @Override
     public void onItemsSelected(boolean[] selected) {
+        rebuild(selected);
+    }
+
+    private void rebuild(boolean[] selected) {
         setData(getBarData(selected));
-        adjustAxes();
         refresh();
     }
 
@@ -55,6 +58,7 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
     }
 
     private void refresh() {
+        adjustAxes();
         chart.invalidate();
     }
 
@@ -65,11 +69,30 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
 
     private BarData getBarData(boolean[] selected) {
         selectionHolder.setFilters(selected);
+        invertIfNoneSelected();
         return getData();
     }
 
     private BarData getData() {
         return barDataFacade.getData(selectionHolder.getChartType(), selectionHolder.getFilters());
+    }
+
+    private void invertIfNoneSelected() {
+        if (isNoneSelected()) {
+            selectionHolder.setFilters(allTrue());
+        }
+    }
+
+    private boolean isNoneSelected() {
+        return Booleans.countTrue(selectionHolder.getFilters()) == 0;
+    }
+
+    private boolean[] allTrue() {
+        boolean[] trues = new boolean[selectionHolder.getFilters().length];
+        for (int i = 0; i < trues.length; i++) {
+            trues[i] = true;
+        }
+        return trues;
     }
 
     private void adjustAxes() {

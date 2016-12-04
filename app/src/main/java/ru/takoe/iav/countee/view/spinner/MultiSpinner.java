@@ -6,16 +6,19 @@ import android.content.DialogInterface;
 import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import ru.takoe.iav.countee.R;
-
-import java.util.List;
+import ru.takoe.iav.countee.fragment.content.common.StringItemList;
 
 public class MultiSpinner extends Spinner implements
         DialogInterface.OnMultiChoiceClickListener, DialogInterface.OnCancelListener {
 
-    private List<String> items;
+    private StringItemList items;
+
     private boolean[] selected;
+
     private String defaultText = getContext().getString(R.string.filter_prompt);
+
     private MultiSpinnerListener listener;
 
     public MultiSpinner(Context context) {
@@ -37,37 +40,14 @@ public class MultiSpinner extends Spinner implements
 
     @Override
     public void onCancel(DialogInterface dialog) {
-        // refresh text on spinner
-        StringBuilder stringBuilder = new StringBuilder();
-        boolean someUnselected = false;
-        for (int i = 0; i < items.size(); i++) {
-            if (selected[i]) {
-                stringBuilder.append(items.get(i));
-                stringBuilder.append(", ");
-            } else {
-                someUnselected = true;
-            }
-        }
-        String spinnerText;
-        if (someUnselected) {
-            spinnerText = stringBuilder.toString();
-            if (spinnerText.length() > 2)
-                spinnerText = spinnerText.substring(0, spinnerText.length() - 2);
-        } else {
-            spinnerText = defaultText;
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_item,
-                new String[] { spinnerText });
-        setAdapter(adapter);
+        setAdapter(createAdapter());
         listener.onItemsSelected(selected);
     }
 
     @Override
     public boolean performClick() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setMultiChoiceItems(
-                items.toArray(new CharSequence[items.size()]), selected, this);
+        builder.setMultiChoiceItems(items.toStringArray(), selected, this);
         builder.setPositiveButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
 
@@ -81,22 +61,50 @@ public class MultiSpinner extends Spinner implements
         return true;
     }
 
-    public void setItems(List<String> items, MultiSpinnerListener listener) {
+    public void setItems(StringItemList items, MultiSpinnerListener listener) {
         this.items = items;
         this.listener = listener;
 
-        setDefaultSelection(false);
+        setEachItemSelection(false);
 
         // all text on the spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_item, new String[] { defaultText });
-        setAdapter(adapter);
+        setAdapter(createAdapter());
     }
 
-    private void setDefaultSelection(boolean areSelected) {
+    private SpinnerAdapter createAdapter() {
+        return new ArrayAdapter<>(getContext(), R.layout.filter_item, new String[] {defaultText});
+    }
+
+    private void setEachItemSelection(boolean areSelected) {
         selected = new boolean[items.size()];
         for (int i = 0; i < selected.length; i++) {
             selected[i] = areSelected;
+        }
+    }
+
+    private String buildSpinnerText() {
+        StringBuilder stringBuilder = new StringBuilder();
+        boolean someUnselected = false;
+        for (int i = 0; i < items.size(); i++) {
+            if (selected[i]) {
+                stringBuilder.append(items.getItem(i).getContent());
+                stringBuilder.append(", ");
+            } else {
+                someUnselected = true;
+            }
+        }
+        String spinnerText;
+        final int maxLength = 10;
+        if (someUnselected) {
+            spinnerText = stringBuilder.toString();
+            if (spinnerText.length() > 2)
+                spinnerText = spinnerText.substring(0, spinnerText.length() - 2);
+            if (spinnerText.length() > maxLength) {
+                return defaultText;
+            }
+            return spinnerText;
+        } else {
+            return defaultText;
         }
     }
 
