@@ -2,7 +2,10 @@ package ru.iav.takoe.countee.model.map;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
+import com.google.common.collect.TreeMultimap;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeComparator;
+import ru.iav.takoe.countee.model.comparator.CostDateComparator;
 import ru.iav.takoe.countee.vo.Cost;
 
 import javax.annotation.Nonnull;
@@ -53,6 +56,22 @@ public class DateCostMultimapBuilder {
     @Nonnull
     public Multimap<DateTime, Cost> groupByMonths(List<Cost> costs) {
         Multimap<DateTime, Cost> multimap = LinkedListMultimap.create();
+        return buildMonthsMultimap(multimap, costs);
+    }
+
+    /**
+     * Get a multimap of costs grouped for each month, sorted ascending.
+     *
+     * @return A {@link TreeMultimap}.
+     */
+    @Nonnull
+    public Multimap<DateTime, Cost> groupByMonthsSortedAsc(List<Cost> costs) {
+        Multimap<DateTime, Cost> multimap = TreeMultimap.create(
+                DateTimeComparator.getInstance(), new CostDateComparator());
+        return buildMonthsMultimap(multimap, costs);
+    }
+
+    private Multimap<DateTime, Cost> buildMonthsMultimap(Multimap<DateTime, Cost> multimap, List<Cost> costs) {
         if (safeList(costs).size() < 1) {
             return multimap;
         }
@@ -62,5 +81,7 @@ public class DateCostMultimapBuilder {
         }
         return multimap;
     }
+
+
 
 }

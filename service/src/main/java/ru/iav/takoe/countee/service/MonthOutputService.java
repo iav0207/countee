@@ -78,7 +78,7 @@ class MonthOutputService implements Invalidable {
     }
 
     private void calculate() {
-        multimap = multimapBuilder.groupByMonths(reader.readAllCosts());
+        multimap = multimapBuilder.groupByMonthsSortedAsc(reader.readAllCosts());
         minMonth = getMinMonth();
         maxMonth = getMaxMonth();
         monthsSpread = getMonthsCount();
