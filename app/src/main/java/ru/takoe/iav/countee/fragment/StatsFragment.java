@@ -21,6 +21,7 @@ import ru.takoe.iav.countee.fragment.content.common.StringItemList;
 import ru.takoe.iav.countee.fragment.content.stats.SimpleMarkerView;
 import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentContent;
 import ru.takoe.iav.countee.fragment.content.stats.adapter.ChartsRecyclerViewAdapter;
+import ru.takoe.iav.countee.fragment.content.stats.adapter.FilterRecyclerViewAdapter;
 import ru.takoe.iav.countee.fragment.listener.ChartItemSelectedListener;
 import ru.takoe.iav.countee.view.TypefaceHolder;
 import ru.takoe.iav.countee.view.ViewProvider;
@@ -104,6 +105,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         MultiSpinner filterSpinner = (MultiSpinner) view.findViewById(R.id.filterSpinner);
         StringItemList items = StatsFragmentContent.getFilterSpinnerItems();
 
+        filterSpinner.setAdapter(new FilterRecyclerViewAdapter(items, mListener));
         filterSpinner.setItems(items, listener);
     }
 

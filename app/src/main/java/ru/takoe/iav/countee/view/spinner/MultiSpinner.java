@@ -4,9 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.util.AttributeSet;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.content.common.StringItemList;
 
@@ -40,7 +38,6 @@ public class MultiSpinner extends Spinner implements
 
     @Override
     public void onCancel(DialogInterface dialog) {
-        setAdapter(createAdapter());
         listener.onItemsSelected(selected);
     }
 
@@ -66,13 +63,6 @@ public class MultiSpinner extends Spinner implements
         this.listener = listener;
 
         setEachItemSelection(false);
-
-        // all text on the spinner
-        setAdapter(createAdapter());
-    }
-
-    private SpinnerAdapter createAdapter() {
-        return new ArrayAdapter<>(getContext(), R.layout.filter_item, new String[] {defaultText});
     }
 
     private void setEachItemSelection(boolean areSelected) {

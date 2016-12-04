@@ -37,7 +37,7 @@
                     android:id="@+id/filterSpinner"
                     android:layout_height="60dp"
                     android:layout_width="0dp"
-                    android:layout_weight="8"
+                    android:layout_weight="9"
                     android:layout_gravity="bottom|center"
                     android:spinnerMode="dialog"
                     android:prompt="@string/filter_prompt"/>

@@ -97,6 +97,7 @@ public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecycl
         title.setText(mValues.getItem(position).getContent());
         if (!dropdown) {
             title.setAlpha(0.5f);
+            title.setText(R.string.filter_prompt);
         }
         return row;
     }
