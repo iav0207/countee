@@ -33,8 +33,8 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int selectedChartType, long l) {
-        setData(getBarData(selectedChartType));
-        refresh();
+        selectionHolder.setChartType(selectedChartType);
+        rebuild();
     }
 
     @Override
@@ -48,31 +48,22 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
     }
 
     private void rebuild(boolean[] selected) {
-        setData(getBarData(selected));
-        refresh();
+        selectionHolder.setFilters(selected);
+        rebuild();
     }
 
-    private void setData(BarData data) {
-        chart.setData(data);
-    }
-
-    private void refresh() {
+    private void rebuild() {
+        setData(getBarData());
         adjustAxes();
         chart.invalidate();
     }
 
-    private BarData getBarData(int selectedItemNum) {
-        selectionHolder.setChartType(selectedItemNum);
-        return getData();
-    }
-
-    private BarData getBarData(boolean[] selected) {
-        selectionHolder.setFilters(selected);
-        return getData();
-    }
-
-    private BarData getData() {
+    private BarData getBarData() {
         return barDataFacade.getData(selectionHolder.getChartType(), selectionHolder.getFilters());
+    }
+
+    private void setData(BarData data) {
+        chart.setData(data);
     }
 
     private void adjustAxes() {
