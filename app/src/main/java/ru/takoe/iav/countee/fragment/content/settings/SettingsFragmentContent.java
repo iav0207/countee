@@ -15,7 +15,7 @@ public class SettingsFragmentContent {
     public static final Map<String, Item> ITEM_MAP = new HashMap<>();
 
     static {
-        addItem(item("doWrite", "Write data"));
+        addItem(item("No settings yet", ""));
     }
 
     private static void addItem(Item item) {
