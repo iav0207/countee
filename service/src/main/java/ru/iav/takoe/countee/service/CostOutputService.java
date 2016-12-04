@@ -3,21 +3,25 @@ package ru.iav.takoe.countee.service;
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import ru.iav.takoe.countee.da.CostReader;
+import ru.iav.takoe.countee.service.exception.NoSuchMonthException;
 import ru.iav.takoe.countee.vo.Cost;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+
+import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 /**
  * Created by takoe on 16.08.16.
  */
 public class CostOutputService {
 
-    private static CostOutputService instance = new CostOutputService();
+    private static CostOutputService instance;
 
     private static final DecimalFormat decimalFormat = new DecimalFormat("#0.##");
 
@@ -31,13 +35,19 @@ public class CostOutputService {
 
     private BalanceService balanceService;
 
+    private MonthOutputService monthOutputService;
+
     public static CostOutputService getInstance() {
+        if (isNull(instance)) {
+            instance = new CostOutputService();
+        }
         return instance;
     }
 
     private CostOutputService() {
         reader = CostReader.getInstance();
         balanceService = BalanceService.getInstance();
+        monthOutputService = MonthOutputService.getInstance();
     }
 
     public String getCurrentBalanceOutput() {
@@ -45,11 +55,22 @@ public class CostOutputService {
     }
 
     public String getCurrentMonthOutput() {
-        List<Cost> costs = reader.readCostsForThisMonth();
-        return (costs == null || costs.isEmpty()) ? "" : toString(costs);
+        return toString(reader.readCostsForThisMonth());
     }
 
-    private String toString(@Nonnull Iterable<Cost> costs) {
+    public String getOutputForPrevMonth(int monthsAgo) throws NoSuchMonthException {
+        return toString(monthOutputService.getCostsForPrevMonth(monthsAgo));
+    }
+
+    public int getMonthsCount() {
+        return monthOutputService.getMonthsCount();
+    }
+
+    @Nonnull
+    private String toString(@Nullable Collection<Cost> costs) {
+        if (costs == null || costs.isEmpty()) {
+            return "";
+        }
         StringBuilder sb = new StringBuilder();
         Multimap<String, Cost> costMultimap = toMultimap(costs);
         for (String dateString : costMultimap.keySet()) {

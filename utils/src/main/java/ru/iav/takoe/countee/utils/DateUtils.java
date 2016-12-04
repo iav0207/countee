@@ -17,6 +17,10 @@ public class DateUtils {
         return day(date).withDayOfMonth(1);
     }
 
+    public static DateTime month(DateTime date) {
+        return date.withTimeAtStartOfDay().withDayOfMonth(1);
+    }
+
     public static DateTime day(Date date) {
         return new DateTime(date).withTimeAtStartOfDay();
     }
