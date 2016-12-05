@@ -8,6 +8,15 @@
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/create_cost_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+        <android.support.v4.view.PagerTabStrip
+                android:id="@+id/pager_title"
+                style="@style/viewPagerTitle"
+                android:textAppearance="@style/viewPagerTitleText"
+                android:layout_gravity="top"
+                android:paddingBottom="4dp"/>
+
+    </android.support.v4.view.ViewPager>
 
 </LinearLayout>
