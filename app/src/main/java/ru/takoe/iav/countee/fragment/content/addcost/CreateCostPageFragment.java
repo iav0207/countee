@@ -1,4 +1,4 @@
-package ru.takoe.iav.countee.fragment.content.stats.addcost;
+package ru.takoe.iav.countee.fragment.content.addcost;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +9,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.view.ViewProvider;
 import ru.takoe.iav.countee.view.ViewScroller;
 
 /**

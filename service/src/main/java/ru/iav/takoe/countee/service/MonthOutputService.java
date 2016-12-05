@@ -54,12 +54,12 @@ class MonthOutputService implements Invalidable {
         multimap = null;
     }
 
-    public int getMonthsCount() {
+    int getMonthsCount() {
         ensureCalculated();
         return Math.abs(Months.monthsBetween(minMonth, maxMonth).getMonths());
     }
 
-    public List<Cost> getCostsForPrevMonth(int monthsBefore) {
+    List<Cost> getCostsForPrevMonth(int monthsBefore) {
         ensureCalculated();
         if (monthsBefore < 0 || monthsBefore > monthsSpread) {
             throw new NoSuchMonthException();

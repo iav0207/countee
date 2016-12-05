@@ -10,12 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.fragment.content.stats.addcost.CreateCostPagerAdapter;
+import ru.takoe.iav.countee.fragment.content.addcost.CreateCostPagerAdapter;
 import ru.takoe.iav.countee.view.ViewProvider;
+import ru.takoe.iav.countee.view.ViewScroller;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,7 +81,12 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     public void onStart() {
         super.onStart();
         viewProvider.getSaveCostButton().setOnClickListener(this);
-        updateOutput();
+        refreshOutputOnStart();
+    }
+
+    private void refreshOutputOnStart() {
+        getBalanceOutput().setText(getReadCostService().getCurrentBalanceOutput());
+        setCurrentMonthView();
     }
 
     public void onButtonPressed(Uri uri) {
@@ -118,7 +125,7 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     private void saveCost() {
         getSaveCostService().saveAsNewCost(getInputText());
         clearInputText();
-        updateOutput();
+        refreshOutputOnCostSaving();
     }
 
     private String getInputText() {
@@ -129,13 +136,23 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
         getInputField().setText("");
     }
 
-    private void updateOutput() {
+    private void refreshOutputOnCostSaving() {
         getBalanceOutput().setText(getReadCostService().getCurrentBalanceOutput());
         setCurrentMonthView();
+        getOutputArea().setText(getReadCostService().getCurrentMonthOutput());
+        ViewScroller.scrollToBottom(getScrollView());
     }
 
     private void setCurrentMonthView() {
         viewPager.setCurrentItem(pagerAdapter.getCount());
+    }
+
+    private ScrollView getScrollView() {
+        return viewProvider.getScrollView();
+    }
+
+    private TextView getOutputArea() {
+        return viewProvider.getOutputArea();
     }
 
     private EditText getInputField() {
