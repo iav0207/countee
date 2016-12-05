@@ -67,6 +67,7 @@ public class CostOutputService {
     }
 
     @Nonnull
+    // TODO extract toString algorithm to a class
     private String toString(@Nullable Collection<Cost> costs) {
         if (costs == null || costs.isEmpty()) {
             return "";
