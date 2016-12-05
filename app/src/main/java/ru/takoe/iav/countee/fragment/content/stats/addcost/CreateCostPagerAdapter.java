@@ -14,7 +14,7 @@ public class CreateCostPagerAdapter extends FragmentStatePagerAdapter {
 
     public CreateCostPagerAdapter(FragmentManager fm) {
         super(fm);
-        pagesCount = CostOutputService.getInstance().getMonthsCount();
+        pagesCount = CostOutputService.getInstance().getMonthsCount() + 1;
     }
 
     @Override
