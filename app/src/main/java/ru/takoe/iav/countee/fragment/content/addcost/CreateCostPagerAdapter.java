@@ -1,4 +1,4 @@
-package ru.takoe.iav.countee.fragment.content.stats.addcost;
+package ru.takoe.iav.countee.fragment.content.addcost;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

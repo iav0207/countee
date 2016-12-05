@@ -14,7 +14,7 @@ import android.widget.TextView;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.fragment.content.stats.addcost.CreateCostPagerAdapter;
+import ru.takoe.iav.countee.fragment.content.addcost.CreateCostPagerAdapter;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 /**
