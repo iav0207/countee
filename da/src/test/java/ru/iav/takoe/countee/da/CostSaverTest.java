@@ -6,7 +6,7 @@ import org.mockito.Mockito;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.iav.takoe.countee.da.exception.PersistenceException;
+import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.json.JsonConverter;
 import ru.iav.takoe.countee.persistence.file.LocalWriter;
 import ru.iav.takoe.countee.vo.Cost;
@@ -58,13 +58,13 @@ public class CostSaverTest {
         Mockito.reset(cache);
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expectedExceptions = CostNotSavedException.class)
     public void shouldThrowExceptionIfSerializationFails() throws Exception {
         doThrow(new RuntimeException()).when(jsonConverter).serialize(anyCost());
         costSaver.save(createCost());
     }
 
-    @Test(expectedExceptions = PersistenceException.class)
+    @Test(expectedExceptions = CostNotSavedException.class)
     public void shouldThrowExceptionIfFileWritingFails() throws Exception {
         doReturn(getRandomString()).when(jsonConverter).serialize(anyCost());
         doThrow(new RuntimeException()).when(writer).append(anyString(), anyFile());

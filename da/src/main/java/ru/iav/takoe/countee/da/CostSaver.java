@@ -1,6 +1,6 @@
 package ru.iav.takoe.countee.da;
 
-import ru.iav.takoe.countee.da.exception.PersistenceException;
+import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.json.JsonConverter;
 import ru.iav.takoe.countee.persistence.file.LocalWriter;
 import ru.iav.takoe.countee.vo.Cost;
@@ -41,7 +41,7 @@ public class CostSaver {
         return instance;
     }
 
-    public void save(@Nonnull Cost cost) throws PersistenceException {
+    public void save(@Nonnull Cost cost) throws CostNotSavedException {
         try {
             clearPreviousRecordsIfNeeded();       // for debugging
             CostsData data = costReader.getDeserializedData(getActualFile());
@@ -49,7 +49,7 @@ public class CostSaver {
             writeToFile(getSerialized(data));
             logInfo("Cost saved!");
         } catch (Exception e) {
-            handle(e);
+            handleAndRethrow(e);
         } finally {
             cache.invalidate();
         }
@@ -79,9 +79,9 @@ public class CostSaver {
         return fileNamesFactory.getActualFile();
     }
 
-    private static void handle(Exception e) throws PersistenceException {
+    private static void handleAndRethrow(Exception e) throws CostNotSavedException {
         logError("Failed to save cost data", e);
-        throw new PersistenceException(e.getMessage(), e);
+        throw new CostNotSavedException(e.getMessage(), e);
     }
 
 }
