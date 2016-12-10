@@ -1,23 +1,30 @@
 package ru.takoe.iav.countee.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import org.apache.commons.lang3.StringUtils;
+import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.content.addcost.CreateCostPagerAdapter;
 import ru.takoe.iav.countee.view.ViewProvider;
 import ru.takoe.iav.countee.view.ViewScroller;
+
+import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +43,8 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     private ViewPager viewPager;
 
     private FragmentStatePagerAdapter pagerAdapter;
+
+    private InputMethodManager keyboardManager;
 
     public CreateCostFragment() {
         // Required empty public constructor
@@ -123,9 +132,23 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
      * Called when user clicks the Save button
      */
     private void saveCost() {
-        getSaveCostService().saveAsNewCost(getInputText());
-        clearInputText();
-        refreshOutputOnCostSaving();
+        try {
+            getSaveCostService().saveAsNewCost(getInputText());
+        } catch (CostNotSavedException ex) {
+            hideKeyboard();
+            showSnackbar();
+        } finally {
+            clearInputText();
+            refreshOutputOnCostSaving();
+        }
+    }
+
+    private void hideKeyboard() {
+        getKeyboardManager().hideSoftInputFromWindow(viewProvider.getNavigationView().getWindowToken(), 0);
+    }
+
+    private void showSnackbar() {
+        Snackbar.make(viewProvider.getNavigationView(), R.string.cost_not_saved_msg, Snackbar.LENGTH_SHORT).show();
     }
 
     private String getInputText() {
@@ -133,7 +156,7 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     }
 
     private void clearInputText() {
-        getInputField().setText("");
+        getInputField().setText(StringUtils.EMPTY);
     }
 
     private void refreshOutputOnCostSaving() {
@@ -141,6 +164,13 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
         setCurrentMonthView();
         getOutputArea().setText(getReadCostService().getCurrentMonthOutput());
         ViewScroller.scrollToBottom(getScrollView());
+    }
+
+    private InputMethodManager getKeyboardManager() {
+        if (isNull(keyboardManager)) {
+            keyboardManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
+        }
+        return keyboardManager;
     }
 
     private void setCurrentMonthView() {
