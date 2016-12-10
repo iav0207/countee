@@ -13,6 +13,7 @@ import java.util.List;
 
 import static ru.iav.takoe.countee.model.CostDateUtil.day;
 import static ru.iav.takoe.countee.model.CostDateUtil.month;
+import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 
 /**
@@ -77,7 +78,9 @@ public class DateCostMultimapBuilder {
         }
         for (int i = costs.size() - 1; i >= 0; i--) {
             Cost cost = costs.get(i);
-            multimap.put(month(cost), cost);
+            if (!isNull(cost)) {
+                multimap.put(month(cost), cost);
+            }
         }
         return multimap;
     }
