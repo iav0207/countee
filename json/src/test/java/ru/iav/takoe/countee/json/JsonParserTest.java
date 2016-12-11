@@ -4,6 +4,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.iav.takoe.countee.json.exception.DeserializationException;
 import ru.iav.takoe.countee.json.vo.TestObject;
+import ru.iav.takoe.countee.json.vo.TestObjectWithNoFields;
 
 import static org.testng.Assert.*;
 
@@ -32,7 +33,7 @@ public class JsonParserTest {
 
     @Test(dataProvider = "getJsonToParse", dataProviderClass = JsonParserTestData.class)
     public void shouldStaySilentOnTypeMismatch(String json, TestObject object) throws Exception {
-        parse(json);
+        parser.deserialize(json, TestObjectWithNoFields.class);
     }
 
     @Test(expectedExceptions = DeserializationException.class,
