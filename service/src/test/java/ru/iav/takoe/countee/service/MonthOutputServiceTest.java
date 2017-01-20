@@ -57,7 +57,7 @@ public class MonthOutputServiceTest {
 
     @Test
     public void shouldNotFailIfReaderReturnsEmptyList() throws Exception {
-        letReaderReturn(new ArrayList<Cost>());
+        letReaderReturn(new ArrayList<>());
         service.getMonthsCount();
         service.getCostsForPrevMonth(0);
     }
@@ -76,10 +76,12 @@ public class MonthOutputServiceTest {
         if (isNull(month)) {
             assertEquals(costsForPrevMonth.size(), 0);
         } else {
-            for (Cost eachResultElement : costsForPrevMonth) {
-                assertEquals(month(eachResultElement.getTimestamp()), month);
-            }
+            costsForPrevMonth.forEach(cost -> assertEquals(monthOf(cost), month));
         }
+    }
+
+    private DateTime monthOf(Cost cost) {
+        return month(cost.getTimestamp());
     }
 
     @Test(expectedExceptions = NoSuchMonthException.class,

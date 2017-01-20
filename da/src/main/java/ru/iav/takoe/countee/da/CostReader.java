@@ -8,9 +8,11 @@ import javax.annotation.Nonnull;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
+import static ru.iav.takoe.countee.utils.StreamUtils.getStream;
 
 /**
  * Created by takoe on 16.08.16.
@@ -62,11 +64,9 @@ public class CostReader {
 
     private void putAllCostsToCacheIfItIsEmpty() {
         if (cache.isEmpty()) {
-            List<Cost> allCosts = new ArrayList<>();
-            for (File eachCostFile : getAllCostFiles()) {
-                allCosts.addAll(getCostsFrom(eachCostFile));
-            }
-            cache.put(allCosts);
+            cache.put(getStream(getAllCostFiles())
+                    .flatMap(file -> getStream(getCostsFrom(file)))
+                    .collect(Collectors.toList()));
         }
     }
 

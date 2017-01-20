@@ -14,8 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static ru.iav.takoe.countee.utils.ObjectUtils.isEmpty;
+import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 /**
@@ -51,22 +53,21 @@ abstract class TimelineChartsCalculationStrategy {
 
     @Nonnull
     TreeSet<DateTime> getMonthsSorted() {
-        TreeSet<DateTime> set = new TreeSet<>();
-        for (DateTime each : costMultimap.keySet()) {
-            set.add(each.withTimeAtStartOfDay().withDayOfMonth(1));
-        }
-        return set;
+        return getAllDates()
+                .map(DateTime::withTimeAtStartOfDay)
+                .map(dateTime -> dateTime.withDayOfMonth(1))
+                .collect(Collectors.toCollection(TreeSet::new));
+    }
+
+    private Stream<DateTime> getAllDates() {
+        return costMultimap.keySet().stream();
     }
 
     @Nonnull
     static BigDecimal sum(@Nullable Collection<Cost> costs) {
-        BigDecimal sum = BigDecimal.ZERO;
-        if (!isEmpty(costs)) {
-            for (Cost each : costs) {
-                sum = sum.add(amountOf(each));
-            }
-        }
-        return sum;
+        return defensiveCopy(costs).stream()
+                .map(TimelineChartsCalculationStrategy::amountOf)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Nonnull

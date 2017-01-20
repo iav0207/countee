@@ -1,32 +1,35 @@
 package ru.iav.takoe.countee.utils;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by takoe on 12.11.16.
  */
 public class ObjectUtils {
 
-    public static <T> List<T> defensiveCopy(Collection<T> origin) {
-        if (isNull(origin)) {
-            return new ArrayList<>();
-        }
-        List<T> copy = new ArrayList<>(origin.size());
-        copy.addAll(origin);
-        return copy;
+    @Nonnull
+    public static <T> List<T> defensiveCopy(@Nullable Collection<T> origin) {
+        return isNull(origin) ? new ArrayList<>() : origin.stream().collect(toList());
     }
 
-    public static <T> List<T> defensiveCopy(List<T> origin) {
-        List<T> safeOrigin = safeList(origin);
-        List<T> copy = new ArrayList<>(safeOrigin.size());
-        copy.addAll(safeOrigin);
-        return copy;
+    @Nonnull
+    public static <T> List<T> defensiveCopy(@Nullable List<T> origin) {
+        return safeList(origin).stream().collect(toList());
     }
 
-    public static <T> List<T> safeList(List<T> nullableList) {
-        return isNull(nullableList) ? new ArrayList<T>() : nullableList;
+    @Nonnull
+    public static <T> List<T> safeList(@Nullable List<T> nullableList) {
+        return isNull(nullableList) ? new ArrayList<>() : nullableList;
+    }
+
+    public static boolean notNull(Object object) {
+        return !isNull(object);
     }
 
     public static boolean isNull(Object object) {

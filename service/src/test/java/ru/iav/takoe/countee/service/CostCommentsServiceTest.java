@@ -51,7 +51,7 @@ public class CostCommentsServiceTest {
 
     @Test
     public void shouldReturnEmptySetIfReaderReturnedEmptyList() throws Exception {
-        letReaderReturn(new ArrayList<Cost>());
+        letReaderReturn(new ArrayList<>());
         execute();
         assertResultIsEmpty();
     }

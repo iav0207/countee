@@ -1,42 +1,34 @@
 package ru.iav.takoe.countee.model.filter.impl;
 
 import ru.iav.takoe.countee.model.filter.CostFilter;
+import ru.iav.takoe.countee.utils.ObjectUtils;
 import ru.iav.takoe.countee.vo.Cost;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static java.util.stream.Collectors.toList;
 import static org.apache.commons.lang3.StringUtils.defaultString;
-import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
-import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
-import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
+import static ru.iav.takoe.countee.utils.StreamUtils.getStream;
 
 /**
  * Created by takoe on 30.11.16.
  */
 public class CostCommentFilter implements CostFilter {
 
-    private static final String DEFAULT_STRING = getRandomString(30);
-
     private final Set<String> commentsToLeave;
 
     private CostCommentFilter(Collection<String> comments) {
         commentsToLeave = new HashSet<>();
-        for (String each : comments) {
-            addLowerCase(each);
-        }
-    }
-
-    private void addLowerCase(@Nullable String comment) {
-        if (!isNull(comment)) {
-            commentsToLeave.add(comment.toLowerCase());
-        }
+        getStream(comments)
+                .filter(ObjectUtils::notNull)
+                .map(String::toLowerCase)
+                .forEach(commentsToLeave::add);
     }
 
     public static CostCommentFilter from(@Nonnull String... comments) {
@@ -50,26 +42,19 @@ public class CostCommentFilter implements CostFilter {
     @Override
     @Nonnull
     public List<Cost> filter(@Nullable List<Cost> costs) {
-        List<Cost> filteredList = new ArrayList<>();
-        for (Cost each : safeList(costs)) {
-            addToListIfCorresponds(each, filteredList);
-        }
-        return filteredList;
+        return getStream(costs)
+                .filter(ObjectUtils::notNull)
+                .filter(cost -> doesCorrespondToFilter(commentOf(cost)))
+                .collect(toList());
     }
 
-    private void addToListIfCorresponds(@Nullable Cost cost, @Nonnull List<Cost> list) {
-        if (doesCorrespondToFilter(commentOf(cost))) {
-            list.add(cost);
-        }
+    @Nonnull
+    private static String commentOf(@Nonnull Cost cost) {
+        return defaultString(cost.getComment());
     }
 
     private boolean doesCorrespondToFilter(@Nonnull String comment) {
         return commentsToLeave.contains(comment.toLowerCase());
-    }
-
-    @Nonnull
-    private static String commentOf(@Nullable Cost cost) {
-        return isNull(cost) ? DEFAULT_STRING : defaultString(cost.getComment());
     }
 
 }

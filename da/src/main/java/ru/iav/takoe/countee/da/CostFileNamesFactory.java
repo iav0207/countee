@@ -5,10 +5,10 @@ import ru.iav.takoe.countee.persistence.file.FileFactory;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
-import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static ru.iav.takoe.countee.utils.DateUtils.now;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
@@ -40,8 +40,7 @@ class CostFileNamesFactory {
 
     @Nonnull
     List<File> getAllCostFiles() {
-        File[] costFiles = fileFactory.getFileForName(outputPath).listFiles();
-        return isNull(costFiles) ? new ArrayList<File>() : asList(costFiles);
+        return Stream.of(fileFactory.getFileForName(outputPath).listFiles()).collect(toList());
     }
 
     File getActualFile() {

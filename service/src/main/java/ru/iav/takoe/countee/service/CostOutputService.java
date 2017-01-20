@@ -2,6 +2,7 @@ package ru.iav.takoe.countee.service;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
+import org.apache.commons.lang3.StringUtils;
 import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.service.exception.NoSuchMonthException;
 import ru.iav.takoe.countee.vo.Cost;
@@ -13,8 +14,12 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.joining;
+import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
+import static ru.iav.takoe.countee.utils.StreamUtils.getStream;
 
 /**
  * Created by takoe on 16.08.16.
@@ -27,9 +32,9 @@ public class CostOutputService {
 
     static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM");
 
-    private static final String outputFormat = "%s %s";
-
-    private static final Character newLine = '\n';
+    private static final String
+            newLine = "\n",
+            empty = StringUtils.EMPTY;
 
     private CostReader reader;
 
@@ -69,39 +74,39 @@ public class CostOutputService {
     @Nonnull
     // TODO extract toString algorithm to a class
     private String toString(@Nullable Collection<Cost> costs) {
-        if (costs == null || costs.isEmpty()) {
-            return "";
+        if (defensiveCopy(costs).isEmpty()) {
+            return empty;
         }
-        StringBuilder sb = new StringBuilder();
-        Multimap<String, Cost> costMultimap = toMultimap(costs);
-        for (String dateString : costMultimap.keySet()) {
-            sb.append(dateString).append(newLine);
-            for (Cost eachInThisDate : costMultimap.get(dateString)) {
-                sb.append(toString(eachInThisDate)).append(newLine);
-            }
-            sb.append(newLine);
-        }
-        return sb.toString();
+        Multimap<String, Cost> groupedCosts = groupByDates(costs);
+        return getDateStrings(groupedCosts)
+                .map((dateString) -> getStream(groupedCosts.get(dateString))
+                        .map(this::toString)
+                        .collect(joining(newLine, dateString + newLine, newLine)))
+                .collect(joining(newLine, empty, newLine));
     }
 
-    private Multimap<String, Cost> toMultimap(Iterable<Cost> costs) {
+    @Nonnull
+    private Stream<String> getDateStrings(@Nonnull Multimap<String, Cost> groupedCosts) {
+        return getStream(groupedCosts.keySet());
+    }
+
+    private Multimap<String, Cost> groupByDates(Collection<Cost> costs) {
+        /* Map version
+        return getStream(costs)
+                .filter(cost -> !isNull(cost))
+                .collect(groupingBy(cost -> toString(cost.getTimestamp())));*/
         Multimap<String, Cost> multimap = LinkedListMultimap.create();
-        for (Cost each : costs) {
-            multimap.put(toString(each.getTimestamp()), each);
-        }
+        costs.forEach(cost -> multimap.put(toString(cost.getTimestamp()), cost));
         return multimap;
     }
 
-    private String toString(@Nonnull Date date) {
-        return dateFormat.format(date);
+    private String toString(@Nullable Date date) {
+        return isNull(date) ? StringUtils.EMPTY : dateFormat.format(date);
     }
 
     private String toString(@Nonnull Cost cost) {
-        return formatOutput(cost.getAmount(), cost.getComment());
-    }
-
-    private String formatOutput(@Nonnull BigDecimal amount, String comment) {
-        return String.format(outputFormat, toString(amount), comment);
+        return Stream.of(toString(cost.getAmount()), cost.getComment())
+                .collect(joining(StringUtils.SPACE));
     }
 
     private String toString(@Nonnull BigDecimal bigDecimal) {

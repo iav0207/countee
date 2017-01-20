@@ -11,10 +11,10 @@ import ru.iav.takoe.countee.json.JsonParser;
 import ru.iav.takoe.countee.persistence.file.LocalReader;
 import ru.iav.takoe.countee.vo.Cost;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +26,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
+import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomDateOfLastYear;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
@@ -127,11 +128,14 @@ public class CostReaderTest {
 
     private CostsData costsData(List<Cost> listOfCosts) {
         CostsData costsData = new CostsData();
-        costsData.setDescriptor(new LinkedHashMap<String, Cost>());
-        for (Cost each : listOfCosts) {
-            costsData.getDescriptor().put(each.getUuid().toString(), each);
-        }
+        listOfCosts.forEach(cost ->
+                costsData.getDescriptor().put(getUuidAsString(cost), cost));
         return costsData;
+    }
+
+    @Nullable
+    private static String getUuidAsString(@Nullable Cost cost) {
+        return isNull(cost) ? null : cost.getUuid().toString();
     }
 
     private List<Cost> listOfCosts() {

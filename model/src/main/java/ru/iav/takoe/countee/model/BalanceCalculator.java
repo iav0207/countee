@@ -7,8 +7,8 @@ import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
+import static ru.iav.takoe.countee.utils.StreamUtils.getStream;
 
 /**
  * Created by takoe on 30.11.16.
@@ -28,11 +28,10 @@ public class BalanceCalculator {
 
     @Nonnull
     public BigDecimal getBalance(@Nullable Collection<Cost> costs) {
-        BigDecimal balance = BigDecimal.ZERO;
-        for (Cost each : defensiveCopy(costs)) {
-            balance = balance.subtract(amountOf(each));
-        }
-        return balance;
+        return getStream(costs)
+                .map(this::amountOf)
+                .reduce(BigDecimal.ZERO,
+                        BigDecimal::subtract);
     }
 
     @Nonnull

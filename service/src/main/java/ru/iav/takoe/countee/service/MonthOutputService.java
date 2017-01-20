@@ -2,6 +2,7 @@ package ru.iav.takoe.countee.service;
 
 import com.google.common.collect.Multimap;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeComparator;
 import org.joda.time.Months;
 import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.da.Invalidable;
@@ -9,9 +10,9 @@ import ru.iav.takoe.countee.model.map.DateCostMultimapBuilder;
 import ru.iav.takoe.countee.service.exception.NoSuchMonthException;
 import ru.iav.takoe.countee.vo.Cost;
 
+import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.TreeSet;
+import java.util.stream.Stream;
 
 import static ru.iav.takoe.countee.utils.DateUtils.month;
 import static ru.iav.takoe.countee.utils.DateUtils.now;
@@ -24,6 +25,8 @@ import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 class MonthOutputService implements Invalidable {
 
     private static MonthOutputService instance;
+
+    private static final DateTimeComparator dateComparator = DateTimeComparator.getInstance();
 
     private DateCostMultimapBuilder multimapBuilder;
 
@@ -59,6 +62,7 @@ class MonthOutputService implements Invalidable {
         return Math.abs(Months.monthsBetween(minMonth, maxMonth).getMonths());
     }
 
+    @Nonnull
     List<Cost> getCostsForPrevMonth(int monthsBefore) {
         ensureCalculated();
         if (monthsBefore < 0 || monthsBefore > monthsSpread) {
@@ -85,19 +89,17 @@ class MonthOutputService implements Invalidable {
     }
 
     private DateTime getMinMonth() {
-        try {
-            return month(new TreeSet<>(multimap.keySet()).first());
-        } catch (NoSuchElementException | NullPointerException ex) {
-            return getMaxMonth();
-        }
+        return getAllDates().min(dateComparator)
+                .orElseGet(() -> month(now()));
     }
 
     private DateTime getMaxMonth() {
-        try {
-            return month(new TreeSet<>(multimap.keySet()).last());
-        } catch (NoSuchElementException | NullPointerException ex) {
-            return month(now());
-        }
+        return getAllDates().max(dateComparator)
+                .orElseGet(() -> month(now()));
+    }
+
+    private Stream<DateTime> getAllDates() {
+        return multimap.keySet().stream();
     }
 
 }

@@ -6,15 +6,17 @@ import com.google.common.collect.TreeMultimap;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeComparator;
 import ru.iav.takoe.countee.model.comparator.CostDateComparator;
+import ru.iav.takoe.countee.utils.StreamUtils;
 import ru.iav.takoe.countee.vo.Cost;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 import static ru.iav.takoe.countee.model.CostDateUtil.day;
 import static ru.iav.takoe.countee.model.CostDateUtil.month;
+import static ru.iav.takoe.countee.utils.StreamUtils.getStream;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
-import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 
 /**
  * Created by takoe on 16.11.16.
@@ -22,6 +24,8 @@ import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 public class DateCostMultimapBuilder {
 
     private static DateCostMultimapBuilder instance = new DateCostMultimapBuilder();
+
+    private static final CostDateComparator costDateComparator = new CostDateComparator();
 
     private DateCostMultimapBuilder() {}
 
@@ -36,15 +40,9 @@ public class DateCostMultimapBuilder {
      * i.e. from current day to the first day of statistics.
      */
     @Nonnull
-    public Multimap<DateTime, Cost> groupByDays(List<Cost> costs) {
+    public Multimap<DateTime, Cost> groupByDays(@Nullable List<Cost> costs) {
         Multimap<DateTime, Cost> multimap = LinkedListMultimap.create();
-        if (safeList(costs).size() < 1) {
-            return multimap;
-        }
-        for (int i = costs.size() - 1; i >= 0; i--) {
-            Cost cost = costs.get(i);
-            multimap.put(day(cost), cost);
-        }
+        StreamUtils.reverse(getStream(costs)).forEach(cost -> multimap.put(day(cost), cost));
         return multimap;
     }
 
@@ -68,20 +66,15 @@ public class DateCostMultimapBuilder {
     @Nonnull
     public Multimap<DateTime, Cost> groupByMonthsSortedAsc(List<Cost> costs) {
         Multimap<DateTime, Cost> multimap = TreeMultimap.create(
-                DateTimeComparator.getInstance(), new CostDateComparator());
+                DateTimeComparator.getInstance(), costDateComparator);
         return buildMonthsMultimap(multimap, costs);
     }
 
-    private Multimap<DateTime, Cost> buildMonthsMultimap(Multimap<DateTime, Cost> multimap, List<Cost> costs) {
-        if (safeList(costs).size() < 1) {
-            return multimap;
-        }
-        for (int i = costs.size() - 1; i >= 0; i--) {
-            Cost cost = costs.get(i);
-            if (!isNull(cost)) {
-                multimap.put(month(cost), cost);
-            }
-        }
+    private static Multimap<DateTime, Cost> buildMonthsMultimap(@Nonnull Multimap<DateTime, Cost> multimap,
+                                                                @Nullable List<Cost> costs) {
+        StreamUtils.reverse(getStream(costs))
+                .filter(cost -> !isNull(cost))
+                .forEach(cost -> multimap.put(month(cost), cost));
         return multimap;
     }
 

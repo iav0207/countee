@@ -58,6 +58,7 @@ public class ChartsDataService {
         return CostCommentFilter.from(comments).filter(getAllCosts());
     }
 
+    @Nonnull
     private List<Cost> getAllCosts() {
         return safeList(reader.readAllCosts());
     }

@@ -65,11 +65,15 @@ class CostsCache implements Invalidable {
     void put(Collection<Cost> allCosts) {
         synchronized (this) {
             clearAll();
-            for (Cost each : allCosts) {
-                data.put(month(each.getTimestamp()), each);
-                list.add(each);
-            }
+            allCosts.forEach(cost -> {
+                data.put(monthOf(cost), cost);
+                list.add(cost);
+            });
         }
+    }
+
+    private static DateTime monthOf(Cost cost) {
+        return isNull(cost) ? null : month(cost.getTimestamp());
     }
 
     private void clearAll() {

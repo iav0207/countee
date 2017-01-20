@@ -24,6 +24,7 @@ public class LocalWriter {
 
     public void append(@Nonnull String text, @Nonnull File file) {
         boolean append = false;
+//        try (BufferedWriter writer = Files.newBufferedWriter(file.toPath(), TRUNCATE_EXISTING)) {
         try (FileWriter fileWriter = new FileWriter(file, append);
              BufferedWriter writer = new BufferedWriter(fileWriter)) {
             writer.write(text);

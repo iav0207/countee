@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.vo.Cost;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mockito.Mockito.doReturn;
@@ -36,6 +37,18 @@ public class CostOutputServiceTest {
     public void shouldReturnListOfCostsFromReader(List<Cost> costs, String expected) throws Exception {
         doReturn(costs).when(costReader).readCostsForThisMonth();
         assertEquals(service.getCurrentMonthOutput(), expected);
+    }
+
+    @Test
+    public void shouldReturnEmptyStringIfReaderReturnedNull() throws Exception {
+        doReturn(null).when(costReader).readCostsForThisMonth();
+        assertEquals(service.getCurrentMonthOutput(), "");
+    }
+
+    @Test
+    public void shouldReturnEmptyStringIfReaderReturnedEmptyList() throws Exception {
+        doReturn(new ArrayList<>()).when(costReader).readCostsForThisMonth();
+        assertEquals(service.getCurrentMonthOutput(), "");
     }
 
 }

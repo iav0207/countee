@@ -25,7 +25,7 @@ public class BalanceCalculatorTest {
 
     @Test
     public void shouldReturnZeroIfInputIsEmpty() throws Exception {
-        assertEquals(BigDecimal.ZERO, calculator.getBalance(new ArrayList<Cost>()));
+        assertEquals(BigDecimal.ZERO, calculator.getBalance(new ArrayList<>()));
     }
 
     @Test(dataProvider = "getCosts")
