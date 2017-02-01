@@ -11,4 +11,6 @@
 lib/
 libs/
 /icon
+/io
+/da/io
 gen/
