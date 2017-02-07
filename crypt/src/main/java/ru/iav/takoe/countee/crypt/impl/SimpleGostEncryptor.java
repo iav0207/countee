@@ -1,5 +1,6 @@
 package ru.iav.takoe.countee.crypt.impl;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nonnull;
@@ -37,7 +38,11 @@ class SimpleGostEncryptor extends SimpleGostAlgorithmExecutor implements Encrypt
         }
         text = appendSpacesToFillLastBlock(text);
         byte[] resultBytes = SimpleGostAlgorithm.newEncryptor(text, key).execute();
-        return DatatypeConverter.printBase64Binary(resultBytes);
+        if (true) {
+            return new String(Base64.encodeBase64(resultBytes));        // Android compatible
+        } else {
+            return DatatypeConverter.printBase64Binary(resultBytes);
+        }
     }
 
     private String appendSpacesToFillLastBlock(String s) {
