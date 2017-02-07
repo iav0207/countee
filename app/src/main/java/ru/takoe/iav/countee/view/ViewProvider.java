@@ -25,6 +25,14 @@ public class ViewProvider {
         return findViewById(R.id.toolbar);
     }
 
+    public Button getImportDataButton() {
+        return (Button) findViewById(R.id.import_data_button);
+    }
+
+    public Button getExportDataButton() {
+        return (Button) findViewById(R.id.export_data_button);
+    }
+
     public NavigationView getNavigationView() {
         return findViewById(R.id.nav_view);
     }

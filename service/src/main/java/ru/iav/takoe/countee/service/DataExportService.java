@@ -7,7 +7,20 @@ import ru.iav.takoe.countee.da.DataExporter;
  */
 public class DataExportService {
 
-    private DataExporter dataExporter = new DataExporter();
+    private static DataExportService instance;
+
+    private DataExporter dataExporter;
+
+    public static DataExportService getInstance() {
+        if (instance == null) {
+            instance = new DataExportService();
+        }
+        return instance;
+    }
+
+    private DataExportService() {
+        dataExporter = new DataExporter();
+    }
 
     public String exportAllData(String password) {
         return dataExporter.exportAllData(password);

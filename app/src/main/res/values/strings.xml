@@ -12,6 +12,10 @@
     <string name="button_save_cost">Save</string>
     <string name="cost_not_saved_msg">That was not saved!</string>
 
+    <string name="button_import_data">Import data</string>
+    <string name="button_export_data">Export data</string>
+    <string name="data_exported_msg">Data was copied to clipboard</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

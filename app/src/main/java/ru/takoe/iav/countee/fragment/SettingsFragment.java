@@ -1,7 +1,10 @@
 package ru.takoe.iav.countee.fragment;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,9 +12,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import ru.iav.takoe.countee.service.DataExportService;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent;
 import ru.takoe.iav.countee.fragment.content.settings.SettingsRecyclerViewAdapter;
+import ru.takoe.iav.countee.view.ViewProvider;
 
 /**
  * A fragment representing a list of Items.
@@ -19,12 +24,16 @@ import ru.takoe.iav.countee.fragment.content.settings.SettingsRecyclerViewAdapte
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final int VAL_COLUMN_COUNT = 1;
     private int mColumnCount = 1;
     private OnFragmentInteractionListener mListener;
+
+    private ViewProvider viewProvider;
+
+    private DataExportService dataExportService = DataExportService.getInstance();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -34,11 +43,12 @@ public class SettingsFragment extends Fragment {
     }
 
     @SuppressWarnings("unused")
-    public static SettingsFragment newInstance() {
+    public static SettingsFragment newInstance(ViewProvider viewProvider) {
         SettingsFragment fragment = new SettingsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, VAL_COLUMN_COUNT);
         fragment.setArguments(args);
+        fragment.viewProvider = viewProvider;
         return fragment;
     }
 
@@ -70,6 +80,13 @@ public class SettingsFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        viewProvider.getImportDataButton().setOnClickListener(this);
+        viewProvider.getExportDataButton().setOnClickListener(this);
+    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -86,6 +103,30 @@ public class SettingsFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (viewProvider.getExportDataButton().getId() == view.getId()) {
+            copyExportedDataToClipboard();
+            showSnackbar();
+        }
+    }
+
+    private void copyExportedDataToClipboard() {
+        getClipboardManager().setPrimaryClip(ClipData.newPlainText("Countee export", exportAllData("")));
+    }
+
+    private ClipboardManager getClipboardManager() {
+        return (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+    }
+
+    private void showSnackbar() {
+        Snackbar.make(viewProvider.getNavigationView(), R.string.data_exported_msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private String exportAllData(String password) {
+        return dataExportService.exportAllData(password);
     }
 
     /**

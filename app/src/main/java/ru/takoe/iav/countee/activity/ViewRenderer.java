@@ -51,7 +51,7 @@ public class ViewRenderer {
                 title = navStats;
                 break;
             case R.id.nav_settings:
-                fragment = SettingsFragment.newInstance();
+                fragment = SettingsFragment.newInstance(getViewProvider());
                 title = navSettings;
                 break;
             default:
