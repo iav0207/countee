@@ -10,7 +10,7 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 /**
  * Created by takoe on 06.02.17.
  */
-public class CryptFacadeIT {
+public class SimpleGostCryptFacadeIT {
 
     private SimpleGostCryptFacade simpleGostCryptFacade = new SimpleGostCryptFacade();
 
@@ -27,9 +27,12 @@ public class CryptFacadeIT {
     }
 
     private String runSymmetricTest(String text, String key) {
+        long tic = System.currentTimeMillis();
         String cypher = simpleGostCryptFacade.encrypt(text, key);
         String result = simpleGostCryptFacade.decrypt(cypher, key);
-        logInfo(String.format("\nOpen text: %s\nCypher: %s\nResult: %s\n", text, cypher, result));
+        long toc = System.currentTimeMillis();
+        logInfo(String.format("\nOpen text: %s\nCypher: %s\nResult: %s", text, cypher, result));
+        logInfo(String.format("Time elapsed: %d ms", toc - tic));
         return result;
     }
 
@@ -38,7 +41,7 @@ public class CryptFacadeIT {
         return new Object[][] {
                 text(getRandomString(64)),
                 text(getRandomString()),
-                text(getRandomString(11)),
+                text(getRandomString(11111)),
                 text(getRandomString() + " " + getRandomString()),
                 text(getRandomString() + "    "),
                 text(" " + getRandomString()),
