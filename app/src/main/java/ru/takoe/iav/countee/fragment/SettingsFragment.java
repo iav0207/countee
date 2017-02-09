@@ -1,21 +1,22 @@
 package ru.takoe.iav.countee.fragment;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import ru.iav.takoe.countee.service.DataExportService;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent;
 import ru.takoe.iav.countee.fragment.content.settings.SettingsRecyclerViewAdapter;
+import ru.takoe.iav.countee.fragment.listener.CancelButtonListener;
+import ru.takoe.iav.countee.fragment.listener.ExportButtonListener;
+import ru.takoe.iav.countee.fragment.listener.ImportButtonListener;
+import ru.takoe.iav.countee.fragment.listener.SettingsFragmentButtonListener;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 /**
@@ -32,8 +33,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener mListener;
 
     private ViewProvider viewProvider;
-
-    private DataExportService dataExportService = DataExportService.getInstance();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -87,7 +86,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         viewProvider.getExportDataButton().setOnClickListener(this);
     }
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -108,25 +106,19 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (viewProvider.getExportDataButton().getId() == view.getId()) {
-            copyExportedDataToClipboard();
-            showSnackbar();
+            buildPasswordDialog(new ExportButtonListener(getContext(), viewProvider));
+        } else if (viewProvider.getImportDataButton().getId() == view.getId()) {
+            buildPasswordDialog(new ImportButtonListener(getContext(), viewProvider));
         }
     }
 
-    private void copyExportedDataToClipboard() {
-        getClipboardManager().setPrimaryClip(ClipData.newPlainText("Countee export", exportAllData("")));
-    }
-
-    private ClipboardManager getClipboardManager() {
-        return (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-    }
-
-    private void showSnackbar() {
-        Snackbar.make(viewProvider.getNavigationView(), R.string.data_exported_msg, Snackbar.LENGTH_SHORT).show();
-    }
-
-    private String exportAllData(String password) {
-        return dataExportService.exportAllData(password);
+    private void buildPasswordDialog(SettingsFragmentButtonListener positiveButtonListener) {
+        new AlertDialog.Builder(getContext())
+                .setTitle("Enter password")
+                .setView(positiveButtonListener.getEditText())
+                .setPositiveButton("OK", positiveButtonListener)
+                .setNegativeButton("Cancel", new CancelButtonListener(getContext(), viewProvider))
+                .show();
     }
 
     /**
@@ -142,4 +134,5 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     public interface OnFragmentInteractionListener {
         void onListFragmentInteraction(SettingsFragmentContent.Item item);
     }
+
 }
