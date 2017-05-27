@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.listener.ChartTouchListener;
@@ -37,11 +39,11 @@ import ru.takoe.iav.countee.view.spinner.MultiSpinner;
  */
 public class StatsFragment extends AbstractChartFragment implements OnChartGestureListener {
 
+    @BindView(R.id.bar_chart_1) BarChart mChart;
+
     private ViewProvider viewProvider;
 
     private OnFragmentInteractionListener mListener;
-
-    private BarChart mChart;
 
     private Typeface typeface;
 
@@ -74,7 +76,8 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
 
-        setUpChart(view);
+        ButterKnife.bind(this, view);
+        setUpChart();
         createTypeface();
         createSpinners(view);
 
@@ -109,8 +112,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         filterSpinner.setItems(items, listener);
     }
 
-    private void setUpChart(View view) {
-        mChart = (BarChart) view.findViewById(R.id.bar_chart_1);
+    private void setUpChart() {
         mChart.getDescription().setEnabled(false);
         mChart.setOnChartGestureListener(this);
 
