@@ -10,9 +10,6 @@ import java.util.Collection;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 30.11.16.
- */
 public class BalanceCalculator {
 
     private static BalanceCalculator instance;

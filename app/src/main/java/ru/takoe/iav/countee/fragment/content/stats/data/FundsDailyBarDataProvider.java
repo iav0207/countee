@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by takoe on 12.11.16.
- */
 public class FundsDailyBarDataProvider extends AbstractBarDataProvider {
 
     private static final String caption = "Funds, daily";

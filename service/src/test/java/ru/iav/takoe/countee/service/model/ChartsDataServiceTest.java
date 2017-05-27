@@ -27,9 +27,6 @@ import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertTrue;
 import static ru.iav.takoe.countee.utils.DateUtils.day;
 
-/**
- * Created by takoe on 12.11.16.
- */
 public class ChartsDataServiceTest {
 
     private static final CostDateComparator comparator = new CostDateComparator();

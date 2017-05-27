@@ -10,9 +10,6 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 30.11.16.
- */
 public class CounteeTestUtils {
 
     public static List<Cost> costList(Integer... ints) {

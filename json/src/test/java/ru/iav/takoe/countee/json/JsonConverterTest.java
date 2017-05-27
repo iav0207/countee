@@ -7,9 +7,6 @@ import ru.iav.takoe.countee.json.vo.TestObject;
 import static org.testng.Assert.*;
 import static ru.iav.takoe.countee.json.JsonConverterTestData.getTestObject;
 
-/**
- * Created by takoe on 24.07.16.
- */
 public class JsonConverterTest {
 
     private JsonConverter converter;

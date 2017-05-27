@@ -15,9 +15,7 @@ import ru.takoe.iav.countee.fragment.SettingsFragment;
 import ru.takoe.iav.countee.fragment.StatsFragment;
 import ru.takoe.iav.countee.view.ViewProvider;
 
-/**
- * Created by takoe on 21.08.16.
- */
+
 class ViewRenderer {
 
     private final AppCompatActivity activity;

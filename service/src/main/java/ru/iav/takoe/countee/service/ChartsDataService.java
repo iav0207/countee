@@ -16,9 +16,6 @@ import java.util.Set;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 
-/**
- * Created by takoe on 12.11.16.
- */
 public class ChartsDataService {
 
     private static ChartsDataService instance = new ChartsDataService();

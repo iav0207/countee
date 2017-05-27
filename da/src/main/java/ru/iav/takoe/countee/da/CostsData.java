@@ -6,9 +6,6 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Created by takoe on 16.08.16.
- */
 class CostsData implements Serializable {
 
     private Map<String, Cost> descriptor;

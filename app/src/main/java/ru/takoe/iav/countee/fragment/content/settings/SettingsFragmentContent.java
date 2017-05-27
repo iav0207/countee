@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by takoe on 21.08.16.
- */
 public class SettingsFragmentContent {
 
     public static final List<Item> ITEMS = new ArrayList<>();

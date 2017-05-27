@@ -10,9 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- * Created by takoe on 03.09.16.
- */
 public class CreateCostPagerAdapter extends FragmentStatePagerAdapter {
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yyyy", Locale.US);

@@ -9,9 +9,6 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.ScatterData;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataGenerator;
 
-/**
- * Created by takoe on 10.11.16.
- */
 public class AbstractChartFragment extends Fragment {
 
     @Inject BarDataGenerator dataGenerator;

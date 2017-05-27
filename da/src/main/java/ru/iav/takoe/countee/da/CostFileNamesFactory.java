@@ -12,9 +12,6 @@ import static java.util.Arrays.asList;
 import static ru.iav.takoe.countee.utils.DateUtils.now;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 25.07.16.
- */
 class CostFileNamesFactory {
 
     private static CostFileNamesFactory instance;

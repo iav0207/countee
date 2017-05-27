@@ -13,9 +13,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import ru.takoe.iav.countee.R;
 
-/**
- * Created by takoe on 21.08.16.
- */
 public class ViewProvider {
 
     private final FragmentActivity activity;

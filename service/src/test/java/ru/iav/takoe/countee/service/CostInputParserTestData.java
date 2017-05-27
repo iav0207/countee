@@ -6,9 +6,6 @@ import ru.iav.takoe.countee.vo.CostFactory;
 
 import java.math.BigDecimal;
 
-/**
- * Created by takoe on 16.08.16.
- */
 public class CostInputParserTestData {
 
     private static CostFactory costFactory = CostFactory.getInstance();

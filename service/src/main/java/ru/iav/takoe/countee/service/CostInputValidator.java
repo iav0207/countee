@@ -5,9 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import javax.annotation.Nullable;
 import java.math.BigDecimal;
 
-/**
- * Created by takoe on 28.07.16.
- */
 class CostInputValidator {
 
     private static CostInputValidator instance;

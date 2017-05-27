@@ -12,9 +12,6 @@ import java.util.TreeSet;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 
-/**
- * Created by takoe on 01.12.16.
- */
 public class CostCommentsService {
 
     private static CostCommentsService ourInstance = new CostCommentsService();

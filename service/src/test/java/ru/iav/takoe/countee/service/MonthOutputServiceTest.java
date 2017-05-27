@@ -23,9 +23,6 @@ import static ru.iav.takoe.countee.utils.DateUtils.month;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBoolean;
 
-/**
- * Created by takoe on 04.12.16.
- */
 public class MonthOutputServiceTest {
 
     @Mock

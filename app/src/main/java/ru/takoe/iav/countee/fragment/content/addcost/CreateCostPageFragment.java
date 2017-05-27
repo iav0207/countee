@@ -11,9 +11,6 @@ import ru.iav.takoe.countee.service.CostOutputService;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.view.ViewScroller;
 
-/**
- * Created by takoe on 03.09.16.
- */
 public class CreateCostPageFragment extends Fragment {
 
     private TextView outputArea;

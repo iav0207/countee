@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * Created by takoe on 12.11.16.
- */
 public class ObjectUtils {
 
     public static <T> List<T> defensiveCopy(Collection<T> origin) {

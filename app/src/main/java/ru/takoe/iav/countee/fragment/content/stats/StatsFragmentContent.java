@@ -5,9 +5,6 @@ import ru.iav.takoe.countee.service.CostCommentsService;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.content.common.StringItemList;
 
-/**
- * Created by takoe on 15.11.16.
- */
 public class StatsFragmentContent {
 
     private static CostCommentsService costCommentsService = CostCommentsService.getInstance();

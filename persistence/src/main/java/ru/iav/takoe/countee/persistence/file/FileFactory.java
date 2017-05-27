@@ -5,9 +5,6 @@ import ru.takoe.iav.countee.properties.ApplicationProperties;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * Created by takoe on 25.07.16.
- */
 public class FileFactory {
 
     private static FileFactory instance;

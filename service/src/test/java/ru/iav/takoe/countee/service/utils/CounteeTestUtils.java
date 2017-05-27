@@ -13,9 +13,6 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomDateOfLastYear;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 30.11.16.
- */
 public class CounteeTestUtils {
 
     public static List<Cost> getListOfRandomCosts(int size) {

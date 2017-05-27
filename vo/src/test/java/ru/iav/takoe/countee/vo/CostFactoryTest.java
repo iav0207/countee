@@ -15,9 +15,6 @@ import static org.testng.Assert.*;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 23.07.16.
- */
 public class CostFactoryTest {
 
     @Mock

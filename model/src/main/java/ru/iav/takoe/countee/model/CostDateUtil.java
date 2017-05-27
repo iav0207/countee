@@ -8,9 +8,6 @@ import javax.annotation.Nullable;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 16.11.16.
- */
 public class CostDateUtil {
 
     @Nullable

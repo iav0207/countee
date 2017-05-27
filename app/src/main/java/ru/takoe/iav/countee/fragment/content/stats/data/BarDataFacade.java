@@ -12,9 +12,6 @@ import com.github.mikephil.charting.data.BarData;
 import ru.iav.takoe.countee.service.CostCommentsService;
 import ru.takoe.iav.countee.application.ApplicationLoader;
 
-/**
- * Created by takoe on 01.12.16.
- */
 public class BarDataFacade {
 
     @Inject CostCommentsService costCommentsService;

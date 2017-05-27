@@ -26,9 +26,6 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 26.07.16.
- */
 public class CostSaverTest {
 
     @Mock

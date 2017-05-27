@@ -14,9 +14,6 @@ import static ru.iav.takoe.countee.utils.DateUtils.now;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 24.11.16.
- */
 class CostsCache implements Invalidable {
 
     private static CostsCache instance;

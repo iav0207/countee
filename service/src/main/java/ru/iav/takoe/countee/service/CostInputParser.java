@@ -8,9 +8,6 @@ import java.math.BigDecimal;
 
 import static ru.iav.takoe.countee.logging.LogService.logError;
 
-/**
- * Created by takoe on 28.07.16.
- */
 class CostInputParser {
 
     private static final String VALIDATION_FAILED_MESSAGE = "Неверный формат введённой строки. Запись не создана.";

@@ -15,9 +15,6 @@ import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentSelectionHolder;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
 import ru.takoe.iav.countee.view.spinner.MultiSpinner;
 
-/**
- * Created by takoe on 14.11.16.
- */
 public class ChartItemSelectedListener implements AdapterView.OnItemSelectedListener,
         MultiSpinner.MultiSpinnerListener {
 

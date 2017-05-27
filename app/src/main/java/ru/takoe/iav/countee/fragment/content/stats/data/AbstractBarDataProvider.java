@@ -11,9 +11,6 @@ import com.github.mikephil.charting.data.BarEntry;
 import org.joda.time.DateTime;
 import ru.iav.takoe.countee.service.ChartsDataService;
 
-/**
- * Created by takoe on 14.11.16.
- */
 public abstract class AbstractBarDataProvider {
 
     BarDataColorGenerator colorGenerator;

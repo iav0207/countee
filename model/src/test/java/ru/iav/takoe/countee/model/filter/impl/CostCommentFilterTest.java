@@ -9,9 +9,6 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
-/**
- * Created by takoe on 30.11.16.
- */
 public class CostCommentFilterTest {
 
     @Test(dataProvider = "simpleSet", dataProviderClass = CostCommentFilterTestData.class)

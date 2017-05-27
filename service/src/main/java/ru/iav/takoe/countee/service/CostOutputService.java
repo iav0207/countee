@@ -16,9 +16,6 @@ import java.util.Date;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 16.08.16.
- */
 public class CostOutputService {
 
     private static CostOutputService instance;

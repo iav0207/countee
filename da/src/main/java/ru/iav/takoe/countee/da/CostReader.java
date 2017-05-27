@@ -12,9 +12,6 @@ import java.util.List;
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 
-/**
- * Created by takoe on 16.08.16.
- */
 public class CostReader {
 
     private static CostReader instance = new CostReader();

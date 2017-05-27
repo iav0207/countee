@@ -14,9 +14,6 @@ import ru.takoe.iav.countee.fragment.content.common.StringItemList;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 01.12.16.
- */
 public class FilterRecyclerViewAdapter extends RecyclerView.Adapter<FilterRecyclerViewAdapter.ViewHolder>
         implements SpinnerAdapter {
 

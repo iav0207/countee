@@ -19,9 +19,6 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomDateOfLastYear;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 24.11.16.
- */
 public class CostsCacheTest {
 
     private CostsCache cache = CostsCache.getInstance();

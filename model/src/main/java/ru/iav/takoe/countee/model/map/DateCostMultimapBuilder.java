@@ -16,9 +16,6 @@ import static ru.iav.takoe.countee.model.CostDateUtil.month;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 
-/**
- * Created by takoe on 16.11.16.
- */
 public class DateCostMultimapBuilder {
 
     private static DateCostMultimapBuilder instance = new DateCostMultimapBuilder();

@@ -15,9 +15,6 @@ import static org.mockito.Mockito.mock;
 import static ru.iav.takoe.countee.utils.DateUtils.today;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 
-/**
- * Created by takoe on 12.11.16.
- */
 public class ChartsDataServiceTestData {
 
     @DataProvider(name = "getCostsForSpacedDates")

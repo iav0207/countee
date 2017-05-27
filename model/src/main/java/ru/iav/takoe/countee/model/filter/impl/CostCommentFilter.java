@@ -17,9 +17,6 @@ import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 30.11.16.
- */
 public class CostCommentFilter implements CostFilter {
 
     private static final String DEFAULT_STRING = getRandomString(30);

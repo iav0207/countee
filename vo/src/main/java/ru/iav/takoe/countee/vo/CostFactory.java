@@ -2,9 +2,6 @@ package ru.iav.takoe.countee.vo;
 
 import java.math.BigDecimal;
 
-/**
- * Created by takoe on 23.07.16.
- */
 public class CostFactory {
 
     private static CostFactory instance;

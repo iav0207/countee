@@ -2,9 +2,6 @@ package ru.iav.takoe.countee.vo;
 
 import java.math.BigDecimal;
 
-/**
- * Created by takoe on 23.07.16.
- */
 class CostValidator {
 
     private static CostValidator instance;

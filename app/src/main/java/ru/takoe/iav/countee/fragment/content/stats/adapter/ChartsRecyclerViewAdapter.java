@@ -14,9 +14,6 @@ import ru.takoe.iav.countee.fragment.content.common.StringItemList;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 15.11.16.
- */
 public class ChartsRecyclerViewAdapter extends RecyclerView.Adapter<ChartsRecyclerViewAdapter.ViewHolder>
         implements SpinnerAdapter{
 

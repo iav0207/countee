@@ -7,9 +7,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 
-/**
- * Created by takoe on 14.11.16.
- */
 class BarDataColorGenerator {
 
     private static final int PRIMARY_COLOR = Color.parseColor("#9982BA");

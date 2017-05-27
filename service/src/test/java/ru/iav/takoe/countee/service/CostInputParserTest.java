@@ -7,9 +7,6 @@ import ru.iav.takoe.countee.vo.Cost;
 
 import static org.testng.Assert.assertEquals;
 
-/**
- * Created by takoe on 16.08.16.
- */
 public class CostInputParserTest {
 
     private CostInputParser parser;

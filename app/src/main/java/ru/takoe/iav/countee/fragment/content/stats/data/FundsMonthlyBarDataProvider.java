@@ -8,9 +8,6 @@ import android.content.res.AssetManager;
 import com.github.mikephil.charting.data.BarEntry;
 import org.joda.time.DateTime;
 
-/**
- * Created by takoe on 14.11.16.
- */
 public class FundsMonthlyBarDataProvider extends AbstractBarDataProvider {
 
     private static final String CAPTION = "Funds, monthly";

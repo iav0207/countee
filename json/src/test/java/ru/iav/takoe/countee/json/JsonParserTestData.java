@@ -5,9 +5,6 @@ import ru.iav.takoe.countee.json.vo.TestObject;
 
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 24.07.16.
- */
 public class JsonParserTestData {
 
     @DataProvider(name = "getJsonToParse")

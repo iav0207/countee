@@ -4,9 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-/**
- * Created by takoe on 24.07.16.
- */
 public class TestObject implements Serializable {
 
     private UUID uuid;

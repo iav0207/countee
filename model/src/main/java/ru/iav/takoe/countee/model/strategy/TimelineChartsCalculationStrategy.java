@@ -18,9 +18,6 @@ import java.util.TreeSet;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isEmpty;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 16.11.16.
- */
 abstract class TimelineChartsCalculationStrategy {
 
     private final List<Cost> costs;

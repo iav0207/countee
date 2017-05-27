@@ -11,9 +11,6 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static ru.iav.takoe.countee.model.utils.CounteeTestUtils.costList;
 
-/**
- * Created by takoe on 30.11.16.
- */
 public class BalanceCalculatorTest {
 
     private BalanceCalculator calculator = BalanceCalculator.getInstance();

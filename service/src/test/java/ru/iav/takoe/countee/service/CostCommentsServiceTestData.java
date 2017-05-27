@@ -9,9 +9,6 @@ import java.util.TreeSet;
 
 import static ru.iav.takoe.countee.service.utils.CounteeTestUtils.listOfCostsWithComments;
 
-/**
- * Created by takoe on 01.12.16.
- */
 public class CostCommentsServiceTestData {
 
     @DataProvider(name = "lowerCaseComments")

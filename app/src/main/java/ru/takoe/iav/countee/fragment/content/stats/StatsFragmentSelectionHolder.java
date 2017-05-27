@@ -5,9 +5,6 @@ import java.util.Arrays;
 import com.google.common.primitives.Booleans;
 import org.apache.commons.lang3.BooleanUtils;
 
-/**
- * Created by takoe on 01.12.16.
- */
 public class StatsFragmentSelectionHolder {
 
     private int chartType = 0;

@@ -4,9 +4,6 @@ import android.content.res.AssetManager;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.FileUtils;
 
-/**
- * Created by takoe on 10.11.16.
- */
 public class LineDataSetBuilder {
 
     private LineDataSet dataSet;

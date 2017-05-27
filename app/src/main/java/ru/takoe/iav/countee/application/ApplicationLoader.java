@@ -15,9 +15,6 @@ import ru.takoe.iav.countee.dagger.StatsModule;
 import ru.takoe.iav.countee.dagger.ViewProviderComponent;
 import ru.takoe.iav.countee.dagger.ViewProviderModule;
 
-/**
- * Created by takoe on 04.12.16.
- */
 public class ApplicationLoader extends Application {
 
     private static ApplicationLoader instance;

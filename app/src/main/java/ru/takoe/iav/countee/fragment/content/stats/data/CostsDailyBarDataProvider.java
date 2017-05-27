@@ -12,9 +12,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-/**
- * Created by takoe on 01.12.16.
- */
 public class CostsDailyBarDataProvider extends CostsBarDataProvider {
 
     private static final String caption = "Costs, daily";

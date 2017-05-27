@@ -9,9 +9,6 @@ import org.joda.time.DateTime;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by takoe on 01.12.16.
- */
 public abstract class CostsBarDataProvider extends AbstractBarDataProvider {
 
     public CostsBarDataProvider(AssetManager assets) {

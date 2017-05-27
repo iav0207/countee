@@ -18,9 +18,6 @@ import static ru.iav.takoe.countee.utils.DateUtils.now;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 04.12.16.
- */
 class MonthOutputService implements Invalidable {
 
     private static MonthOutputService instance;
