@@ -39,15 +39,6 @@ public class CreateCostActivity extends AppCompatActivity implements
         ApplicationProperties.setOutputDirectory(getFilesDir());
 
         viewRenderer.displayView(R.id.nav_add_cost);
-
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, getString(R.string.create_cost_button_message), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 
     private void addDrawerListener() {
