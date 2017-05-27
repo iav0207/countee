@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -51,6 +52,8 @@ public class CreateCostFragment extends Fragment {
     @BindView(R.id.balance_text) TextView balanceOutput;
     @BindView(R.id.edit_message) EditText inputField;
     @BindView(R.id.save_cost_button) Button saveCostButton;
+
+    @BindString(R.string.cost_not_saved_msg) String costNotSavedMsg;
 
     private ViewProvider viewProvider;
 
@@ -150,7 +153,7 @@ public class CreateCostFragment extends Fragment {
             getSaveCostService().saveAsNewCost(getInputText());
         } catch (CostNotSavedException ex) {
             hideKeyboard();
-            showSnackbar();
+            showToast();
         } finally {
             clearInputText();
             refreshOutputOnCostSaving();
@@ -161,8 +164,8 @@ public class CreateCostFragment extends Fragment {
         getKeyboardManager().hideSoftInputFromWindow(viewProvider.getNavigationView().getWindowToken(), 0);
     }
 
-    private void showSnackbar() {
-        Snackbar.make(viewProvider.getNavigationView(), R.string.cost_not_saved_msg, Snackbar.LENGTH_SHORT).show();
+    private void showToast() {
+        Toast.makeText(getContext(), costNotSavedMsg, Toast.LENGTH_SHORT).show();
     }
 
     private String getInputText() {
