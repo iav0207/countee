@@ -1,11 +1,12 @@
 package ru.takoe.iav.countee.dagger;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
 import dagger.Provides;
+import ru.iav.takoe.countee.service.CostCommentsService;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
-
-import javax.inject.Singleton;
 
 /**
  * Created by takoe on 20.01.17.
@@ -23,6 +24,12 @@ public class AppModule {
     @Singleton
     CostOutputService provideCostOutputService() {
         return CostOutputService.getInstance();
+    }
+
+    @Provides
+    @Singleton
+    public CostCommentsService provideCostCommentsService() {
+        return CostCommentsService.getInstance();
     }
 
 }

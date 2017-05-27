@@ -1,20 +1,23 @@
 package ru.takoe.iav.countee.fragment.content.stats.data;
 
-import android.content.res.AssetManager;
-import com.github.mikephil.charting.data.BarData;
-import ru.iav.takoe.countee.service.CostCommentsService;
-
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+
+import android.content.res.AssetManager;
+import com.github.mikephil.charting.data.BarData;
+import ru.iav.takoe.countee.service.CostCommentsService;
+import ru.takoe.iav.countee.application.ApplicationLoader;
 
 /**
  * Created by takoe on 01.12.16.
  */
 public class BarDataFacade {
 
-    private CostCommentsService costCommentsService;
+    @Inject CostCommentsService costCommentsService;
 
     private FundsDailyBarDataProvider fundsDailyBarDataProvider;
 
@@ -25,7 +28,9 @@ public class BarDataFacade {
     private CostsMonthlyBarDataProvider costsMonthlyBarDataProvider;
 
     public BarDataFacade(AssetManager assets) {
-        costCommentsService = CostCommentsService.getInstance();
+        ApplicationLoader.getInstance()
+                .getApplicationComponent()
+                .injectInto(this);
         this.fundsDailyBarDataProvider = new FundsDailyBarDataProvider(assets);
         this.fundsMonthlyDataProvider = new FundsMonthlyDataProvider(assets);
         this.costsDailyBarDataProvider = new CostsDailyBarDataProvider(assets);

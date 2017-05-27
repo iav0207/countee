@@ -1,5 +1,7 @@
 package ru.takoe.iav.countee.fragment;
 
+import javax.inject.Inject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
@@ -26,12 +28,9 @@ import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.application.ApplicationLoader;
-import ru.takoe.iav.countee.dagger.AppComponent;
 import ru.takoe.iav.countee.fragment.content.addcost.CreateCostPagerAdapter;
 import ru.takoe.iav.countee.view.ViewProvider;
 import ru.takoe.iav.countee.view.ViewScroller;
-
-import javax.inject.Inject;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
@@ -48,14 +47,14 @@ public class CreateCostFragment extends Fragment {
     @Inject SaveCostService saveCostService;
     @Inject CostOutputService costOutputService;
 
+    @Inject ViewProvider viewProvider;
+
     @BindView(R.id.create_cost_view_pager) ViewPager viewPager;
     @BindView(R.id.balance_text) TextView balanceOutput;
     @BindView(R.id.edit_message) EditText inputField;
     @BindView(R.id.save_cost_button) Button saveCostButton;
 
     @BindString(R.string.cost_not_saved_msg) String costNotSavedMsg;
-
-    private ViewProvider viewProvider;
 
     private FragmentStatePagerAdapter pagerAdapter;
 
@@ -84,10 +83,10 @@ public class CreateCostFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppComponent appComponent = ApplicationLoader.getInstance().getApplicationComponent();
 
-        saveCostService = appComponent.getSaveCostService();
-        costOutputService = appComponent.getCostOutputService();
+        ApplicationLoader.getInstance()
+                .getViewProviderComponent(getActivity())
+                .injectInto(this);
     }
 
     @Override

@@ -1,14 +1,14 @@
 package ru.takoe.iav.countee.fragment;
 
+import javax.inject.Inject;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.ScatterData;
+import ru.takoe.iav.countee.application.ApplicationLoader;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataGenerator;
 
 /**
@@ -16,18 +16,20 @@ import ru.takoe.iav.countee.fragment.content.stats.data.BarDataGenerator;
  */
 public class AbstractChartFragment extends Fragment {
 
-    private BarDataGenerator dataGenerator;
+    @Inject protected BarDataGenerator dataGenerator;
 
     public AbstractChartFragment() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initializeDataGenerator();
-        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     protected void initializeDataGenerator() {
-        dataGenerator = new BarDataGenerator(getActivity().getAssets());
+        ApplicationLoader.getInstance()
+                .getStatsComponent(getActivity())
+                .injectInto(this);
     }
 
     protected BarData generateBarData(int dataSets, float range, int count) {

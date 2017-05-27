@@ -1,6 +1,9 @@
 package ru.takoe.iav.countee.fragment.content.stats;
 
+import java.util.Arrays;
+
 import com.google.common.primitives.Booleans;
+import org.apache.commons.lang3.BooleanUtils;
 
 /**
  * Created by takoe on 01.12.16.
@@ -36,9 +39,7 @@ public class StatsFragmentSelectionHolder {
 
     private boolean[] allTrue() {
         boolean[] trues = new boolean[filters.length];
-        for (int i = 0; i < trues.length; i++) {
-            trues[i] = true;
-        }
+        Arrays.fill(trues, true);
         return trues;
     }
 

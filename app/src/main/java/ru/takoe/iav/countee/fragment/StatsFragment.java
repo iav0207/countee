@@ -1,5 +1,7 @@
 package ru.takoe.iav.countee.fragment;
 
+import javax.inject.Inject;
+
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -11,17 +13,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.MarkerView;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
+import ru.iav.takoe.countee.service.CostCommentsService;
 import ru.takoe.iav.countee.R;
+import ru.takoe.iav.countee.application.ApplicationLoader;
 import ru.takoe.iav.countee.fragment.content.common.StringItem;
 import ru.takoe.iav.countee.fragment.content.common.StringItemList;
 import ru.takoe.iav.countee.fragment.content.stats.SimpleMarkerView;
-import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentContent;
 import ru.takoe.iav.countee.fragment.content.stats.adapter.ChartsRecyclerViewAdapter;
 import ru.takoe.iav.countee.fragment.content.stats.adapter.FilterRecyclerViewAdapter;
 import ru.takoe.iav.countee.fragment.listener.ChartItemSelectedListener;
@@ -39,9 +43,15 @@ import ru.takoe.iav.countee.view.spinner.MultiSpinner;
  */
 public class StatsFragment extends AbstractChartFragment implements OnChartGestureListener {
 
-    @BindView(R.id.bar_chart_1) BarChart mChart;
+    @Inject ViewProvider viewProvider;
 
-    private ViewProvider viewProvider;
+    @Inject CostCommentsService costCommentsService;
+
+    @BindView(R.id.bar_chart_1) BarChart mChart;
+    @BindView(R.id.chartSpinner) Spinner chartTypeSpinner;
+    @BindView(R.id.filterSpinner) MultiSpinner filterSpinner;
+
+    @BindArray(R.array.charts_array) String[] itemNames;
 
     private OnFragmentInteractionListener mListener;
 
@@ -55,7 +65,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param viewProvider an instance of currently used view provider to inject.
+     * @param viewProvider an instance of currently used view provider to injectInto.
      * @return A new instance of fragment StatsFragment.
      */
     public static StatsFragment newInstance(ViewProvider viewProvider) {
@@ -69,17 +79,26 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ApplicationLoader.getInstance()
+                .getStatsComponent(getActivity())
+                .injectInto(this);
+
+        costCommentsService = ApplicationLoader.getInstance()
+                .getApplicationComponent()
+                .getCostCommentsService();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
 
         ButterKnife.bind(this, view);
         setUpChart();
         createTypeface();
-        createSpinners(view);
+        createSpinners();
 
         // setChartData(); chart data is set on dropdown list activation
 
@@ -90,23 +109,21 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         return view;
     }
 
-    private void createSpinners(View view) {
+    private void createSpinners() {
         ChartItemSelectedListener listener = new ChartItemSelectedListener(mChart, getActivity().getAssets());
-        addItemsOnChartSpinner(view, listener);
-        addItemsOnFilterSpinner(view, listener);
+        addItemsOnChartSpinner(listener);
+        addItemsOnFilterSpinner(listener);
     }
 
-    private void addItemsOnChartSpinner(View view, AdapterView.OnItemSelectedListener listener) {
-        Spinner chartTypeSpinner = (Spinner) view.findViewById(R.id.chartSpinner);
-        StringItemList items = StatsFragmentContent.getChartSpinnerItems(getResources());
+    private void addItemsOnChartSpinner(AdapterView.OnItemSelectedListener listener) {
+        StringItemList items = StringItemList.fromStrings(itemNames);
 
         chartTypeSpinner.setAdapter(new ChartsRecyclerViewAdapter(items, mListener));
         chartTypeSpinner.setOnItemSelectedListener(listener);
     }
 
-    private void addItemsOnFilterSpinner(View view, MultiSpinner.MultiSpinnerListener listener) {
-        MultiSpinner filterSpinner = (MultiSpinner) view.findViewById(R.id.filterSpinner);
-        StringItemList items = StatsFragmentContent.getFilterSpinnerItems();
+    private void addItemsOnFilterSpinner(MultiSpinner.MultiSpinnerListener listener) {
+        StringItemList items = StringItemList.fromStrings(costCommentsService.getAllCommentsSet());
 
         filterSpinner.setAdapter(new FilterRecyclerViewAdapter(items, mListener));
         filterSpinner.setItems(items, listener);
