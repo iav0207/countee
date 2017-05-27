@@ -96,7 +96,6 @@ public class CreateCostFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.content_create_cost, container, false);
 
-        ButterKnife.setDebug(true);
         ButterKnife.bind(this, rootView);
 
         pagerAdapter = new CreateCostPagerAdapter(getChildFragmentManager());
