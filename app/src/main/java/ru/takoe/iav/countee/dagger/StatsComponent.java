@@ -2,7 +2,9 @@ package ru.takoe.iav.countee.dagger;
 
 import dagger.Component;
 import ru.takoe.iav.countee.activity.CreateCostActivity;
-import ru.takoe.iav.countee.fragment.AbstractChartFragment;
+import ru.takoe.iav.countee.fragment.StatsFragment;
+import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
+import ru.takoe.iav.countee.fragment.listener.ChartItemSelectedListener;
 
 @ActivityScope
 @Component(
@@ -13,6 +15,10 @@ public interface StatsComponent {
 
     void inject(CreateCostActivity activity);
 
-    void injectInto(AbstractChartFragment chartFragment);
+    void injectInto(StatsFragment chartFragment);
+
+    void injectInto(ChartItemSelectedListener chartItemSelectedListener);
+
+    void injectInto(BarDataFacade barDataFacade);
 
 }

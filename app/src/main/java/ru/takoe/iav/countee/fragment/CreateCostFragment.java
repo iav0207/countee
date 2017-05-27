@@ -72,11 +72,10 @@ public class CreateCostFragment extends Fragment {
      *
      * @return A new instance of fragment CreateCostFragment.
      */
-    public static CreateCostFragment newInstance(ViewProvider viewProvider) {
+    public static CreateCostFragment newInstance() {
         CreateCostFragment fragment = new CreateCostFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
-        fragment.viewProvider = viewProvider;
         return fragment;
     }
 
@@ -206,10 +205,6 @@ public class CreateCostFragment extends Fragment {
 
     private TextView getBalanceOutput() {
         return balanceOutput;
-    }
-
-    private Button getSaveCostButton() {
-        return saveCostButton;
     }
 
     private CostOutputService getReadCostService() {

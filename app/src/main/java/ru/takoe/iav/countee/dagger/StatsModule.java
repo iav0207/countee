@@ -1,37 +1,64 @@
 package ru.takoe.iav.countee.dagger;
 
-import android.app.Activity;
 import android.content.res.AssetManager;
 import dagger.Module;
 import dagger.Provides;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataGenerator;
+import ru.takoe.iav.countee.fragment.content.stats.data.CostsDailyBarDataProvider;
+import ru.takoe.iav.countee.fragment.content.stats.data.CostsMonthlyBarDataProvider;
+import ru.takoe.iav.countee.fragment.content.stats.data.FundsDailyBarDataProvider;
+import ru.takoe.iav.countee.fragment.content.stats.data.FundsMonthlyBarDataProvider;
 
 @Module
 public class StatsModule {
 
-    private Activity activity;
+    private AssetManager assets;
 
-    public StatsModule(Activity activity) {
-        this.activity = activity;
+    public StatsModule(AssetManager assets) {
+        this.assets = assets;
     }
 
     @Provides
     @ActivityScope
-    public AssetManager provideAssets() {
-        return activity.getAssets();
+    AssetManager provideAssets() {
+        return assets;
     }
 
     @Provides
     @ActivityScope
-    public BarDataFacade provideBarDataFacade() {
+    BarDataFacade provideBarDataFacade() {
         return new BarDataFacade(provideAssets());
     }
 
     @Provides
     @ActivityScope
-    public BarDataGenerator provideBarDataGenerator() {
+    BarDataGenerator provideBarDataGenerator() {
         return new BarDataGenerator(provideAssets());
+    }
+
+    @Provides
+    @ActivityScope
+    CostsDailyBarDataProvider provideCostsDailyBarDataProvider() {
+        return new CostsDailyBarDataProvider(provideAssets());
+    }
+
+    @Provides
+    @ActivityScope
+    CostsMonthlyBarDataProvider provideCostsMonthlyBarDataProvider() {
+        return new CostsMonthlyBarDataProvider(provideAssets());
+    }
+
+    @Provides
+    @ActivityScope
+    FundsDailyBarDataProvider provideFundsDailyBarDataProvider() {
+        return new FundsDailyBarDataProvider(provideAssets());
+    }
+
+    @Provides
+    @ActivityScope
+    FundsMonthlyBarDataProvider providerFundsMonthlyBarDataProvider() {
+        return new FundsMonthlyBarDataProvider(provideAssets());
     }
 
 }

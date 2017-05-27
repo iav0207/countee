@@ -6,7 +6,6 @@ import dagger.Component;
 import ru.iav.takoe.countee.service.CostCommentsService;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
-import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
 
 /**
  * Created by takoe on 20.01.17.
@@ -22,7 +21,5 @@ public interface AppComponent {
     CostOutputService getCostOutputService();
 
     CostCommentsService getCostCommentsService();
-
-    void injectInto(BarDataFacade barDataFacade);
 
 }

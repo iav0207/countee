@@ -1,17 +1,19 @@
 package ru.takoe.iav.countee.activity;
 
+import javax.annotation.Nonnull;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import butterknife.BindString;
+import butterknife.ButterKnife;
 import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.CreateCostFragment;
 import ru.takoe.iav.countee.fragment.SettingsFragment;
 import ru.takoe.iav.countee.fragment.StatsFragment;
 import ru.takoe.iav.countee.view.ViewProvider;
-
-import javax.annotation.Nonnull;
 
 /**
  * Created by takoe on 21.08.16.
@@ -22,6 +24,11 @@ class ViewRenderer {
 
     private final ViewProvider viewProvider;
 
+    @BindString(R.string.app_name) String appName;
+    @BindString(R.string.nav_add_cost) String navAddCost;
+    @BindString(R.string.nav_stats) String navStats;
+    @BindString(R.string.nav_settings) String navSettings;
+
     ViewRenderer(@Nonnull AppCompatActivity activity) {
         this.activity = activity;
         this.viewProvider = new ViewProvider(activity);
@@ -29,22 +36,27 @@ class ViewRenderer {
 
     void displayView(int viewId) {
 
-        Fragment fragment = null;
-        String title = activity.getString(R.string.app_name);
+        if (appName == null) ButterKnife.bind(this, activity);
+
+        final Fragment fragment;
+        final String title;
 
         switch (viewId) {
             case R.id.nav_add_cost:
-                fragment = CreateCostFragment.newInstance(getViewProvider());
-                title  = "Add cost";
+                fragment = CreateCostFragment.newInstance();
+                title  = navAddCost;
                 break;
             case R.id.nav_stats:
-                fragment = StatsFragment.newInstance(getViewProvider());
-                title = "Stats";
+                fragment = StatsFragment.newInstance();
+                title = navStats;
                 break;
             case R.id.nav_settings:
                 fragment = SettingsFragment.newInstance();
-                title = "Settings";
+                title = navSettings;
                 break;
+            default:
+                fragment = null;
+                title = appName;
         }
 
         if (fragment != null) {

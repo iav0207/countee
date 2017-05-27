@@ -19,28 +19,21 @@ public class BarDataFacade {
 
     @Inject CostCommentsService costCommentsService;
 
-    private FundsDailyBarDataProvider fundsDailyBarDataProvider;
-
-    private FundsMonthlyDataProvider fundsMonthlyDataProvider;
-
-    private CostsDailyBarDataProvider costsDailyBarDataProvider;
-
-    private CostsMonthlyBarDataProvider costsMonthlyBarDataProvider;
+    @Inject FundsDailyBarDataProvider fundsDailyBarDataProvider;
+    @Inject FundsMonthlyBarDataProvider fundsMonthlyBarDataProvider;
+    @Inject CostsDailyBarDataProvider costsDailyBarDataProvider;
+    @Inject CostsMonthlyBarDataProvider costsMonthlyBarDataProvider;
 
     public BarDataFacade(AssetManager assets) {
         ApplicationLoader.getInstance()
-                .getApplicationComponent()
+                .getStatsComponent(assets)
                 .injectInto(this);
-        this.fundsDailyBarDataProvider = new FundsDailyBarDataProvider(assets);
-        this.fundsMonthlyDataProvider = new FundsMonthlyDataProvider(assets);
-        this.costsDailyBarDataProvider = new CostsDailyBarDataProvider(assets);
-        this.costsMonthlyBarDataProvider = new CostsMonthlyBarDataProvider(assets);
     }
 
     public BarData getData(int chartType, boolean[] filterSelections) {
         switch (chartType) {
             case 0: return fundsDailyBarDataProvider.getBarData();
-            case 1: return fundsMonthlyDataProvider.getBarData();
+            case 1: return fundsMonthlyBarDataProvider.getBarData();
             case 2: return costsDailyBarDataProvider.getBarData(toFilterItems(filterSelections));
             case 3: return costsMonthlyBarDataProvider.getBarData(toFilterItems(filterSelections));
             default: return fundsDailyBarDataProvider.getBarData();

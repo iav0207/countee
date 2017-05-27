@@ -30,7 +30,6 @@ import ru.takoe.iav.countee.fragment.content.stats.adapter.ChartsRecyclerViewAda
 import ru.takoe.iav.countee.fragment.content.stats.adapter.FilterRecyclerViewAdapter;
 import ru.takoe.iav.countee.fragment.listener.ChartItemSelectedListener;
 import ru.takoe.iav.countee.view.TypefaceHolder;
-import ru.takoe.iav.countee.view.ViewProvider;
 import ru.takoe.iav.countee.view.spinner.MultiSpinner;
 
 /**
@@ -42,8 +41,6 @@ import ru.takoe.iav.countee.view.spinner.MultiSpinner;
  * create an instance of this fragment.
  */
 public class StatsFragment extends AbstractChartFragment implements OnChartGestureListener {
-
-    @Inject ViewProvider viewProvider;
 
     @Inject CostCommentsService costCommentsService;
 
@@ -65,14 +62,12 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param viewProvider an instance of currently used view provider to injectInto.
      * @return A new instance of fragment StatsFragment.
      */
-    public static StatsFragment newInstance(ViewProvider viewProvider) {
+    public static StatsFragment newInstance() {
         StatsFragment fragment = new StatsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
-        fragment.viewProvider = viewProvider;
         return fragment;
     }
 
@@ -83,10 +78,6 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         ApplicationLoader.getInstance()
                 .getStatsComponent(getActivity())
                 .injectInto(this);
-
-        costCommentsService = ApplicationLoader.getInstance()
-                .getApplicationComponent()
-                .getCostCommentsService();
     }
 
     @Override

@@ -3,6 +3,7 @@ package ru.takoe.iav.countee.application;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import ru.takoe.iav.countee.dagger.AppComponent;
@@ -56,9 +57,13 @@ public class ApplicationLoader extends Application {
     }
 
     public StatsComponent getStatsComponent(Activity activity) {
+        return getStatsComponent(activity.getAssets());
+    }
+
+    public StatsComponent getStatsComponent(AssetManager assets) {
         return DaggerStatsComponent.builder()
                 .appComponent(applicationComponent)
-                .statsModule(new StatsModule(activity))
+                .statsModule(new StatsModule(assets))
                 .build();
     }
 
