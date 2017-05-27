@@ -12,17 +12,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import org.apache.commons.lang3.StringUtils;
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
+import ru.takoe.iav.countee.application.ApplicationLoader;
+import ru.takoe.iav.countee.dagger.AppComponent;
 import ru.takoe.iav.countee.fragment.content.addcost.CreateCostPagerAdapter;
 import ru.takoe.iav.countee.view.ViewProvider;
 import ru.takoe.iav.countee.view.ViewScroller;
+
+import javax.inject.Inject;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
@@ -34,15 +42,21 @@ import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
  * Use the {@link CreateCostFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CreateCostFragment extends Fragment implements View.OnClickListener {
+public class CreateCostFragment extends Fragment {
+
+    @Inject SaveCostService saveCostService;
+    @Inject CostOutputService costOutputService;
+
+    @BindView(R.id.create_cost_view_pager) ViewPager viewPager;
+    @BindView(R.id.balance_text) TextView balanceOutput;
+    @BindView(R.id.edit_message) EditText inputField;
+    @BindView(R.id.save_cost_button) Button saveCostButton;
 
     private ViewProvider viewProvider;
 
-    private OnFragmentInteractionListener mListener;
-
-    private ViewPager viewPager;
-
     private FragmentStatePagerAdapter pagerAdapter;
+
+    private OnFragmentInteractionListener mListener;
 
     private InputMethodManager keyboardManager;
 
@@ -67,6 +81,10 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppComponent appComponent = ApplicationLoader.getInstance().getApplicationComponent();
+
+        saveCostService = appComponent.getSaveCostService();
+        costOutputService = appComponent.getCostOutputService();
     }
 
     @Override
@@ -75,9 +93,12 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.content_create_cost, container, false);
 
-        viewPager = (ViewPager) rootView.findViewById(R.id.create_cost_view_pager);
+        ButterKnife.setDebug(true);
+        ButterKnife.bind(this, rootView);
+
         pagerAdapter = new CreateCostPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(pagerAdapter);
+
         return rootView;
     }
 
@@ -89,7 +110,6 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     @Override
     public void onStart() {
         super.onStart();
-        viewProvider.getSaveCostButton().setOnClickListener(this);
         refreshOutputOnStart();
     }
 
@@ -121,17 +141,11 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
         mListener = null;
     }
 
-    @Override
-    public void onClick(View view) {
-        if (viewProvider.getSaveCostButton().getId() == view.getId()) {
-            saveCost();
-        }
-    }
-
     /**
      * Called when user clicks the Save button
      */
-    private void saveCost() {
+    @OnClick(R.id.save_cost_button)
+    void saveCost() {
         try {
             getSaveCostService().saveAsNewCost(getInputText());
         } catch (CostNotSavedException ex) {
@@ -186,19 +200,23 @@ public class CreateCostFragment extends Fragment implements View.OnClickListener
     }
 
     private EditText getInputField() {
-        return viewProvider.getInputField();
+        return inputField;
     }
 
     private TextView getBalanceOutput() {
-        return viewProvider.getBalanceOutput();
+        return balanceOutput;
+    }
+
+    private Button getSaveCostButton() {
+        return saveCostButton;
     }
 
     private CostOutputService getReadCostService() {
-        return CostOutputService.getInstance();
+        return costOutputService;
     }
 
     private SaveCostService getSaveCostService() {
-        return SaveCostService.getInstance();
+        return saveCostService;
     }
 
     /**
