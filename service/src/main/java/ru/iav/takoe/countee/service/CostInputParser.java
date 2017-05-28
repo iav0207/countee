@@ -1,33 +1,24 @@
 package ru.iav.takoe.countee.service;
 
+import java.math.BigDecimal;
+
 import ru.iav.takoe.countee.service.exception.CostInputValidationException;
 import ru.iav.takoe.countee.vo.Cost;
 import ru.iav.takoe.countee.vo.CostFactory;
 
-import java.math.BigDecimal;
-
 import static ru.iav.takoe.countee.logging.LogService.logError;
 
-class CostInputParser {
+public class CostInputParser {
 
     private static final String VALIDATION_FAILED_MESSAGE = "Неверный формат введённой строки. Запись не создана.";
-
-    private static CostInputParser instance;
 
     private CostInputValidator validator;
 
     private CostFactory costFactory;
 
-    private CostInputParser() {
+    public CostInputParser() {
         validator = CostInputValidator.getInstance();
         costFactory = CostFactory.getInstance();
-    }
-
-    static CostInputParser getInstance() {
-        if (instance == null) {
-            instance = new CostInputParser();
-        }
-        return instance;
     }
 
     Cost parseAsCost(String input) throws CostInputValidationException {

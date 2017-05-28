@@ -1,5 +1,7 @@
 package ru.iav.takoe.countee.service;
 
+import javax.inject.Inject;
+
 import ru.iav.takoe.countee.da.CostSaver;
 import ru.iav.takoe.countee.da.Invalidable;
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
@@ -10,22 +12,19 @@ import static ru.iav.takoe.countee.logging.LogService.logError;
 // TODO cover with tests
 public class SaveCostService {
 
-    private static SaveCostService instance = new SaveCostService();
-
     private CostSaver costSaver;
 
     private CostInputParser inputParser;
 
     private Invalidable monthOutputService;
 
-    public static SaveCostService getInstance() {
-        return instance;
-    }
-
-    private SaveCostService() {
-        costSaver = CostSaver.getInstance();
-        inputParser = CostInputParser.getInstance();
-        monthOutputService = MonthOutputService.getInstance();
+    @Inject
+    public SaveCostService(CostSaver costSaver, CostInputParser inputParser,
+            MonthOutputService monthOutputService)
+    {
+        this.costSaver = costSaver;
+        this.inputParser = inputParser;
+        this.monthOutputService = monthOutputService;
     }
 
     public void saveAsNewCost(String input) throws CostNotSavedException {
