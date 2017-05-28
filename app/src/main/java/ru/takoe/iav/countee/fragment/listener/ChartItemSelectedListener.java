@@ -22,11 +22,10 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
 
     @Inject BarDataFacade barDataFacade;
 
-    private StatsFragmentSelectionHolder selectionHolder;
+    @Inject StatsFragmentSelectionHolder selectionHolder;
 
     public ChartItemSelectedListener(@Nonnull BarChart chart, AssetManager assets) {
         this.chart = chart;
-        selectionHolder = new StatsFragmentSelectionHolder();
         ApplicationLoader.getInstance()
                 .getStatsComponent(assets)
                 .injectInto(this);

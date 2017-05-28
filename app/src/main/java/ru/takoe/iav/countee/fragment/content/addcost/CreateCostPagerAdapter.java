@@ -15,11 +15,11 @@ import ru.takoe.iav.countee.application.ApplicationLoader;
 
 public class CreateCostPagerAdapter extends FragmentStatePagerAdapter {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM yyyy", Locale.US);
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yyyy", Locale.US);
 
     @Inject CostOutputService costOutputService;
 
-    private int pagesCount;
+    private final int pagesCount;
 
     public CreateCostPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -41,7 +41,7 @@ public class CreateCostPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return DATE_FORMAT.format(month(position));
+        return dateFormat.format(month(position));
     }
 
     private Date month(int position) {

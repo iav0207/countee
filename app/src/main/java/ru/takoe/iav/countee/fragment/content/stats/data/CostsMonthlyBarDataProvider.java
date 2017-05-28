@@ -1,27 +1,21 @@
 package ru.takoe.iav.countee.fragment.content.stats.data;
 
-import android.content.res.AssetManager;
-import com.github.mikephil.charting.data.BarEntry;
-import org.joda.time.DateTime;
-import ru.iav.takoe.countee.service.CostCommentsService;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
+
+import android.content.res.AssetManager;
+import com.github.mikephil.charting.data.BarEntry;
+import org.joda.time.DateTime;
 
 public class CostsMonthlyBarDataProvider extends CostsBarDataProvider {
 
     private static final String caption = "Costs, monthly";
 
-    // TODO remove
-    private CostCommentsService costCommentsService;
-
     public CostsMonthlyBarDataProvider(AssetManager assets) {
         super(assets);
-        costCommentsService = CostCommentsService.getInstance();
     }
 
     @Override
@@ -52,10 +46,6 @@ public class CostsMonthlyBarDataProvider extends CostsBarDataProvider {
     @Override
     protected Map<DateTime, Float> getDataFromService() {
         return getDataService().getCostsMonthlyData(getAllComments());
-    }
-
-    private Set<String> getAllComments() {
-        return costCommentsService.getAllCommentsSet();
     }
 
     @Override

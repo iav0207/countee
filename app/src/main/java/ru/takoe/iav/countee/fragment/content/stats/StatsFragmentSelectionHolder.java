@@ -3,13 +3,23 @@ package ru.takoe.iav.countee.fragment.content.stats;
 import java.util.Arrays;
 
 import com.google.common.primitives.Booleans;
-import org.apache.commons.lang3.BooleanUtils;
+import ru.iav.takoe.countee.service.CostCommentsService;
+import ru.takoe.iav.countee.application.ApplicationLoader;
 
 public class StatsFragmentSelectionHolder {
 
     private int chartType = 0;
 
-    private boolean[] filters = new boolean[StatsFragmentContent.getFilterSpinnerItems().size()];
+    private boolean[] filters;
+
+    public StatsFragmentSelectionHolder() {
+        CostCommentsService costCommentsService = ApplicationLoader.getInstance()
+                .getApplicationComponent()
+                .getCostCommentsService();
+        int filterItemsCount = costCommentsService.getAllCommentsSet().size();
+
+        this.filters = new boolean[filterItemsCount];
+    }
 
     public int getChartType() {
         return chartType;

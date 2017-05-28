@@ -3,6 +3,7 @@ package ru.takoe.iav.countee.dagger;
 import android.content.res.AssetManager;
 import dagger.Module;
 import dagger.Provides;
+import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentSelectionHolder;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataGenerator;
 import ru.takoe.iav.countee.fragment.content.stats.data.CostsDailyBarDataProvider;
@@ -59,6 +60,12 @@ public class StatsModule {
     @ActivityScope
     FundsMonthlyBarDataProvider providerFundsMonthlyBarDataProvider() {
         return new FundsMonthlyBarDataProvider(provideAssets());
+    }
+
+    @Provides
+    @ActivityScope
+    StatsFragmentSelectionHolder provideStatsFragmentSelectionHolder() {
+        return new StatsFragmentSelectionHolder();
     }
 
 }
