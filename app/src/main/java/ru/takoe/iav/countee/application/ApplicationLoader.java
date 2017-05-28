@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import ru.takoe.iav.countee.dagger.AppComponent;
 import ru.takoe.iav.countee.dagger.DaggerAppComponent;
 import ru.takoe.iav.countee.dagger.DaggerStatsComponent;
@@ -49,7 +50,7 @@ public class ApplicationLoader extends Application {
     public ViewProviderComponent getViewProviderComponent(FragmentActivity activity) {
         return DaggerViewProviderComponent.builder()
                 .appComponent(applicationComponent)
-                .viewProviderModule(new ViewProviderModule(activity))
+                .viewProviderModule(new ViewProviderModule((AppCompatActivity) activity))
                 .build();
     }
 

@@ -1,5 +1,9 @@
 package ru.iav.takoe.countee.service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.TreeSet;
+
 import com.google.common.collect.Multimap;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
@@ -9,16 +13,12 @@ import ru.iav.takoe.countee.model.map.DateCostMultimapBuilder;
 import ru.iav.takoe.countee.service.exception.NoSuchMonthException;
 import ru.iav.takoe.countee.vo.Cost;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.TreeSet;
-
 import static ru.iav.takoe.countee.utils.DateUtils.month;
 import static ru.iav.takoe.countee.utils.DateUtils.now;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-class MonthOutputService implements Invalidable {
+public class MonthOutputService implements Invalidable {
 
     private static MonthOutputService instance;
 

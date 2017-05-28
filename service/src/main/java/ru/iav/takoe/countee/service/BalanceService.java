@@ -1,29 +1,26 @@
 package ru.iav.takoe.countee.service;
 
+import java.math.BigDecimal;
+import java.util.Collection;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+
 import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.model.BalanceCalculator;
 import ru.iav.takoe.countee.vo.Cost;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.math.BigDecimal;
-import java.util.Collection;
-
 public class BalanceService {
 
-    private static BalanceService instance = new BalanceService();
+    private final CostReader reader;
 
-    private CostReader reader;
+    private final BalanceCalculator calculator;
 
-    private BalanceCalculator calculator;
-
-    private BalanceService() {
-        reader = CostReader.getInstance();
-        calculator = BalanceCalculator.getInstance();
-    }
-
-    public static BalanceService getInstance() {
-        return instance;
+    @Inject
+    public BalanceService(CostReader reader, BalanceCalculator calculator) {
+        this.reader = reader;
+        this.calculator = calculator;
     }
 
     @Nonnull

@@ -1,6 +1,7 @@
 package ru.takoe.iav.countee.activity;
 
 import javax.annotation.Nonnull;
+import javax.inject.Inject;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -16,20 +17,21 @@ import ru.takoe.iav.countee.fragment.StatsFragment;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 
-class ViewRenderer {
+public class ViewRenderer {
 
-    private final AppCompatActivity activity;
+    private AppCompatActivity activity;
 
-    private final ViewProvider viewProvider;
+    private ViewProvider viewProvider;
 
     @BindString(R.string.app_name) String appName;
     @BindString(R.string.nav_add_cost) String navAddCost;
     @BindString(R.string.nav_stats) String navStats;
     @BindString(R.string.nav_settings) String navSettings;
 
-    ViewRenderer(@Nonnull AppCompatActivity activity) {
+    @Inject
+    public ViewRenderer(@Nonnull AppCompatActivity activity, ViewProvider viewProvider) {
         this.activity = activity;
-        this.viewProvider = new ViewProvider(activity);
+        this.viewProvider = viewProvider;
     }
 
     void displayView(int viewId) {

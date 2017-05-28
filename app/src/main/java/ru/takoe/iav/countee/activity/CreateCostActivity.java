@@ -1,14 +1,21 @@
 package ru.takoe.iav.countee.activity;
 
+import javax.inject.Inject;
+
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.takoe.iav.countee.R;
+import ru.takoe.iav.countee.application.ApplicationLoader;
 import ru.takoe.iav.countee.fragment.CreateCostFragment;
 import ru.takoe.iav.countee.fragment.SettingsFragment;
 import ru.takoe.iav.countee.fragment.StatsFragment;
@@ -23,18 +30,26 @@ public class CreateCostActivity extends AppCompatActivity implements
         StatsFragment.OnFragmentInteractionListener,
         SettingsFragment.OnFragmentInteractionListener {
 
-    private final ViewRenderer viewRenderer = new ViewRenderer(this);
+    @Inject ViewProvider viewProvider;
+    @Inject ViewRenderer viewRenderer;
 
-    private final ViewProvider viewProvider = new ViewProvider(this);
+    @BindView(R.id.nav_view) NavigationView navigationView;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.toolbar) @Nullable Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cost);
 
-        setSupportActionBar(viewProvider.getToolbar());
+        ApplicationLoader.getInstance()
+                .getViewProviderComponent(this)
+                .inject(this);
+        ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
         addDrawerListener();
-        viewProvider.getNavigationView().setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(this);
 
         ApplicationProperties.setOutputDirectory(getFilesDir());
 
@@ -42,9 +57,8 @@ public class CreateCostActivity extends AppCompatActivity implements
     }
 
     private void addDrawerListener() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, viewProvider.getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
     }

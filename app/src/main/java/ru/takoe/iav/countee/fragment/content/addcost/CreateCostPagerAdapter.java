@@ -1,24 +1,32 @@
 package ru.takoe.iav.countee.fragment.content.addcost;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import javax.inject.Inject;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import org.joda.time.DateTime;
 import ru.iav.takoe.countee.service.CostOutputService;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import ru.takoe.iav.countee.application.ApplicationLoader;
 
 public class CreateCostPagerAdapter extends FragmentStatePagerAdapter {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yyyy", Locale.US);
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MMM yyyy", Locale.US);
+
+    @Inject CostOutputService costOutputService;
 
     private int pagesCount;
 
     public CreateCostPagerAdapter(FragmentManager fm) {
         super(fm);
-        pagesCount = CostOutputService.getInstance().getMonthsCount() + 1;
+        ApplicationLoader.getInstance()
+                .getApplicationComponent()
+                .injectInto(this);
+        pagesCount = costOutputService.getMonthsCount() + 1;
     }
 
     @Override
@@ -33,7 +41,7 @@ public class CreateCostPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return dateFormat.format(month(position));
+        return DATE_FORMAT.format(month(position));
     }
 
     private Date month(int position) {
