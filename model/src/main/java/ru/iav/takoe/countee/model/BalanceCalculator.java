@@ -1,27 +1,17 @@
 package ru.iav.takoe.countee.model;
 
-import ru.iav.takoe.countee.vo.Cost;
+import java.math.BigDecimal;
+import java.util.Collection;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.math.BigDecimal;
-import java.util.Collection;
+
+import ru.iav.takoe.countee.vo.Cost;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 public class BalanceCalculator {
-
-    private static BalanceCalculator instance;
-
-    private BalanceCalculator() {}
-
-    public static BalanceCalculator getInstance() {
-        if (isNull(instance)) {
-            instance = new BalanceCalculator();
-        }
-        return instance;
-    }
 
     @Nonnull
     public BigDecimal getBalance(@Nullable Collection<Cost> costs) {

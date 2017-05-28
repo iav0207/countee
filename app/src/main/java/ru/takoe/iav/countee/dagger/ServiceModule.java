@@ -1,6 +1,5 @@
 package ru.takoe.iav.countee.dagger;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -15,8 +14,10 @@ import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.MonthOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 
-@Module
-@ParametersAreNonnullByDefault
+@Module(includes = {
+        DataAccessModule.class,
+        ModelModule.class
+})
 public class ServiceModule {
 
     @Provides
@@ -45,18 +46,6 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    CostReader provideCostReader() {
-        return CostReader.getInstance();
-    }
-
-    @Provides
-    @Singleton
-    CostSaver provideCostSaver() {
-        return CostSaver.getInstance();
-    }
-
-    @Provides
-    @Singleton
     CostInputParser provideCostInputParser() {
         return new CostInputParser();
     }
@@ -71,12 +60,6 @@ public class ServiceModule {
     @Singleton
     MonthOutputService provideMonthOutputService() {
         return MonthOutputService.getInstance();
-    }
-
-    @Provides
-    @Singleton
-    BalanceCalculator provideBalanceCalculator() {
-        return BalanceCalculator.getInstance();
     }
 
 }
