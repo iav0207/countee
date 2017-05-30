@@ -1,5 +1,13 @@
 package ru.iav.takoe.countee.service;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import org.joda.time.DateTime;
 import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.model.filter.impl.CostCommentFilter;
@@ -9,25 +17,16 @@ import ru.iav.takoe.countee.model.strategy.FundsDailyStrategy;
 import ru.iav.takoe.countee.model.strategy.FundsMonthlyStrategy;
 import ru.iav.takoe.countee.vo.Cost;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 
+@Singleton
 public class ChartsDataService {
 
-    private static ChartsDataService instance = new ChartsDataService();
+    private final CostReader reader;
 
-    private CostReader reader;
-
-    private ChartsDataService() {
-        reader = CostReader.getInstance();
-    }
-
-    public static ChartsDataService getInstance() {
-        return instance;
+    @Inject
+    public ChartsDataService(CostReader reader) {
+        this.reader = reader;
     }
 
     @Nonnull

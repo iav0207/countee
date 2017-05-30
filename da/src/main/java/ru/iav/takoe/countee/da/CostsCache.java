@@ -1,20 +1,20 @@
 package ru.iav.takoe.countee.da;
 
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
+
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import org.joda.time.DateTime;
 import ru.iav.takoe.countee.vo.Cost;
-
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
 
 import static ru.iav.takoe.countee.utils.DateUtils.month;
 import static ru.iav.takoe.countee.utils.DateUtils.now;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-class CostsCache implements Invalidable {
+public class CostsCache implements Invalidable {
 
     private static CostsCache instance;
 

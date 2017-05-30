@@ -9,16 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import butterknife.BindView;
 import ru.takoe.iav.countee.R;
 
 public class ViewProvider {
 
     private AppCompatActivity activity;
-
-    @BindView(R.id.nav_view) NavigationView navigationView;
-
-    @Nullable @BindView(R.id.toolbar) Toolbar toolbar;
 
     @Inject
     public ViewProvider(AppCompatActivity activity) {
@@ -27,11 +22,11 @@ public class ViewProvider {
 
     @Nullable
     public Toolbar getToolbar() {
-        return toolbar;
+        return findViewById(R.id.toolbar);
     }
 
     public NavigationView getNavigationView() {
-        return navigationView;
+        return findViewById(R.id.nav_view);
     }
 
     public ScrollView getScrollView() {

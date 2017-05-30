@@ -1,5 +1,9 @@
 package ru.iav.takoe.countee.model.map;
 
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.TreeMultimap;
@@ -8,23 +12,12 @@ import org.joda.time.DateTimeComparator;
 import ru.iav.takoe.countee.model.comparator.CostDateComparator;
 import ru.iav.takoe.countee.vo.Cost;
 
-import javax.annotation.Nonnull;
-import java.util.List;
-
 import static ru.iav.takoe.countee.model.CostDateUtil.day;
 import static ru.iav.takoe.countee.model.CostDateUtil.month;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 
 public class DateCostMultimapBuilder {
-
-    private static DateCostMultimapBuilder instance = new DateCostMultimapBuilder();
-
-    private DateCostMultimapBuilder() {}
-
-    public static DateCostMultimapBuilder getInstance() {
-        return instance;
-    }
 
     /**
      * Get a multimap of costs grouped for each day.
@@ -35,7 +28,7 @@ public class DateCostMultimapBuilder {
     @Nonnull
     public Multimap<DateTime, Cost> groupByDays(List<Cost> costs) {
         Multimap<DateTime, Cost> multimap = LinkedListMultimap.create();
-        if (safeList(costs).size() < 1) {
+        if (safeList(costs).isEmpty()) {
             return multimap;
         }
         for (int i = costs.size() - 1; i >= 0; i--) {
@@ -70,7 +63,7 @@ public class DateCostMultimapBuilder {
     }
 
     private Multimap<DateTime, Cost> buildMonthsMultimap(Multimap<DateTime, Cost> multimap, List<Cost> costs) {
-        if (safeList(costs).size() < 1) {
+        if (safeList(costs).isEmpty()) {
             return multimap;
         }
         for (int i = costs.size() - 1; i >= 0; i--) {

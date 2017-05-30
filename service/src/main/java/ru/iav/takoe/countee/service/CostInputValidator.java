@@ -1,22 +1,12 @@
 package ru.iav.takoe.countee.service;
 
-import org.apache.commons.lang3.StringUtils;
-
-import javax.annotation.Nullable;
 import java.math.BigDecimal;
 
-class CostInputValidator {
+import javax.annotation.Nullable;
 
-    private static CostInputValidator instance;
+import org.apache.commons.lang3.StringUtils;
 
-    private CostInputValidator() {}
-
-    static CostInputValidator getInstance() {
-        if (instance == null) {
-            instance = new CostInputValidator();
-        }
-        return instance;
-    }
+public class CostInputValidator {
 
     boolean isValid(@Nullable String costInput) {
         if (StringUtils.isBlank(costInput) || !costInput.contains(" ")) {

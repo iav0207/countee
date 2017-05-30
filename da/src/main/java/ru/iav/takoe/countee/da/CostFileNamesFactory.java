@@ -1,18 +1,20 @@
 package ru.iav.takoe.countee.da;
 
-import ru.iav.takoe.countee.persistence.file.FileFactory;
-
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+
+import ru.iav.takoe.countee.persistence.file.FileFactory;
+
 import static java.util.Arrays.asList;
 import static ru.iav.takoe.countee.utils.DateUtils.now;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-class CostFileNamesFactory {
+public class CostFileNamesFactory {
 
     private static CostFileNamesFactory instance;
 
@@ -24,11 +26,16 @@ class CostFileNamesFactory {
 
     private FileFactory fileFactory;
 
-    private CostFileNamesFactory() {
+    public CostFileNamesFactory() {
         fileFactory = FileFactory.getInstance();
     }
 
-    static CostFileNamesFactory getInstance() {
+    @Inject
+    public CostFileNamesFactory(FileFactory fileFactory) {
+        this.fileFactory = fileFactory;
+    }
+
+    public static CostFileNamesFactory getInstance() {
         if (isNull(instance)) {
             instance = new CostFileNamesFactory();
         }

@@ -9,17 +9,21 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import org.joda.time.DateTime;
+import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.service.ChartsDataService;
 
 public abstract class AbstractBarDataProvider {
 
     BarDataColorGenerator colorGenerator;
 
+    private ChartsDataService chartsDataService;
+
     private Typeface typeface;
 
     AbstractBarDataProvider(AssetManager assets) {
         this.typeface = Typeface.createFromAsset(assets, "fonts/OpenSans-Regular.ttf");
         this.colorGenerator = new BarDataColorGenerator();
+        this.chartsDataService = new ChartsDataService(new CostReader());
     }
 
     BarData getBarData() {
@@ -43,7 +47,7 @@ public abstract class AbstractBarDataProvider {
     protected abstract Map<DateTime, Float> getDataFromService();
 
     ChartsDataService getDataService() {
-        return ChartsDataService.getInstance();
+        return chartsDataService;
     }
 
     protected abstract String caption();

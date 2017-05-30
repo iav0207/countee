@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.TreeSet;
 
+import javax.inject.Inject;
+
 import com.google.common.collect.Multimap;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
@@ -20,11 +22,9 @@ import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 public class MonthOutputService implements Invalidable {
 
-    private static MonthOutputService instance;
+    private final DateCostMultimapBuilder multimapBuilder;
 
-    private DateCostMultimapBuilder multimapBuilder;
-
-    private CostReader reader;
+    private final CostReader reader;
 
     private Multimap<DateTime, Cost> multimap;
 
@@ -34,16 +34,10 @@ public class MonthOutputService implements Invalidable {
 
     private int monthsSpread;
 
-    private MonthOutputService() {
-        reader = CostReader.getInstance();
-        multimapBuilder = DateCostMultimapBuilder.getInstance();
-    }
-
-    public static MonthOutputService getInstance() {
-        if (isNull(instance)) {
-            instance = new MonthOutputService();
-        }
-        return instance;
+    @Inject
+    public MonthOutputService(DateCostMultimapBuilder multimapBuilder, CostReader reader) {
+        this.multimapBuilder = multimapBuilder;
+        this.reader = reader;
     }
 
     @Override

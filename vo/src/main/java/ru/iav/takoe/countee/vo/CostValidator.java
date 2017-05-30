@@ -2,18 +2,8 @@ package ru.iav.takoe.countee.vo;
 
 import java.math.BigDecimal;
 
-class CostValidator {
-
-    private static CostValidator instance;
-
-    static CostValidator getInstance() {
-        if (instance == null) {
-            instance = new CostValidator();
-        }
-        return instance;
-    }
-
-    private CostValidator() {}
+// TODO make this class implement Validator<Cost>
+public class CostValidator {
 
     void validate(BigDecimal amount) {
         if (amount == null) {

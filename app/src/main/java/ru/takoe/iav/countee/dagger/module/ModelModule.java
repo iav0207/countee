@@ -1,4 +1,4 @@
-package ru.takoe.iav.countee.dagger;
+package ru.takoe.iav.countee.dagger.module;
 
 import javax.inject.Singleton;
 

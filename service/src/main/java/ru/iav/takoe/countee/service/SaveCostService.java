@@ -1,22 +1,25 @@
 package ru.iav.takoe.countee.service;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import ru.iav.takoe.countee.da.CostSaver;
-import ru.iav.takoe.countee.da.Invalidable;
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.vo.Cost;
 
 import static ru.iav.takoe.countee.logging.LogService.logError;
 
 // TODO cover with tests
+@Singleton
 public class SaveCostService {
 
-    private CostSaver costSaver;
+    @Inject CostSaver costSaver;
 
-    private CostInputParser inputParser;
+    @Inject CostInputParser inputParser;
 
-    private Invalidable monthOutputService;
+    @Inject MonthOutputService monthOutputService;
+
+    public SaveCostService() {}
 
     @Inject
     public SaveCostService(CostSaver costSaver, CostInputParser inputParser,

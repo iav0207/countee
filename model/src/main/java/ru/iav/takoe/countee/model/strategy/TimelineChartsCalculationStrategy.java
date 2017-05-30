@@ -21,6 +21,8 @@ import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 abstract class TimelineChartsCalculationStrategy {
 
+    private static final DateCostMultimapBuilder multimapBuilder = new DateCostMultimapBuilder();
+
     private final List<Cost> costs;
 
     private BalanceCalculator balanceCalculator;
@@ -76,7 +78,7 @@ abstract class TimelineChartsCalculationStrategy {
     }
 
     static DateCostMultimapBuilder multimapBuilder() {
-        return DateCostMultimapBuilder.getInstance();
+        return multimapBuilder;
     }
 
 }
