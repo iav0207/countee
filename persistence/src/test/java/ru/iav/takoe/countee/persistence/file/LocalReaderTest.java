@@ -5,9 +5,6 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 
-/**
- * Created by takoe on 25.07.16.
- */
 public class LocalReaderTest {
 
     private LocalReader reader;

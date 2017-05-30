@@ -30,9 +30,6 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomDateOfLastYear;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 
-/**
- * Created by takoe on 24.11.16.
- */
 public class CostReaderTest {
 
     @Mock

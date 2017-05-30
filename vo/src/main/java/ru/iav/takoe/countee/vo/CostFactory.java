@@ -2,24 +2,18 @@ package ru.iav.takoe.countee.vo;
 
 import java.math.BigDecimal;
 
-/**
- * Created by takoe on 23.07.16.
- */
+import javax.inject.Inject;
+
 public class CostFactory {
 
-    private static CostFactory instance;
+    // TODO inject Validator<Cost>
+    @Inject CostValidator validator;
 
-    private CostValidator validator;
-
-    public static CostFactory getInstance() {
-        if (instance == null) {
-            instance = new CostFactory();
-        }
-        return instance;
+    public CostFactory() {
     }
 
-    private CostFactory() {
-        validator = CostValidator.getInstance();
+    public CostFactory(CostValidator validator) {
+        this.validator = validator;
     }
 
     public Cost create(BigDecimal amount, String comment) throws IllegalArgumentException {

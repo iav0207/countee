@@ -4,9 +4,6 @@ import org.joda.time.DateTime;
 
 import java.util.Date;
 
-/**
- * Created by takoe on 24.07.16.
- */
 public class DateUtils {
 
     public static DateTime today() {

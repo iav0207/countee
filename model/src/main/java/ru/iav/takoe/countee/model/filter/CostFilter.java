@@ -6,9 +6,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-/**
- * Created by takoe on 01.12.16.
- */
 public interface CostFilter {
 
     @Nonnull List<Cost> filter(@Nullable List<Cost> costs);

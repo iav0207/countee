@@ -10,9 +10,6 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import ru.takoe.iav.countee.R;
 
-/**
- * Created by takoe on 10.11.16.
- */
 public class SimpleMarkerView extends MarkerView {
 
     private TextView tvContent;

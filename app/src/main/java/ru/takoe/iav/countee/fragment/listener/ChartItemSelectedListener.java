@@ -1,5 +1,8 @@
 package ru.takoe.iav.countee.fragment.listener;
 
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+
 import android.content.res.AssetManager;
 import android.view.View;
 import android.widget.AdapterView;
@@ -7,28 +10,25 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
+import ru.takoe.iav.countee.application.CounteeApp;
 import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentSelectionHolder;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
 import ru.takoe.iav.countee.view.spinner.MultiSpinner;
 
-import javax.annotation.Nonnull;
-
-/**
- * Created by takoe on 14.11.16.
- */
 public class ChartItemSelectedListener implements AdapterView.OnItemSelectedListener,
         MultiSpinner.MultiSpinnerListener {
 
     private BarChart chart;
 
-    private BarDataFacade barDataFacade;
+    @Inject BarDataFacade barDataFacade;
 
-    private StatsFragmentSelectionHolder selectionHolder;
+    @Inject StatsFragmentSelectionHolder selectionHolder;
 
     public ChartItemSelectedListener(@Nonnull BarChart chart, AssetManager assets) {
         this.chart = chart;
-        barDataFacade = new BarDataFacade(assets);
-        selectionHolder = new StatsFragmentSelectionHolder();
+        CounteeApp.getInstance()
+                .getStatsComponent(assets)
+                .injectInto(this);
     }
 
     @Override

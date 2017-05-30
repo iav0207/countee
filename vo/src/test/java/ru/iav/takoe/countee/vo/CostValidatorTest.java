@@ -1,25 +1,20 @@
 package ru.iav.takoe.countee.vo;
 
-import net.bytebuddy.asm.Advice;
+import java.math.BigDecimal;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.math.BigDecimal;
-
-import static org.testng.Assert.*;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 24.07.16.
- */
 public class CostValidatorTest {
 
     private CostValidator validator;
 
     @BeforeClass
     public void init() {
-        validator = CostValidator.getInstance();
+        validator = new CostValidator();
     }
 
     @Test(expectedExceptions = IllegalArgumentException.class)

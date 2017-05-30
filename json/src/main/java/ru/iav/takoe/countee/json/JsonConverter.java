@@ -4,9 +4,6 @@ import com.google.gson.Gson;
 
 import java.io.Serializable;
 
-/**
- * Created by takoe on 24.07.16.
- */
 public class JsonConverter {
 
     private static JsonConverter instance;

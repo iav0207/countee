@@ -9,9 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-/**
- * Created by takoe on 16.11.16.
- */
 public class FundsDailyStrategy extends TimelineChartsCalculationStrategy {
 
     public FundsDailyStrategy(@Nonnull List<Cost> costs) {

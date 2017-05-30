@@ -22,9 +22,6 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-/**
- * Created by takoe on 10.11.16.
- */
 public class BarDataGenerator {
 
     private Typeface typeface;

@@ -1,27 +1,22 @@
 package ru.iav.takoe.countee.service;
 
-import com.google.common.collect.LinkedListMultimap;
-import com.google.common.collect.Multimap;
-import ru.iav.takoe.countee.da.CostReader;
-import ru.iav.takoe.countee.service.exception.NoSuchMonthException;
-import ru.iav.takoe.countee.vo.Cost;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
-import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
 
-/**
- * Created by takoe on 16.08.16.
- */
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
+import ru.iav.takoe.countee.da.CostReader;
+import ru.iav.takoe.countee.service.exception.NoSuchMonthException;
+import ru.iav.takoe.countee.vo.Cost;
+
 public class CostOutputService {
-
-    private static CostOutputService instance;
 
     private static final DecimalFormat decimalFormat = new DecimalFormat("#0.##");
 
@@ -31,23 +26,19 @@ public class CostOutputService {
 
     private static final Character newLine = '\n';
 
-    private CostReader reader;
+    private final CostReader reader;
 
-    private BalanceService balanceService;
+    private final BalanceService balanceService;
 
-    private MonthOutputService monthOutputService;
+    private final MonthOutputService monthOutputService;
 
-    public static CostOutputService getInstance() {
-        if (isNull(instance)) {
-            instance = new CostOutputService();
-        }
-        return instance;
-    }
-
-    private CostOutputService() {
-        reader = CostReader.getInstance();
-        balanceService = BalanceService.getInstance();
-        monthOutputService = MonthOutputService.getInstance();
+    @Inject
+    public CostOutputService(CostReader reader, BalanceService balanceService,
+            MonthOutputService monthOutputService)
+    {
+        this.reader = reader;
+        this.balanceService = balanceService;
+        this.monthOutputService = monthOutputService;
     }
 
     public String getCurrentBalanceOutput() {

@@ -9,9 +9,6 @@ import java.io.IOException;
 
 import static ru.iav.takoe.countee.logging.LogService.logError;
 
-/**
- * Created by takoe on 25.07.16.
- */
 public class LocalReader {
 
     private static LocalReader instance;

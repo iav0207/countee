@@ -1,20 +1,22 @@
 package ru.iav.takoe.countee.da;
 
+import java.io.File;
+
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.json.JsonConverter;
 import ru.iav.takoe.countee.persistence.file.LocalWriter;
 import ru.iav.takoe.countee.vo.Cost;
 import ru.takoe.iav.countee.properties.ApplicationProperties;
 
-import javax.annotation.Nonnull;
-import java.io.File;
-
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.logging.LogService.logInfo;
 
+@Singleton
 public class CostSaver {
-
-    private static CostSaver instance;
 
     private CostFileNamesFactory fileNamesFactory;
 
@@ -26,19 +28,23 @@ public class CostSaver {
 
     private LocalWriter writer;
 
-    private CostSaver() {
+    public CostSaver() {
         fileNamesFactory = CostFileNamesFactory.getInstance();
-        costReader = CostReader.getInstance();
+        costReader = new CostReader();
         cache = CostsCache.getInstance();
         jsonConverter = JsonConverter.getInstance();
         writer = LocalWriter.getInstance();
     }
 
-    public static CostSaver getInstance() {
-        if (instance == null) {
-            instance = new CostSaver();
-        }
-        return instance;
+    @Inject
+    public CostSaver(CostFileNamesFactory fileNamesFactory, CostReader costReader,
+            CostsCache cache, JsonConverter jsonConverter, LocalWriter writer)
+    {
+        this.fileNamesFactory = fileNamesFactory;
+        this.costReader = costReader;
+        this.cache = cache;
+        this.jsonConverter = jsonConverter;
+        this.writer = writer;
     }
 
     public void save(@Nonnull Cost cost) throws CostNotSavedException {

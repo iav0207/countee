@@ -8,9 +8,6 @@ import ru.iav.takoe.countee.json.vo.TestObjectWithNoFields;
 
 import static org.testng.Assert.*;
 
-/**
- * Created by takoe on 24.07.16.
- */
 public class JsonParserTest {
 
     private JsonParser parser;

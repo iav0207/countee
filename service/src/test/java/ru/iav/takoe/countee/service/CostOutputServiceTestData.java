@@ -1,18 +1,18 @@
 package ru.iav.takoe.countee.service;
 
+import java.math.BigDecimal;
+
 import org.testng.annotations.DataProvider;
 import ru.iav.takoe.countee.vo.Cost;
 import ru.iav.takoe.countee.vo.CostFactory;
-
-import java.math.BigDecimal;
+import ru.iav.takoe.countee.vo.CostValidator;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 
-/**
- * Created by takoe on 16.08.16.
- */
 public class CostOutputServiceTestData {
+
+    private static CostFactory costFactory = new CostFactory(new CostValidator());
 
     @DataProvider(name = "getCostLists")
     public static Object[][] getCostLists() throws Exception {
@@ -41,7 +41,7 @@ public class CostOutputServiceTestData {
     }
 
     private static Cost cost(Integer amount, String comment, String dateString) throws Exception {
-        Cost cost = CostFactory.getInstance().create(BigDecimal.valueOf(amount), comment);
+        Cost cost = costFactory.create(BigDecimal.valueOf(amount), comment);
         cost.setTimestamp(CostOutputService.dateFormat.parse(dateString));
         return cost;
     }

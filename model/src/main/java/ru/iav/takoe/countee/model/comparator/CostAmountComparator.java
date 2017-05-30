@@ -5,9 +5,6 @@ import ru.iav.takoe.countee.vo.Cost;
 import java.math.BigDecimal;
 import java.util.Comparator;
 
-/**
- * Created by takoe on 12.11.16.
- */
 public class CostAmountComparator implements Comparator<Cost> {
 
     @Override

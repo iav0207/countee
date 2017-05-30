@@ -1,41 +1,36 @@
 package ru.takoe.iav.countee.fragment.content.stats.data;
 
-import android.content.res.AssetManager;
-import com.github.mikephil.charting.data.BarData;
-import ru.iav.takoe.countee.service.CostCommentsService;
-
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by takoe on 01.12.16.
- */
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+
+import android.content.res.AssetManager;
+import com.github.mikephil.charting.data.BarData;
+import ru.iav.takoe.countee.service.CostCommentsService;
+import ru.takoe.iav.countee.application.CounteeApp;
+
 public class BarDataFacade {
 
-    private CostCommentsService costCommentsService;
+    @Inject CostCommentsService costCommentsService;
 
-    private FundsDailyBarDataProvider fundsDailyBarDataProvider;
-
-    private FundsMonthlyDataProvider fundsMonthlyDataProvider;
-
-    private CostsDailyBarDataProvider costsDailyBarDataProvider;
-
-    private CostsMonthlyBarDataProvider costsMonthlyBarDataProvider;
+    @Inject FundsDailyBarDataProvider fundsDailyBarDataProvider;
+    @Inject FundsMonthlyBarDataProvider fundsMonthlyBarDataProvider;
+    @Inject CostsDailyBarDataProvider costsDailyBarDataProvider;
+    @Inject CostsMonthlyBarDataProvider costsMonthlyBarDataProvider;
 
     public BarDataFacade(AssetManager assets) {
-        costCommentsService = CostCommentsService.getInstance();
-        this.fundsDailyBarDataProvider = new FundsDailyBarDataProvider(assets);
-        this.fundsMonthlyDataProvider = new FundsMonthlyDataProvider(assets);
-        this.costsDailyBarDataProvider = new CostsDailyBarDataProvider(assets);
-        this.costsMonthlyBarDataProvider = new CostsMonthlyBarDataProvider(assets);
+        CounteeApp.getInstance()
+                .getStatsComponent(assets)
+                .injectInto(this);
     }
 
     public BarData getData(int chartType, boolean[] filterSelections) {
         switch (chartType) {
             case 0: return fundsDailyBarDataProvider.getBarData();
-            case 1: return fundsMonthlyDataProvider.getBarData();
+            case 1: return fundsMonthlyBarDataProvider.getBarData();
             case 2: return costsDailyBarDataProvider.getBarData(toFilterItems(filterSelections));
             case 3: return costsMonthlyBarDataProvider.getBarData(toFilterItems(filterSelections));
             default: return fundsDailyBarDataProvider.getBarData();
@@ -55,11 +50,7 @@ public class BarDataFacade {
     }
 
     private String[] toArray(@Nonnull List<String> list) {
-        String[] array = new String[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            array[i] = list.get(i);
-        }
-        return array;
+        return list.toArray(new String[list.size()]);
     }
 
 }

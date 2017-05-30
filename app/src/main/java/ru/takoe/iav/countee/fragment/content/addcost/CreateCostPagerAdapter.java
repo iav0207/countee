@@ -1,27 +1,32 @@
 package ru.takoe.iav.countee.fragment.content.addcost;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import javax.inject.Inject;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import org.joda.time.DateTime;
 import ru.iav.takoe.countee.service.CostOutputService;
+import ru.takoe.iav.countee.application.CounteeApp;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-
-/**
- * Created by takoe on 03.09.16.
- */
 public class CreateCostPagerAdapter extends FragmentStatePagerAdapter {
 
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yyyy", Locale.US);
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yyyy", Locale.US);
 
-    private int pagesCount;
+    @Inject CostOutputService costOutputService;
+
+    private final int pagesCount;
 
     public CreateCostPagerAdapter(FragmentManager fm) {
         super(fm);
-        pagesCount = CostOutputService.getInstance().getMonthsCount() + 1;
+        CounteeApp.getInstance()
+                .getApplicationComponent()
+                .injectInto(this);
+        pagesCount = costOutputService.getMonthsCount() + 1;
     }
 
     @Override

@@ -9,9 +9,6 @@ import java.util.List;
 import static ru.iav.takoe.countee.model.utils.CounteeTestUtils.listOfCostsWithComments;
 
 
-/**
- * Created by takoe on 30.11.16.
- */
 public class CostCommentFilterTestData {
 
     static final ru.iav.takoe.countee.model.filter.impl.CostCommentFilter

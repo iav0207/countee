@@ -23,9 +23,6 @@ import static org.testng.Assert.assertEquals;
 import static ru.iav.takoe.countee.service.utils.CounteeTestUtils.getListOfRandomCosts;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 
-/**
- * Created by takoe on 21.11.16.
- */
 public class BalanceServiceTest {
 
     @Mock

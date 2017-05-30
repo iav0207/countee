@@ -9,9 +9,6 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomBoolean;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 24.07.16.
- */
 class JsonConverterTestData {
 
     static TestObject getTestObject() {

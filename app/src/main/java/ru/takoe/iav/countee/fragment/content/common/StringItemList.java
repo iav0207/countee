@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by takoe on 16.11.16.
- */
 public class StringItemList {
 
     private final List<StringItem> items = new ArrayList<>();

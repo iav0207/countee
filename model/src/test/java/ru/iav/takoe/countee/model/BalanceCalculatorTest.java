@@ -1,22 +1,19 @@
 package ru.iav.takoe.countee.model;
 
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
-import ru.iav.takoe.countee.vo.Cost;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+import ru.iav.takoe.countee.vo.Cost;
+
 import static org.testng.Assert.assertEquals;
 import static ru.iav.takoe.countee.model.utils.CounteeTestUtils.costList;
 
-/**
- * Created by takoe on 30.11.16.
- */
 public class BalanceCalculatorTest {
 
-    private BalanceCalculator calculator = BalanceCalculator.getInstance();
+    private BalanceCalculator calculator = new BalanceCalculator();
 
     @Test
     public void shouldReturnZeroIfInputIsNull() throws Exception {

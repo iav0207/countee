@@ -10,9 +10,6 @@ import java.util.List;
 import static ru.iav.takoe.countee.service.utils.CounteeTestUtils.cost;
 import static ru.iav.takoe.countee.utils.DateUtils.month;
 
-/**
- * Created by takoe on 04.12.16.
- */
 public class MonthOutputServiceTestData {
 
     @DataProvider(name = "spreadCount")

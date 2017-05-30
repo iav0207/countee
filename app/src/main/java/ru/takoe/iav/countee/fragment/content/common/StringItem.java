@@ -1,8 +1,5 @@
 package ru.takoe.iav.countee.fragment.content.common;
 
-/**
- * Created by takoe on 16.11.16.
- */
 public class StringItem {
 
     public final String id;

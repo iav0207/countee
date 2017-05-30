@@ -7,9 +7,6 @@ import java.io.File;
 
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 24.07.16.
- */
 public class LocalWriterTest {
 
     private static final String testFileName = "test/localWriter.test";

@@ -1,22 +1,22 @@
 package ru.takoe.iav.countee.fragment.content.stats.data;
 
-import android.content.res.AssetManager;
-import com.github.mikephil.charting.data.BarEntry;
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by takoe on 14.11.16.
- */
-public class FundsMonthlyDataProvider extends AbstractBarDataProvider {
+import android.content.res.AssetManager;
+import com.github.mikephil.charting.data.BarEntry;
+import org.joda.time.DateTime;
+import ru.takoe.iav.countee.application.CounteeApp;
 
-    private static final String caption = "Funds, monthly";
+public class FundsMonthlyBarDataProvider extends AbstractBarDataProvider {
 
-    public FundsMonthlyDataProvider(AssetManager assets) {
-        super(assets);
+    private static final String CAPTION = "Funds, monthly";
+
+    public FundsMonthlyBarDataProvider(AssetManager assets) {
+        CounteeApp.getInstance()
+                .getStatsComponent(assets)
+                .injectInto(this);
     }
 
     @Override
@@ -36,6 +36,6 @@ public class FundsMonthlyDataProvider extends AbstractBarDataProvider {
 
     @Override
     protected String caption() {
-        return caption;
+        return CAPTION;
     }
 }

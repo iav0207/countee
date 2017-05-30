@@ -13,9 +13,6 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.testng.Assert.assertEquals;
 
-/**
- * Created by takoe on 16.08.16.
- */
 public class CostOutputServiceTest {
 
     @Mock

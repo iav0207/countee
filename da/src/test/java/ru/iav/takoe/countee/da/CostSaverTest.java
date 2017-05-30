@@ -1,5 +1,8 @@
 package ru.iav.takoe.countee.da;
 
+import java.io.File;
+
+import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -11,8 +14,7 @@ import ru.iav.takoe.countee.json.JsonConverter;
 import ru.iav.takoe.countee.persistence.file.LocalWriter;
 import ru.iav.takoe.countee.vo.Cost;
 import ru.iav.takoe.countee.vo.CostFactory;
-
-import java.io.File;
+import ru.iav.takoe.countee.vo.CostValidator;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -26,31 +28,24 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 26.07.16.
- */
 public class CostSaverTest {
 
-    @Mock
-    private JsonConverter jsonConverter;
+    @Mock(answer = Answers.CALLS_REAL_METHODS)
+    private CostValidator costValidator;
 
-    @Mock
-    private LocalWriter writer;
+    @Mock private JsonConverter jsonConverter;
+    @Mock private LocalWriter writer;
+    @Mock private CostReader costReader;
+    @Mock private CostsCache cache;
+    @Mock private CostFileNamesFactory costFileNamesFactory;
 
-    @Mock
-    private CostReader costReader;
-
-    @Mock
-    private CostsCache cache;
-
-    @InjectMocks
-    private CostSaver costSaver;
-
-    private CostFactory costFactory = CostFactory.getInstance();
+    @InjectMocks private CostFactory costFactory;
+    @InjectMocks private CostSaver costSaver;
 
     @BeforeClass
     public void init() {
         initMocks(this);
+        doReturn(new File("")).when(costFileNamesFactory).getActualFile();
     }
 
     @BeforeMethod

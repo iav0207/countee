@@ -1,22 +1,22 @@
 package ru.takoe.iav.countee.fragment.content.stats.data;
 
-import android.content.res.AssetManager;
-import com.github.mikephil.charting.data.BarEntry;
-import org.joda.time.DateTime;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by takoe on 12.11.16.
- */
+import android.content.res.AssetManager;
+import com.github.mikephil.charting.data.BarEntry;
+import org.joda.time.DateTime;
+import ru.takoe.iav.countee.application.CounteeApp;
+
 public class FundsDailyBarDataProvider extends AbstractBarDataProvider {
 
     private static final String caption = "Funds, daily";
 
     public FundsDailyBarDataProvider(AssetManager assets) {
-        super(assets);
+        CounteeApp.getInstance()
+                .getStatsComponent(assets)
+                .injectInto(this);
     }
 
     @Override

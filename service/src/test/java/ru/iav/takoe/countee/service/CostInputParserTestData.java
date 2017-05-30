@@ -1,17 +1,15 @@
 package ru.iav.takoe.countee.service;
 
+import java.math.BigDecimal;
+
 import org.testng.annotations.DataProvider;
 import ru.iav.takoe.countee.vo.Cost;
 import ru.iav.takoe.countee.vo.CostFactory;
+import ru.iav.takoe.countee.vo.CostValidator;
 
-import java.math.BigDecimal;
-
-/**
- * Created by takoe on 16.08.16.
- */
 public class CostInputParserTestData {
 
-    private static CostFactory costFactory = CostFactory.getInstance();
+    private static CostFactory costFactory = new CostFactory(new CostValidator());
 
     @DataProvider(name = "getValidStrings")
     public static Object[][] getValidStrings() {

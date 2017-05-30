@@ -1,15 +1,25 @@
 package ru.takoe.iav.countee.fragment.content.stats;
 
-import com.google.common.primitives.Booleans;
+import java.util.Arrays;
 
-/**
- * Created by takoe on 01.12.16.
- */
+import com.google.common.primitives.Booleans;
+import ru.iav.takoe.countee.service.CostCommentsService;
+import ru.takoe.iav.countee.application.CounteeApp;
+
 public class StatsFragmentSelectionHolder {
 
     private int chartType = 0;
 
-    private boolean[] filters = new boolean[StatsFragmentContent.getFilterSpinnerItems().size()];
+    private boolean[] filters;
+
+    public StatsFragmentSelectionHolder() {
+        CostCommentsService costCommentsService = CounteeApp.getInstance()
+                .getApplicationComponent()
+                .getCostCommentsService();
+        int filterItemsCount = costCommentsService.getAllCommentsSet().size();
+
+        this.filters = new boolean[filterItemsCount];
+    }
 
     public int getChartType() {
         return chartType;
@@ -36,9 +46,7 @@ public class StatsFragmentSelectionHolder {
 
     private boolean[] allTrue() {
         boolean[] trues = new boolean[filters.length];
-        for (int i = 0; i < trues.length; i++) {
-            trues[i] = true;
-        }
+        Arrays.fill(trues, true);
         return trues;
     }
 

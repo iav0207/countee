@@ -1,23 +1,20 @@
 package ru.iav.takoe.countee.da;
 
-import ru.iav.takoe.countee.json.JsonParser;
-import ru.iav.takoe.countee.persistence.file.LocalReader;
-import ru.iav.takoe.countee.vo.Cost;
-
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.inject.Inject;
+
+import ru.iav.takoe.countee.json.JsonParser;
+import ru.iav.takoe.countee.persistence.file.LocalReader;
+import ru.iav.takoe.countee.vo.Cost;
+
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 
-/**
- * Created by takoe on 16.08.16.
- */
 public class CostReader {
-
-    private static CostReader instance = new CostReader();
 
     private CostFileNamesFactory fileNamesFactory;
 
@@ -27,15 +24,21 @@ public class CostReader {
 
     private CostsCache cache;
 
-    public static CostReader getInstance() {
-        return instance;
-    }
-
-    private CostReader() {
+    public CostReader() {
         fileNamesFactory = CostFileNamesFactory.getInstance();
         jsonParser = JsonParser.getInstance();
         reader = LocalReader.getInstance();
         cache = CostsCache.getInstance();
+    }
+
+    @Inject
+    public CostReader(CostFileNamesFactory fileNamesFactory, JsonParser jsonParser,
+            LocalReader reader, CostsCache cache)
+    {
+        this.fileNamesFactory = fileNamesFactory;
+        this.jsonParser = jsonParser;
+        this.reader = reader;
+        this.cache = cache;
     }
 
     @Nonnull

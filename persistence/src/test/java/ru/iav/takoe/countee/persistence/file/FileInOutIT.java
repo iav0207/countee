@@ -10,9 +10,6 @@ import java.io.File;
 import static org.testng.Assert.assertEquals;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 25.07.16.
- */
 public class FileInOutIT {
 
     private static final String testFileName = "test/FileInOutIT.test";

@@ -11,9 +11,6 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 25.07.16.
- */
 public class FileFactoryTest {
 
     private static final String testFileName = "test/fileFactory.test";

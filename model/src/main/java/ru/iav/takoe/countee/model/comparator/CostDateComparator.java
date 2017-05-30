@@ -8,9 +8,6 @@ import java.util.Date;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 12.11.16.
- */
 public class CostDateComparator implements Comparator<Cost> {
 
     @Override

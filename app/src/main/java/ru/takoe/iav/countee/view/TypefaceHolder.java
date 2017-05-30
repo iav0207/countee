@@ -1,17 +1,39 @@
 package ru.takoe.iav.countee.view;
 
+import javax.inject.Inject;
+
 import android.content.res.AssetManager;
 import android.graphics.Typeface;
 
-/**
- * Created by takoe on 04.12.16.
- */
 public class TypefaceHolder {
 
     private static String commonTypefacePath = "fonts/OpenSans-Light.ttf";
 
-    public static Typeface getCommonTypeface(AssetManager assets) {
-        return Typeface.createFromAsset(assets, commonTypefacePath);
+    private static String chartsTypefacePath = "fonts/OpenSans-Regular.ttf";
+
+    private final AssetManager assets;
+
+    private final Typeface commonTypeface;
+    private final Typeface chartsTypeface;
+
+    @Inject
+    public TypefaceHolder(AssetManager assets) {
+        this.assets = assets;
+
+        commonTypeface = createTypeface(commonTypefacePath);
+        chartsTypeface = createTypeface(chartsTypefacePath);
+    }
+
+    public Typeface getCommonTypeface() {
+        return commonTypeface;
+    }
+
+    public Typeface getChartsTypeface() {
+        return chartsTypeface;
+    }
+
+    private Typeface createTypeface(String path) {
+        return Typeface.createFromAsset(assets, path);
     }
 
 }
