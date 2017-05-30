@@ -7,13 +7,16 @@ import java.util.Map;
 import android.content.res.AssetManager;
 import com.github.mikephil.charting.data.BarEntry;
 import org.joda.time.DateTime;
+import ru.takoe.iav.countee.application.CounteeApp;
 
 public class FundsMonthlyBarDataProvider extends AbstractBarDataProvider {
 
     private static final String CAPTION = "Funds, monthly";
 
     public FundsMonthlyBarDataProvider(AssetManager assets) {
-        super(assets);
+        CounteeApp.getInstance()
+                .getStatsComponent(assets)
+                .injectInto(this);
     }
 
     @Override

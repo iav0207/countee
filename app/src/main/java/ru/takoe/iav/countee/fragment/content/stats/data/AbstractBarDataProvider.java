@@ -3,32 +3,27 @@ package ru.takoe.iav.countee.fragment.content.stats.data;
 import java.util.List;
 import java.util.Map;
 
-import android.content.res.AssetManager;
+import javax.inject.Inject;
+
 import android.graphics.Typeface;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import org.joda.time.DateTime;
-import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.service.ChartsDataService;
+import ru.takoe.iav.countee.view.TypefaceHolder;
 
 public abstract class AbstractBarDataProvider {
 
-    BarDataColorGenerator colorGenerator;
+    @Inject BarDataColorGenerator colorGenerator;
 
-    private ChartsDataService chartsDataService;
+    @Inject ChartsDataService chartsDataService;
 
-    private Typeface typeface;
-
-    AbstractBarDataProvider(AssetManager assets) {
-        this.typeface = Typeface.createFromAsset(assets, "fonts/OpenSans-Regular.ttf");
-        this.colorGenerator = new BarDataColorGenerator();
-        this.chartsDataService = new ChartsDataService(new CostReader());
-    }
+    @Inject TypefaceHolder typefaceHolder;
 
     BarData getBarData() {
         BarData data = new BarData(createDataSet());
-        data.setValueTypeface(typeface);
+        data.setValueTypeface(typeface());
         return data;
     }
 
@@ -52,8 +47,8 @@ public abstract class AbstractBarDataProvider {
 
     protected abstract String caption();
 
-    Typeface typeface() {
-        return typeface;
+    protected Typeface typeface() {
+        return typefaceHolder.getChartsTypeface();
     }
 
     BarDataColorGenerator colorGenerator() {

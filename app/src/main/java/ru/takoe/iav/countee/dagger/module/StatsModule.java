@@ -11,6 +11,7 @@ import ru.takoe.iav.countee.fragment.content.stats.data.CostsDailyBarDataProvide
 import ru.takoe.iav.countee.fragment.content.stats.data.CostsMonthlyBarDataProvider;
 import ru.takoe.iav.countee.fragment.content.stats.data.FundsDailyBarDataProvider;
 import ru.takoe.iav.countee.fragment.content.stats.data.FundsMonthlyBarDataProvider;
+import ru.takoe.iav.countee.view.TypefaceHolder;
 
 @Module
 public class StatsModule {
@@ -37,6 +38,12 @@ public class StatsModule {
     @ActivityScope
     BarDataGenerator provideBarDataGenerator() {
         return new BarDataGenerator(provideAssets());
+    }
+
+    @Provides
+    @ActivityScope
+    TypefaceHolder provideTypefaceHolder(AssetManager assets) {
+        return new TypefaceHolder(assets);
     }
 
     @Provides

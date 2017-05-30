@@ -43,6 +43,7 @@ import ru.takoe.iav.countee.view.spinner.MultiSpinner;
 public class StatsFragment extends AbstractChartFragment implements OnChartGestureListener {
 
     @Inject CostCommentsService costCommentsService;
+    @Inject TypefaceHolder typefaceHolder;
 
     @BindView(R.id.bar_chart_1) BarChart mChart;
     @BindView(R.id.chartSpinner) Spinner chartTypeSpinner;
@@ -78,6 +79,8 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         CounteeApp.getInstance()
                 .getStatsComponent(getActivity())
                 .injectInto(this);
+
+        typeface = typefaceHolder.getCommonTypeface();
     }
 
     @Override
@@ -88,7 +91,6 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
 
         ButterKnife.bind(this, view);
         setUpChart();
-        createTypeface();
         createSpinners();
 
         // setChartData(); chart data is set on dropdown list activation
@@ -134,10 +136,6 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
         SimpleMarkerView mv = new SimpleMarkerView(getActivity(), R.layout.simple_marker_view);
         mv.setChartView(mChart); // For bounds control
         return mv;
-    }
-
-    private void createTypeface() {
-        typeface = TypefaceHolder.getCommonTypeface(getActivity().getAssets());
     }
 
     private void adjustLegend() {

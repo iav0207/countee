@@ -19,7 +19,6 @@ public abstract class CostsBarDataProvider extends AbstractBarDataProvider {
     @Inject CostCommentsService costCommentsService;
 
     public CostsBarDataProvider(AssetManager assets) {
-        super(assets);
         CounteeApp.getInstance()
                 .getStatsComponent(assets)
                 .injectInto(this);
