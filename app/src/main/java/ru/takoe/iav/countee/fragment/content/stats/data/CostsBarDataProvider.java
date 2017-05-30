@@ -12,7 +12,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import org.joda.time.DateTime;
 import ru.iav.takoe.countee.service.CostCommentsService;
-import ru.takoe.iav.countee.application.ApplicationLoader;
+import ru.takoe.iav.countee.application.CounteeApp;
 
 public abstract class CostsBarDataProvider extends AbstractBarDataProvider {
 
@@ -20,7 +20,7 @@ public abstract class CostsBarDataProvider extends AbstractBarDataProvider {
 
     public CostsBarDataProvider(AssetManager assets) {
         super(assets);
-        ApplicationLoader.getInstance()
+        CounteeApp.getInstance()
                 .getStatsComponent(assets)
                 .injectInto(this);
     }

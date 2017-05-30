@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import android.content.res.AssetManager;
 import com.github.mikephil.charting.data.BarData;
 import ru.iav.takoe.countee.service.CostCommentsService;
-import ru.takoe.iav.countee.application.ApplicationLoader;
+import ru.takoe.iav.countee.application.CounteeApp;
 
 public class BarDataFacade {
 
@@ -22,7 +22,7 @@ public class BarDataFacade {
     @Inject CostsMonthlyBarDataProvider costsMonthlyBarDataProvider;
 
     public BarDataFacade(AssetManager assets) {
-        ApplicationLoader.getInstance()
+        CounteeApp.getInstance()
                 .getStatsComponent(assets)
                 .injectInto(this);
     }

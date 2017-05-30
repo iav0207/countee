@@ -22,7 +22,7 @@ import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import ru.iav.takoe.countee.service.CostCommentsService;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.application.ApplicationLoader;
+import ru.takoe.iav.countee.application.CounteeApp;
 import ru.takoe.iav.countee.fragment.content.common.StringItem;
 import ru.takoe.iav.countee.fragment.content.common.StringItemList;
 import ru.takoe.iav.countee.fragment.content.stats.SimpleMarkerView;
@@ -75,7 +75,7 @@ public class StatsFragment extends AbstractChartFragment implements OnChartGestu
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ApplicationLoader.getInstance()
+        CounteeApp.getInstance()
                 .getStatsComponent(getActivity())
                 .injectInto(this);
     }

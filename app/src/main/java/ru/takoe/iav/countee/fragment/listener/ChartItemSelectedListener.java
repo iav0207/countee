@@ -10,7 +10,7 @@ import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
-import ru.takoe.iav.countee.application.ApplicationLoader;
+import ru.takoe.iav.countee.application.CounteeApp;
 import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentSelectionHolder;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
 import ru.takoe.iav.countee.view.spinner.MultiSpinner;
@@ -26,7 +26,7 @@ public class ChartItemSelectedListener implements AdapterView.OnItemSelectedList
 
     public ChartItemSelectedListener(@Nonnull BarChart chart, AssetManager assets) {
         this.chart = chart;
-        ApplicationLoader.getInstance()
+        CounteeApp.getInstance()
                 .getStatsComponent(assets)
                 .injectInto(this);
     }

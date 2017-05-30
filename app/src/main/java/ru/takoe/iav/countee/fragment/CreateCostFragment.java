@@ -27,7 +27,7 @@ import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.application.ApplicationLoader;
+import ru.takoe.iav.countee.application.CounteeApp;
 import ru.takoe.iav.countee.fragment.content.addcost.CreateCostPagerAdapter;
 import ru.takoe.iav.countee.view.ViewProvider;
 import ru.takoe.iav.countee.view.ViewScroller;
@@ -83,7 +83,7 @@ public class CreateCostFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ApplicationLoader.getInstance()
+        CounteeApp.getInstance()
                 .getViewProviderComponent(getActivity())
                 .injectInto(this);
     }

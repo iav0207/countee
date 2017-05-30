@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import org.joda.time.DateTime;
 import ru.iav.takoe.countee.service.CostOutputService;
-import ru.takoe.iav.countee.application.ApplicationLoader;
+import ru.takoe.iav.countee.application.CounteeApp;
 
 public class CreateCostPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -23,7 +23,7 @@ public class CreateCostPagerAdapter extends FragmentStatePagerAdapter {
 
     public CreateCostPagerAdapter(FragmentManager fm) {
         super(fm);
-        ApplicationLoader.getInstance()
+        CounteeApp.getInstance()
                 .getApplicationComponent()
                 .injectInto(this);
         pagesCount = costOutputService.getMonthsCount() + 1;

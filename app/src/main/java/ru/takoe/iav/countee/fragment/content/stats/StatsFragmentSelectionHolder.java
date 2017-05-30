@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import com.google.common.primitives.Booleans;
 import ru.iav.takoe.countee.service.CostCommentsService;
-import ru.takoe.iav.countee.application.ApplicationLoader;
+import ru.takoe.iav.countee.application.CounteeApp;
 
 public class StatsFragmentSelectionHolder {
 
@@ -13,7 +13,7 @@ public class StatsFragmentSelectionHolder {
     private boolean[] filters;
 
     public StatsFragmentSelectionHolder() {
-        CostCommentsService costCommentsService = ApplicationLoader.getInstance()
+        CostCommentsService costCommentsService = CounteeApp.getInstance()
                 .getApplicationComponent()
                 .getCostCommentsService();
         int filterItemsCount = costCommentsService.getAllCommentsSet().size();

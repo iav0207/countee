@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.application.ApplicationLoader;
+import ru.takoe.iav.countee.application.CounteeApp;
 import ru.takoe.iav.countee.fragment.CreateCostFragment;
 import ru.takoe.iav.countee.fragment.SettingsFragment;
 import ru.takoe.iav.countee.fragment.StatsFragment;
@@ -42,7 +42,7 @@ public class CreateCostActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_cost);
 
-        ApplicationLoader.getInstance()
+        CounteeApp.getInstance()
                 .getViewProviderComponent(this)
                 .inject(this);
         ButterKnife.bind(this);

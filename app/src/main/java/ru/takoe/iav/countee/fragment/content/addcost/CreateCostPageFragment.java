@@ -13,7 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.application.ApplicationLoader;
+import ru.takoe.iav.countee.application.CounteeApp;
 import ru.takoe.iav.countee.view.ViewScroller;
 
 public class CreateCostPageFragment extends Fragment {
@@ -37,7 +37,7 @@ public class CreateCostPageFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_create_cost_output, container, false);
 
         ButterKnife.bind(this, rootView);
-        ApplicationLoader.getInstance()
+        CounteeApp.getInstance()
                 .getApplicationComponent()
                 .injectInto(this);
 

@@ -18,15 +18,16 @@ import ru.takoe.iav.countee.dagger.ViewProviderComponent;
 import ru.takoe.iav.countee.dagger.module.StatsModule;
 import ru.takoe.iav.countee.dagger.module.ViewProviderModule;
 
-public class ApplicationLoader extends Application {
+public class CounteeApp extends Application {
 
-    private static ApplicationLoader instance;
+    private static CounteeApp instance;
 
     private AppComponent applicationComponent;
 
     private volatile WeakReference<FragmentActivity> activity = new WeakReference<>(null);
 
     private volatile ViewProviderComponent viewProviderComponent;
+    private volatile StatsComponent statsComponent;
 
     public static volatile Context applicationContext;
     public static volatile Handler applicationHandler;
@@ -42,12 +43,12 @@ public class ApplicationLoader extends Application {
         applicationHandler = new Handler(applicationContext.getMainLooper());
     }
 
-    public static ApplicationLoader getInstance() {
+    public static CounteeApp getInstance() {
         return instance;
     }
 
-    public static void setInstance(ApplicationLoader instance) {
-        ApplicationLoader.instance = instance;
+    public static void setInstance(CounteeApp instance) {
+        CounteeApp.instance = instance;
     }
 
     public AppComponent getApplicationComponent() {
@@ -71,10 +72,13 @@ public class ApplicationLoader extends Application {
     }
 
     public StatsComponent getStatsComponent(AssetManager assets) {
-        return DaggerStatsComponent.builder()
-                .appComponent(applicationComponent)
-                .statsModule(new StatsModule(assets))
-                .build();
+        if (statsComponent == null) {
+            statsComponent = DaggerStatsComponent.builder()
+                    .appComponent(applicationComponent)
+                    .statsModule(new StatsModule(assets))
+                    .build();
+        }
+        return statsComponent;
     }
 
 }
