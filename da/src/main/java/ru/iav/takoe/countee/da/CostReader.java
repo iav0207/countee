@@ -24,13 +24,6 @@ public class CostReader {
 
     private CostsCache cache;
 
-    public CostReader() {
-        fileNamesFactory = CostFileNamesFactory.getInstance();
-        jsonParser = JsonParser.getInstance();
-        reader = LocalReader.getInstance();
-        cache = CostsCache.getInstance();
-    }
-
     @Inject
     public CostReader(CostFileNamesFactory fileNamesFactory, JsonParser jsonParser,
             LocalReader reader, CostsCache cache)

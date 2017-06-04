@@ -17,7 +17,7 @@ public class JsonConverterTest {
 
     @BeforeClass
     public void init() {
-        converter = JsonConverter.getInstance();
+        converter = new JsonConverter();
         object = getTestObject();
         json = converter.serialize(object);
     }

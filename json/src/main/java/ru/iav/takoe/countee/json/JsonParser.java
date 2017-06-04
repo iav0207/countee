@@ -1,28 +1,29 @@
 package ru.iav.takoe.countee.json;
 
+import java.io.Serializable;
+
 import com.google.gson.Gson;
 import ru.iav.takoe.countee.json.exception.DeserializationException;
 
-import java.io.Serializable;
-
 public class JsonParser {
-
-    private static JsonParser instance;
 
     private Gson parser;
 
-    private JsonParser() {
+    public JsonParser() {
         parser = GsonFactory.getGsonInstance();
     }
 
-    public static JsonParser getInstance() {
-        if (instance == null) {
-            instance = new JsonParser();
-        }
-        return instance;
+    public JsonParser(Gson parser) {
+        this.parser = parser;
     }
 
-    public <T extends Serializable> T deserialize(String json, Class<T> type) throws DeserializationException {
+    /**
+     * @param json a JSON string to be parsed
+     * @param type type of the returned object
+     * @return An object parsed from given JSON.
+     * @throws DeserializationException if JSON parsing failed.
+     */
+    public <T extends Serializable> T deserialize(String json, Class<T> type) {
         try {
             return parser.fromJson(json, type);
         } catch (Exception e) {

@@ -28,14 +28,6 @@ public class CostSaver {
 
     private LocalWriter writer;
 
-    public CostSaver() {
-        fileNamesFactory = CostFileNamesFactory.getInstance();
-        costReader = new CostReader();
-        cache = CostsCache.getInstance();
-        jsonConverter = JsonConverter.getInstance();
-        writer = LocalWriter.getInstance();
-    }
-
     @Inject
     public CostSaver(CostFileNamesFactory fileNamesFactory, CostReader costReader,
             CostsCache cache, JsonConverter jsonConverter, LocalWriter writer)

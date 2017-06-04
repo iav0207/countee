@@ -1,10 +1,10 @@
 package ru.iav.takoe.countee.persistence.file;
 
+import java.io.File;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.io.File;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
@@ -15,7 +15,7 @@ public class FileFactoryTest {
 
     private static final String testFileName = "test/fileFactory.test";
 
-    private static final File testFile = FileFactory.getInstance().getFileForName(testFileName);
+    private File testFile;
 
     private FileFactory fileFactory;
 
@@ -25,9 +25,11 @@ public class FileFactoryTest {
 
     @BeforeClass
     public void init() {
-        fileFactory = FileFactory.getInstance();
-        reader = LocalReader.getInstance();
-        writer = LocalWriter.getInstance();
+        fileFactory = new FileFactory();
+        reader = new LocalReader();
+        writer = new LocalWriter();
+
+        testFile = fileFactory.getFileForName(testFileName);
     }
 
     @AfterMethod

@@ -1,9 +1,9 @@
 package ru.iav.takoe.countee.persistence.file;
 
+import java.io.File;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-
-import java.io.File;
 
 public class LocalReaderTest {
 
@@ -11,7 +11,7 @@ public class LocalReaderTest {
 
     @BeforeClass
     public void init() {
-        reader = LocalReader.getInstance();
+        reader = new LocalReader();
     }
 
     @Test

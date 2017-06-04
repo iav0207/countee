@@ -12,26 +12,16 @@ import ru.iav.takoe.countee.vo.Cost;
 import static ru.iav.takoe.countee.utils.DateUtils.month;
 import static ru.iav.takoe.countee.utils.DateUtils.now;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
-import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 public class CostsCache implements Invalidable {
-
-    private static CostsCache instance;
 
     private final Multimap<DateTime, Cost> data;
 
     private final List<Cost> list;
 
-    private CostsCache() {
+    public CostsCache() {
         data = LinkedHashMultimap.create();
         list = new LinkedList<>();
-    }
-
-    public static CostsCache getInstance() {
-        if (isNull(instance)) {
-            instance = new CostsCache();
-        }
-        return instance;
     }
 
     @Override
