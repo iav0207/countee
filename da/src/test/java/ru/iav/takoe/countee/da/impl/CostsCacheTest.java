@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.da;
+package ru.iav.takoe.countee.da.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.joda.time.DateTime;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import ru.iav.takoe.countee.da.impl.CostsCache;
 import ru.iav.takoe.countee.vo.Cost;
 
 import static org.mockito.Mockito.doReturn;

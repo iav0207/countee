@@ -14,7 +14,7 @@ public class JsonParserTest {
 
     @BeforeClass
     public void init() {
-        parser = JsonParser.getInstance();
+        parser = new JsonParser();
     }
 
     @Test(dataProvider = "getJsonToParse", dataProviderClass = JsonParserTestData.class)

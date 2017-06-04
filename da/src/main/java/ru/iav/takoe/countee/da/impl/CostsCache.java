@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.da;
+package ru.iav.takoe.countee.da.impl;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -7,13 +7,14 @@ import java.util.List;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import org.joda.time.DateTime;
+import ru.iav.takoe.countee.da.Cache;
 import ru.iav.takoe.countee.vo.Cost;
 
 import static ru.iav.takoe.countee.utils.DateUtils.month;
 import static ru.iav.takoe.countee.utils.DateUtils.now;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 
-public class CostsCache implements Invalidable {
+public class CostsCache implements Cache {
 
     private final Multimap<DateTime, Cost> data;
 

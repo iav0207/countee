@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.iav.takoe.countee.da.CostReader;
+import ru.iav.takoe.countee.da.impl.CostReader;
 import ru.iav.takoe.countee.service.BalanceService;
 import ru.iav.takoe.countee.service.ChartsDataService;
 import ru.iav.takoe.countee.model.comparator.CostDateComparator;
@@ -49,7 +49,7 @@ public class ChartsDataServiceTest {
 
     @Test
     public void shouldReturnEmptyCollectionIfReaderReturnedNull() throws Exception {
-        doReturn(null).when(reader).readAllCosts();
+        doReturn(null).when(reader).readAll();
         callService();
 
         assertNotNull(result);
@@ -58,7 +58,7 @@ public class ChartsDataServiceTest {
 
     @Test
     public void shouldReturnEmptyCollectionIfReaderReturnedEmptyData() throws Exception {
-        doReturn(new ArrayList<Cost>()).when(reader).readAllCosts();
+        doReturn(new ArrayList<Cost>()).when(reader).readAll();
         callService();
 
         assertNotNull(result);
@@ -68,7 +68,7 @@ public class ChartsDataServiceTest {
     @Test(invocationCount = 5,
             dataProvider = "getCostsForSpacedDates", dataProviderClass = ChartsDataServiceTestData.class)
     public void shouldContainEachDayInPeriod(List<Cost> costs, Integer daysGap) throws Exception {
-        doReturn(costs).when(reader).readAllCosts();
+        doReturn(costs).when(reader).readAll();
         callService();
 
         assertEquals(result.size(), daysGap + 1);
@@ -85,7 +85,7 @@ public class ChartsDataServiceTest {
     @Test(dataProvider = "getRandomCosts", dataProviderClass = ChartsDataServiceTestData.class)
     public void shouldCurrentBalanceCorrespondToTheLastDateFundsValue(List<Cost> costs, BigDecimal expectedBalance)
             throws Exception {
-        doReturn(costs).when(reader).readAllCosts();
+        doReturn(costs).when(reader).readAll();
         callService();
 
         if (costs.size() > 0) {

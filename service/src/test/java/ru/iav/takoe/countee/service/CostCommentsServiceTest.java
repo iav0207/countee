@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.iav.takoe.countee.da.CostReader;
+import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.vo.Cost;
 
 import static org.mockito.Mockito.doReturn;
@@ -22,7 +22,7 @@ import static org.testng.Assert.assertNotNull;
 public class CostCommentsServiceTest {
 
     @Mock
-    private CostReader reader;
+    private Reader<Cost> reader;
 
     @InjectMocks
     private CostCommentsService service;
@@ -92,7 +92,7 @@ public class CostCommentsServiceTest {
     }
 
     private void letReaderReturn(List<Cost> costs) {
-        doReturn(costs).when(reader).readAllCosts();
+        doReturn(costs).when(reader).readAll();
     }
 
     private void assertResultIsEmpty() {

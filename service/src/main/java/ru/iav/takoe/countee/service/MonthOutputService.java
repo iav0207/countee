@@ -9,8 +9,8 @@ import javax.inject.Inject;
 import com.google.common.collect.Multimap;
 import org.joda.time.DateTime;
 import org.joda.time.Months;
-import ru.iav.takoe.countee.da.CostReader;
-import ru.iav.takoe.countee.da.Invalidable;
+import ru.iav.takoe.countee.da.Cache;
+import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.model.map.DateCostMultimapBuilder;
 import ru.iav.takoe.countee.service.exception.NoSuchMonthException;
 import ru.iav.takoe.countee.vo.Cost;
@@ -20,11 +20,11 @@ import static ru.iav.takoe.countee.utils.DateUtils.now;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-public class MonthOutputService implements Invalidable {
+public class MonthOutputService implements Cache {
 
     private final DateCostMultimapBuilder multimapBuilder;
 
-    private final CostReader reader;
+    private final Reader<Cost> reader;
 
     private Multimap<DateTime, Cost> multimap;
 
@@ -35,7 +35,7 @@ public class MonthOutputService implements Invalidable {
     private int monthsSpread;
 
     @Inject
-    public MonthOutputService(DateCostMultimapBuilder multimapBuilder, CostReader reader) {
+    public MonthOutputService(DateCostMultimapBuilder multimapBuilder, Reader<Cost> reader) {
         this.multimapBuilder = multimapBuilder;
         this.reader = reader;
     }
@@ -69,7 +69,7 @@ public class MonthOutputService implements Invalidable {
     }
 
     private void calculate() {
-        multimap = multimapBuilder.groupByMonthsSortedAsc(reader.readAllCosts());
+        multimap = multimapBuilder.groupByMonthsSortedAsc(reader.readAll());
         minMonth = getMinMonth();
         maxMonth = getMaxMonth();
         monthsSpread = getMonthsCount();

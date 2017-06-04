@@ -3,8 +3,8 @@ package ru.takoe.iav.countee.dagger;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import ru.iav.takoe.countee.da.CostReader;
-import ru.iav.takoe.countee.da.CostSaver;
+import ru.iav.takoe.countee.da.impl.CostReader;
+import ru.iav.takoe.countee.da.impl.CostSaver;
 import ru.iav.takoe.countee.service.BalanceService;
 import ru.iav.takoe.countee.service.ChartsDataService;
 import ru.iav.takoe.countee.service.CostCommentsService;

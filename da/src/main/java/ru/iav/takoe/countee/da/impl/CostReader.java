@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.da;
+package ru.iav.takoe.countee.da.impl;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.json.JsonParser;
 import ru.iav.takoe.countee.persistence.file.LocalReader;
 import ru.iav.takoe.countee.vo.Cost;
@@ -14,7 +15,7 @@ import ru.iav.takoe.countee.vo.Cost;
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 
-public class CostReader {
+public class CostReader implements Reader<Cost> {
 
     private CostFileNamesFactory fileNamesFactory;
 
@@ -35,7 +36,7 @@ public class CostReader {
     }
 
     @Nonnull
-    public List<Cost> readCostsForThisMonth() {
+    public List<Cost> readForThisMonth() {
         try {
             putAllCostsToCacheIfItIsEmpty();
             return cache.getCostsForThisMonth();
@@ -46,7 +47,7 @@ public class CostReader {
     }
 
     @Nonnull
-    public List<Cost> readAllCosts() {
+    public List<Cost> readAll() {
         try {
             putAllCostsToCacheIfItIsEmpty();
             return cache.getAllCosts();

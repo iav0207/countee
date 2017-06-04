@@ -1,5 +1,8 @@
 package ru.iav.takoe.countee.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.mockito.Answers;
 import org.mockito.InjectMocks;
@@ -8,13 +11,10 @@ import org.mockito.Mockito;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.iav.takoe.countee.da.CostReader;
+import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.model.map.DateCostMultimapBuilder;
 import ru.iav.takoe.countee.service.exception.NoSuchMonthException;
 import ru.iav.takoe.countee.vo.Cost;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -26,7 +26,7 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomBoolean;
 public class MonthOutputServiceTest {
 
     @Mock
-    private CostReader reader;
+    private Reader<Cost> reader;
 
     @Mock(answer = Answers.CALLS_REAL_METHODS)
     private DateCostMultimapBuilder multimapBuilder;
@@ -91,7 +91,7 @@ public class MonthOutputServiceTest {
     }
 
     private void letReaderReturn(List<Cost> costs) {
-        doReturn(costs).when(reader).readAllCosts();
+        doReturn(costs).when(reader).readAll();
     }
 
 }

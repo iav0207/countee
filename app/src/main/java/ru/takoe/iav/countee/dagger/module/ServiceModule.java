@@ -4,8 +4,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import ru.iav.takoe.countee.da.CostReader;
-import ru.iav.takoe.countee.da.CostSaver;
+import ru.iav.takoe.countee.da.Reader;
+import ru.iav.takoe.countee.da.Saver;
+import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.model.BalanceCalculator;
 import ru.iav.takoe.countee.model.map.DateCostMultimapBuilder;
 import ru.iav.takoe.countee.service.BalanceService;
@@ -16,6 +17,7 @@ import ru.iav.takoe.countee.service.CostInputValidator;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.MonthOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
+import ru.iav.takoe.countee.vo.Cost;
 import ru.iav.takoe.countee.vo.CostFactory;
 import ru.iav.takoe.countee.vo.CostValidator;
 
@@ -46,7 +48,7 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public SaveCostService provideSaveCostService(CostSaver costSaver,
+    public SaveCostService provideSaveCostService(Saver<Cost, CostNotSavedException> costSaver,
             CostInputParser inputParser,
             MonthOutputService monthOutputService)
     {
@@ -55,7 +57,7 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public CostOutputService provideCostOutputService(CostReader costReader,
+    public CostOutputService provideCostOutputService(Reader<Cost> costReader,
             BalanceService balanceService,
             MonthOutputService monthOutputService)
     {
@@ -64,7 +66,7 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public CostCommentsService provideCostCommentsService(CostReader costReader) {
+    public CostCommentsService provideCostCommentsService(Reader<Cost> costReader) {
         return new CostCommentsService(costReader);
     }
 
@@ -76,19 +78,20 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public BalanceService provideBalanceService(CostReader costReader, BalanceCalculator balanceCalculator) {
+    public BalanceService provideBalanceService(Reader<Cost> costReader, BalanceCalculator balanceCalculator) {
         return new BalanceService(costReader, balanceCalculator);
     }
 
     @Provides
     @Singleton
-    public ChartsDataService provideChartsDataService(CostReader reader) {
+    public ChartsDataService provideChartsDataService(Reader<Cost> reader) {
         return new ChartsDataService(reader);
     }
 
     @Provides
     @Singleton
-    public MonthOutputService provideMonthOutputService(DateCostMultimapBuilder multimapBuilder, CostReader costReader) {
+    public MonthOutputService provideMonthOutputService(DateCostMultimapBuilder multimapBuilder,
+            Reader<Cost> costReader) {
         return new MonthOutputService(multimapBuilder, costReader);
     }
 

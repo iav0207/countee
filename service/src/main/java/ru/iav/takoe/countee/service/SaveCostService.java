@@ -3,7 +3,7 @@ package ru.iav.takoe.countee.service;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import ru.iav.takoe.countee.da.CostSaver;
+import ru.iav.takoe.countee.da.Saver;
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.vo.Cost;
 
@@ -13,16 +13,14 @@ import static ru.iav.takoe.countee.logging.LogService.logError;
 @Singleton
 public class SaveCostService {
 
-    @Inject CostSaver costSaver;
+    @Inject Saver<Cost, CostNotSavedException> costSaver;
 
     @Inject CostInputParser inputParser;
 
     @Inject MonthOutputService monthOutputService;
 
-    public SaveCostService() {}
-
     @Inject
-    public SaveCostService(CostSaver costSaver, CostInputParser inputParser,
+    public SaveCostService(Saver<Cost, CostNotSavedException> costSaver, CostInputParser inputParser,
             MonthOutputService monthOutputService)
     {
         this.costSaver = costSaver;

@@ -11,7 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
 
-import ru.iav.takoe.countee.da.CostReader;
+import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.vo.Cost;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
@@ -19,10 +19,10 @@ import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 
 public class CostCommentsService {
 
-    private CostReader reader;
+    private Reader<Cost> reader;
 
     @Inject
-    public CostCommentsService(CostReader reader) {
+    public CostCommentsService(Reader<Cost> reader) {
         this.reader = reader;
     }
 
@@ -34,7 +34,7 @@ public class CostCommentsService {
         Set<String> commentsSet = new TreeSet<>();
         Map<String, BigDecimal> totals = new HashMap<>();
 
-        List<Cost> allCosts = reader.readAllCosts();
+        List<Cost> allCosts = reader.readAll();
         for (Cost cost : safeList(allCosts)) {
             String key = lowerCaseCommentOf(cost);
             if (commentsSet.contains(key)) {
