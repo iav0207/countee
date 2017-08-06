@@ -1,5 +1,10 @@
 package ru.iav.takoe.countee.service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -8,11 +13,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.iav.takoe.countee.da.CostReader;
 import ru.iav.takoe.countee.vo.Cost;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -73,6 +73,12 @@ public class CostCommentsServiceTest {
             assertEquals(iteratorActual.next(), iteratorExpected.next());
         }
         assertEquals(result.size(), expected.size());
+    }
+
+    @Test(dataProvider = "filterZeroTotals", dataProviderClass = CostCommentsServiceTestData.class)
+    public void shouldFilterCommentsOfCostsWithZeroTotalAmount(List<Cost> costs, Set<String> expected)
+            throws Exception {
+        runTestWithData(costs, expected);
     }
 
     private void runTestWithData(List<Cost> costs, Set<String> expected) {

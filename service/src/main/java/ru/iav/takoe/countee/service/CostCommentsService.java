@@ -1,6 +1,9 @@
 package ru.iav.takoe.countee.service;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -23,13 +26,32 @@ public class CostCommentsService {
         this.reader = reader;
     }
 
+    /**
+     * Excludes entries which have zero costs sum.
+     */
     @Nonnull
     public Set<String> getAllCommentsSet() {
         Set<String> commentsSet = new TreeSet<>();
+        Map<String, BigDecimal> totals = new HashMap<>();
+
         List<Cost> allCosts = reader.readAllCosts();
-        for (Cost each : safeList(allCosts)) {
-            commentsSet.add(lowerCaseCommentOf(each));
+        for (Cost cost : safeList(allCosts)) {
+            String key = lowerCaseCommentOf(cost);
+            if (commentsSet.contains(key)) {
+                BigDecimal newValue = totals.get(key).add(cost.getAmount());
+                totals.put(key, newValue);
+            } else {
+                commentsSet.add(key);
+                totals.put(key, cost.getAmount());
+            }
         }
+
+        for (Map.Entry<String, BigDecimal> entry : totals.entrySet()) {
+            if (BigDecimal.ZERO.equals(entry.getValue())) {
+                commentsSet.remove(entry.getKey());
+            }
+        }
+
         return commentsSet;
     }
 

@@ -1,12 +1,13 @@
 package ru.iav.takoe.countee.service;
 
-import org.testng.annotations.DataProvider;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.testng.annotations.DataProvider;
+
+import static ru.iav.takoe.countee.service.utils.CounteeTestUtils.cost;
 import static ru.iav.takoe.countee.service.utils.CounteeTestUtils.listOfCostsWithComments;
 
 public class CostCommentsServiceTestData {
@@ -32,6 +33,17 @@ public class CostCommentsServiceTestData {
         return new Object[][] {{
                 listOfCostsWithComments("c", "b", "a", "-&Щ", "", "a", "12", "c", "Ъ"),
                 list("", "-&щ", "12", "a", "b", "c", "ъ")
+        }};
+    }
+
+    @DataProvider(name = "filterZeroTotals")
+    public static Object[][] filterZeroTotals() {
+        return new Object[][] {{
+                Arrays.asList(
+                        cost("a", 5),
+                        cost("c", 5),
+                        cost("a", -5)),
+                set("c")
         }};
     }
 
