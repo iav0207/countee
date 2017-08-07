@@ -1,4 +1,8 @@
-package ru.iav.takoe.countee.da;
+package ru.iav.takoe.countee.da.impl;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.mockito.Answers;
 import org.mockito.InjectMocks;
@@ -9,23 +13,19 @@ import org.testng.annotations.Test;
 import ru.iav.takoe.countee.crypt.impl.SimpleGostCryptFacade;
 import ru.iav.takoe.countee.persistence.file.LocalReader;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
-import static ru.iav.takoe.countee.da.DataExporter.EOF;
+import static ru.iav.takoe.countee.da.impl.DataExporterImpl.EOF;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
 /**
  * Created by takoe on 07.02.17.
  */
-public class DataExporterTest {
+public class DataExporterImplTest {
 
     @Mock
     private CostFileNamesFactory fileNamesFactory;
@@ -37,7 +37,7 @@ public class DataExporterTest {
     private SimpleGostCryptFacade cryptFacade;
 
     @InjectMocks
-    private DataExporter dataExporter = new DataExporter();
+    private DataExporterImpl dataExporter;
 
     private String returnedByReader = "FILE_CONTENT";
 

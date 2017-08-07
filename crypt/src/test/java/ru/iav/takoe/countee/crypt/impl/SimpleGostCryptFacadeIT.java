@@ -41,7 +41,7 @@ public class SimpleGostCryptFacadeIT {
         return new Object[][] {
                 text(getRandomString(64)),
                 text(getRandomString()),
-                text(getRandomString(11111)),
+                text(getRandomString(1_111_111)),
                 text(getRandomString() + " " + getRandomString()),
                 text(getRandomString() + "    "),
                 text(" " + getRandomString()),

@@ -4,7 +4,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.iav.takoe.countee.da.DataExporter;
+import ru.iav.takoe.countee.da.impl.DataExporterImpl;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doReturn;
@@ -18,7 +18,7 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 public class DataExportServiceTest {
 
     @Mock
-    private DataExporter dataExporter;
+    private DataExporterImpl dataExporter;
 
     @InjectMocks
     private DataExportService service = DataExportService.getInstance();

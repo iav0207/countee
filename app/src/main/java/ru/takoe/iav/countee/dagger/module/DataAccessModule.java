@@ -4,6 +4,9 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import ru.iav.takoe.countee.crypt.CryptFacade;
+import ru.iav.takoe.countee.crypt.impl.SimpleGostCryptFacade;
+import ru.iav.takoe.countee.da.DataExporter;
 import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.da.Saver;
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
@@ -11,6 +14,7 @@ import ru.iav.takoe.countee.da.impl.CostFileNamesFactory;
 import ru.iav.takoe.countee.da.impl.CostReader;
 import ru.iav.takoe.countee.da.impl.CostSaver;
 import ru.iav.takoe.countee.da.impl.CostsCache;
+import ru.iav.takoe.countee.da.impl.DataExporterImpl;
 import ru.iav.takoe.countee.json.JsonConverter;
 import ru.iav.takoe.countee.json.JsonParser;
 import ru.iav.takoe.countee.persistence.file.FileFactory;
@@ -27,6 +31,15 @@ public class DataAccessModule {
     Saver<Cost, CostNotSavedException> provideCostSaver(CostFileNamesFactory fileNamesFactory, CostReader costReader,
             CostsCache cache, JsonConverter jsonConverter, LocalWriter writer) {
         return new CostSaver(fileNamesFactory, costReader, cache, jsonConverter, writer);
+    }
+
+    @Provides
+    @Singleton
+    DataExporter provideDataExporter(CostFileNamesFactory fileNamesFactory,
+            LocalReader reader,
+            CryptFacade cryptFacade)
+    {
+        return new DataExporterImpl(fileNamesFactory, reader, cryptFacade);
     }
 
     @Provides
@@ -76,6 +89,12 @@ public class DataAccessModule {
     @Singleton
     LocalReader provideReader() {
         return new LocalReader();
+    }
+
+    @Provides
+    @Singleton
+    CryptFacade provideCryptFacade() {
+        return new SimpleGostCryptFacade();
     }
 
 }
