@@ -1,8 +1,9 @@
-package ru.takoe.iav.countee.dagger;
+package ru.takoe.iav.countee.dagger.comp;
 
 import android.content.Context;
 import dagger.Subcomponent;
 import ru.takoe.iav.countee.dagger.module.SettingsFragmentModule;
+import ru.takoe.iav.countee.dagger.scope.FragmentScope;
 import ru.takoe.iav.countee.fragment.SettingsFragment;
 import ru.takoe.iav.countee.fragment.listener.ExportButtonListener;
 import ru.takoe.iav.countee.fragment.loader.ExportDataLoader;

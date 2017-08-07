@@ -3,7 +3,7 @@ package ru.takoe.iav.countee.dagger.module;
 import android.content.res.AssetManager;
 import dagger.Module;
 import dagger.Provides;
-import ru.takoe.iav.countee.dagger.ActivityScope;
+import ru.takoe.iav.countee.dagger.scope.ActivityScope;
 import ru.takoe.iav.countee.fragment.content.stats.StatsFragmentSelectionHolder;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataGenerator;

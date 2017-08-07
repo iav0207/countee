@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import dagger.Module;
 import dagger.Provides;
-import ru.takoe.iav.countee.dagger.FragmentScope;
+import ru.takoe.iav.countee.dagger.scope.FragmentScope;
 import ru.takoe.iav.countee.fragment.listener.ExportButtonListener;
 import ru.takoe.iav.countee.view.ViewProvider;
 

@@ -1,9 +1,10 @@
-package ru.takoe.iav.countee.dagger;
+package ru.takoe.iav.countee.dagger.comp;
 
 import dagger.Component;
 import ru.takoe.iav.countee.activity.CreateCostActivity;
 import ru.takoe.iav.countee.dagger.module.SettingsFragmentModule;
 import ru.takoe.iav.countee.dagger.module.ViewProviderModule;
+import ru.takoe.iav.countee.dagger.scope.ActivityScope;
 import ru.takoe.iav.countee.fragment.CreateCostFragment;
 
 @ActivityScope

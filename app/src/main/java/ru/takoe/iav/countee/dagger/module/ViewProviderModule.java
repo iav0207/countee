@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import dagger.Module;
 import dagger.Provides;
 import ru.takoe.iav.countee.activity.ViewRenderer;
-import ru.takoe.iav.countee.dagger.ActivityScope;
+import ru.takoe.iav.countee.dagger.scope.ActivityScope;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 @Module
