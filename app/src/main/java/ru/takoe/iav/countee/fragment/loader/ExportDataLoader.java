@@ -18,9 +18,7 @@ public class ExportDataLoader extends AsyncTaskLoader<String> {
 
     @Inject
     public ExportDataLoader(String password) {
-        super(CounteeApp.getInstance()
-                .getSettingsFragmentComponent()
-                .getContext());
+        super(CounteeApp.getInstance().getApplicationContext());
 
         CounteeApp.getInstance()
                 .getSettingsFragmentComponent()

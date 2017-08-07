@@ -1,6 +1,7 @@
 package ru.takoe.iav.countee.fragment.listener;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import javax.inject.Inject;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ public class ExportButtonListener extends SettingsFragmentButtonListener
 
     private final LoaderManager loaderManager;
 
+    @Inject
     public ExportButtonListener(Context context,
             ViewProvider viewProvider,
             LoaderManager loaderManager)

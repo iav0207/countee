@@ -7,6 +7,7 @@ import dagger.Module;
 import dagger.Provides;
 import ru.takoe.iav.countee.dagger.scope.FragmentScope;
 import ru.takoe.iav.countee.fragment.listener.ExportButtonListener;
+import ru.takoe.iav.countee.fragment.listener.ImportButtonListener;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 @Module
@@ -37,6 +38,15 @@ public class SettingsFragmentModule {
             LoaderManager loaderManager)
     {
         return new ExportButtonListener(context, viewProvider, loaderManager);
+    }
+
+    @Provides
+    @FragmentScope
+    public ImportButtonListener provideImportButtonListener(Context context,
+            ViewProvider viewProvider,
+            LoaderManager loaderManager)
+    {
+        return new ImportButtonListener(context, viewProvider, loaderManager);
     }
 
 }

@@ -37,6 +37,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     @Inject ViewProvider viewProvider;
     @Inject ExportButtonListener exportButtonListener;
+    @Inject ImportButtonListener importButtonListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -116,7 +117,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         if (viewProvider.getExportDataButton().getId() == view.getId()) {
             buildPasswordDialog(exportButtonListener);
         } else if (viewProvider.getImportDataButton().getId() == view.getId()) {
-            buildPasswordDialog(new ImportButtonListener(getContext(), viewProvider));
+            buildPasswordDialog(importButtonListener);
         }
     }
 
