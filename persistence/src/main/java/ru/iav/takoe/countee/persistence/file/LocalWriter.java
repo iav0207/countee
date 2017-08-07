@@ -1,26 +1,16 @@
 package ru.iav.takoe.countee.persistence.file;
 
-import javax.annotation.Nonnull;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.logging.LogService.logInfo;
 
 public class LocalWriter {
-
-    private static LocalWriter instance;
-
-    private LocalWriter() {}
-
-    public static LocalWriter getInstance() {
-        if (instance == null) {
-            instance = new LocalWriter();
-        }
-        return instance;
-    }
 
     public void append(@Nonnull String text, @Nonnull File file) {
         boolean append = false;

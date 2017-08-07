@@ -1,24 +1,19 @@
 package ru.iav.takoe.countee.json;
 
-import com.google.gson.Gson;
-
 import java.io.Serializable;
+
+import com.google.gson.Gson;
 
 public class JsonConverter {
 
-    private static JsonConverter instance;
-
     private Gson serializer;
 
-    private JsonConverter() {
+    public JsonConverter() {
         serializer = GsonFactory.getGsonInstance();
     }
 
-    public static JsonConverter getInstance() {
-        if (instance == null) {
-            instance = new JsonConverter();
-        }
-        return instance;
+    public JsonConverter(Gson serializer) {
+        this.serializer = serializer;
     }
 
     public String serialize(Serializable object) {

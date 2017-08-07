@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.joda.time.DateTime;
-import ru.iav.takoe.countee.da.CostReader;
+import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.model.filter.impl.CostCommentFilter;
 import ru.iav.takoe.countee.model.strategy.CostsDailyStrategy;
 import ru.iav.takoe.countee.model.strategy.CostsMonthlyStrategy;
@@ -22,10 +22,10 @@ import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
 @Singleton
 public class ChartsDataService {
 
-    private final CostReader reader;
+    private final Reader<Cost> reader;
 
     @Inject
-    public ChartsDataService(CostReader reader) {
+    public ChartsDataService(Reader<Cost> reader) {
         this.reader = reader;
     }
 
@@ -55,7 +55,7 @@ public class ChartsDataService {
     }
 
     private List<Cost> getAllCosts() {
-        return safeList(reader.readAllCosts());
+        return safeList(reader.readAll());
     }
 
 }

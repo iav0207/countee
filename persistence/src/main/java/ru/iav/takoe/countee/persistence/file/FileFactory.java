@@ -1,29 +1,20 @@
 package ru.iav.takoe.countee.persistence.file;
 
-import ru.takoe.iav.countee.properties.ApplicationProperties;
-
 import java.io.File;
 import java.io.IOException;
 
 public class FileFactory {
 
-    private static FileFactory instance;
-
-    public final String IO_ABSOLUTE_PATH = getOutputPath();
-
     static final String IO_RELATIVE_PATH = "io/";
+
+    public final String ioAbsolutePath = getOutputPath();
 
     private File customIoDirectory;
 
-    private FileFactory() {
-        customIoDirectory = ApplicationProperties.getOutputDirectory();
-    }
+    public FileFactory() {}
 
-    public static FileFactory getInstance() {
-        if (instance == null) {
-            instance = new FileFactory();
-        }
-        return instance;
+    public FileFactory(File customIoDirectory) {
+        this.customIoDirectory = customIoDirectory;
     }
 
     public File create(String fileName) {
@@ -72,7 +63,7 @@ public class FileFactory {
     }
 
     private static boolean createDirectoryIfDoesNotExist(String pathToFile) {
-        int indexTo = pathToFile.lastIndexOf("/");
+        int indexTo = pathToFile.lastIndexOf('/');
         if (indexTo < 0) {
             return false;
         }

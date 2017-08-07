@@ -1,5 +1,10 @@
 package ru.iav.takoe.countee.service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import org.mockito.Answers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -7,14 +12,9 @@ import org.mockito.Mockito;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.iav.takoe.countee.da.CostReader;
+import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.model.BalanceCalculator;
 import ru.iav.takoe.countee.vo.Cost;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
@@ -26,7 +26,7 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 public class BalanceServiceTest {
 
     @Mock
-    private CostReader reader;
+    private Reader<Cost> reader;
 
     @Mock(answer = Answers.CALLS_REAL_METHODS)
     private BalanceCalculator calculator;
@@ -70,7 +70,7 @@ public class BalanceServiceTest {
     }
 
     private void letReaderReturn(Collection<Cost> costs) {
-        doReturn(costs).when(reader).readAllCosts();
+        doReturn(costs).when(reader).readAll();
     }
 
     @SuppressWarnings("unchecked")

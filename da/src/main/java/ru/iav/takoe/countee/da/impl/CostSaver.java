@@ -1,4 +1,4 @@
-package ru.iav.takoe.countee.da;
+package ru.iav.takoe.countee.da.impl;
 
 import java.io.File;
 
@@ -6,6 +6,8 @@ import javax.annotation.Nonnull;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import ru.iav.takoe.countee.da.Cache;
+import ru.iav.takoe.countee.da.Saver;
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.json.JsonConverter;
 import ru.iav.takoe.countee.persistence.file.LocalWriter;
@@ -16,37 +18,30 @@ import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.logging.LogService.logInfo;
 
 @Singleton
-public class CostSaver {
+public class CostSaver implements Saver<Cost, CostNotSavedException> {
 
     private CostFileNamesFactory fileNamesFactory;
 
     private CostReader costReader;
 
-    private Invalidable cache;
+    private Cache costsCache;
 
     private JsonConverter jsonConverter;
 
     private LocalWriter writer;
 
-    public CostSaver() {
-        fileNamesFactory = CostFileNamesFactory.getInstance();
-        costReader = new CostReader();
-        cache = CostsCache.getInstance();
-        jsonConverter = JsonConverter.getInstance();
-        writer = LocalWriter.getInstance();
-    }
-
     @Inject
     public CostSaver(CostFileNamesFactory fileNamesFactory, CostReader costReader,
-            CostsCache cache, JsonConverter jsonConverter, LocalWriter writer)
+            Cache costsCache, JsonConverter jsonConverter, LocalWriter writer)
     {
         this.fileNamesFactory = fileNamesFactory;
         this.costReader = costReader;
-        this.cache = cache;
+        this.costsCache = costsCache;
         this.jsonConverter = jsonConverter;
         this.writer = writer;
     }
 
+    @Override
     public void save(@Nonnull Cost cost) throws CostNotSavedException {
         try {
             clearPreviousRecordsIfNeeded();       // for debugging
@@ -57,7 +52,7 @@ public class CostSaver {
         } catch (Exception e) {
             handleAndRethrow(e);
         } finally {
-            cache.invalidate();
+            costsCache.invalidate();
         }
     }
 

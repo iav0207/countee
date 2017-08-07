@@ -1,4 +1,11 @@
-package ru.iav.takoe.countee.da;
+package ru.iav.takoe.countee.da.impl;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.UUID;
 
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -10,13 +17,6 @@ import org.testng.annotations.Test;
 import ru.iav.takoe.countee.json.JsonParser;
 import ru.iav.takoe.countee.persistence.file.LocalReader;
 import ru.iav.takoe.countee.vo.Cost;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -76,7 +76,7 @@ public class CostReaderTest {
         doReturn("json").when(localReader).read(any(File.class));
         List<Cost> allCosts = listOfCosts();
         doReturn(allCosts).when(cache).getAllCosts();
-        assertEquals(costReader.readAllCosts(), allCosts);
+        assertEquals(costReader.readAll(), allCosts);
     }
 
     @Test
@@ -92,11 +92,11 @@ public class CostReaderTest {
         doReturn("json").when(localReader).read(any(File.class));
         List<Cost> listOfCostsForThisMonth = listOfCosts();
         doReturn(listOfCostsForThisMonth).when(cache).getCostsForThisMonth();
-        assertEquals(costReader.readCostsForThisMonth(), listOfCostsForThisMonth);
+        assertEquals(costReader.readForThisMonth(), listOfCostsForThisMonth);
     }
 
     private void assertResultIsEmptyList() throws Exception {
-        List<Cost> result = costReader.readAllCosts();
+        List<Cost> result = costReader.readAll();
         assertNotNull(result);
         assertEquals(result.size(), 0);
     }

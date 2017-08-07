@@ -12,7 +12,7 @@ import javax.inject.Inject;
 
 import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
-import ru.iav.takoe.countee.da.CostReader;
+import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.service.exception.NoSuchMonthException;
 import ru.iav.takoe.countee.vo.Cost;
 
@@ -26,14 +26,14 @@ public class CostOutputService {
 
     private static final Character newLine = '\n';
 
-    private final CostReader reader;
+    private final Reader<Cost> reader;
 
     private final BalanceService balanceService;
 
     private final MonthOutputService monthOutputService;
 
     @Inject
-    public CostOutputService(CostReader reader, BalanceService balanceService,
+    public CostOutputService(Reader<Cost> reader, BalanceService balanceService,
             MonthOutputService monthOutputService)
     {
         this.reader = reader;
@@ -46,7 +46,7 @@ public class CostOutputService {
     }
 
     public String getCurrentMonthOutput() {
-        return toString(reader.readCostsForThisMonth());
+        return toString(reader.readForThisMonth());
     }
 
     public String getOutputForPrevMonth(int monthsAgo) throws NoSuchMonthException {
