@@ -1,5 +1,7 @@
 package ru.takoe.iav.countee.fragment.listener;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -12,9 +14,7 @@ import ru.takoe.iav.countee.view.ViewProvider;
 
 import static ru.takoe.iav.countee.fragment.util.ClipboardUtil.copyToClipboard;
 
-/**
- * Created by takoe on 09.02.17.
- */
+@ParametersAreNonnullByDefault
 public class ExportButtonListener extends SettingsFragmentButtonListener
         implements LoaderManager.LoaderCallbacks<String> {
 
@@ -35,7 +35,7 @@ public class ExportButtonListener extends SettingsFragmentButtonListener
 
         hideKeyboard();
         dialogInterface.dismiss();
-        showSnackbar(R.string.data_export_wait_msg);
+        showToast(R.string.data_export_wait_msg);
     }
 
     @Override
@@ -47,11 +47,11 @@ public class ExportButtonListener extends SettingsFragmentButtonListener
     public void onLoadFinished(Loader<String> loader, String exportedData) {
         Log.i("LOAD_FINISHED", "BACKGROUND LOAD FINISHED !!!");
         copyToClipboard(context, "Countee export", exportedData);
-        showSnackbar(R.string.data_exported_msg);
+        showToast(R.string.data_exported_msg);
     }
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
-
+        // not implemented
     }
 }

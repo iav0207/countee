@@ -1,18 +1,18 @@
 package ru.takoe.iav.countee.fragment.listener;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.design.widget.Snackbar;
 import android.text.InputType;
 import android.widget.EditText;
+import android.widget.Toast;
 import ru.takoe.iav.countee.fragment.util.KeyboardUtil;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 09.02.17.
- */
+@ParametersAreNonnullByDefault
 public abstract class SettingsFragmentButtonListener implements DialogInterface.OnClickListener {
 
     final Context context;
@@ -42,9 +42,9 @@ public abstract class SettingsFragmentButtonListener implements DialogInterface.
         return editText.getText().toString();
     }
 
-    void showSnackbar(int resId) {
+    void showToast(int resId) {
         if (!isNull(viewProvider)) {
-            Snackbar.make(viewProvider.getNavigationView(), resId, Snackbar.LENGTH_SHORT).show();
+            Toast.makeText(context, resId, Toast.LENGTH_SHORT).show();
         }
     }
 
