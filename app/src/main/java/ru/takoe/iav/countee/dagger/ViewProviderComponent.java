@@ -2,6 +2,7 @@ package ru.takoe.iav.countee.dagger;
 
 import dagger.Component;
 import ru.takoe.iav.countee.activity.CreateCostActivity;
+import ru.takoe.iav.countee.dagger.module.SettingsFragmentModule;
 import ru.takoe.iav.countee.dagger.module.ViewProviderModule;
 import ru.takoe.iav.countee.fragment.CreateCostFragment;
 
@@ -15,5 +16,7 @@ public interface ViewProviderComponent {
     void inject(CreateCostActivity createCostActivity);
 
     void injectInto(CreateCostFragment createCostFragment);
+
+    SettingsFragmentComponent fragmentComponent(SettingsFragmentModule settingsFragmentModule);
 
 }

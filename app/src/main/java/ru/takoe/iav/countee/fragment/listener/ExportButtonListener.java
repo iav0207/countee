@@ -2,8 +2,12 @@ package ru.takoe.iav.countee.fragment.listener;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import ru.iav.takoe.countee.service.DataExportService;
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.util.Log;
 import ru.takoe.iav.countee.R;
+import ru.takoe.iav.countee.fragment.loader.ExportDataLoader;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 import static ru.takoe.iav.countee.fragment.util.ClipboardUtil.copyToClipboard;
@@ -11,26 +15,43 @@ import static ru.takoe.iav.countee.fragment.util.ClipboardUtil.copyToClipboard;
 /**
  * Created by takoe on 09.02.17.
  */
-public class ExportButtonListener extends SettingsFragmentButtonListener {
+public class ExportButtonListener extends SettingsFragmentButtonListener
+        implements LoaderManager.LoaderCallbacks<String> {
 
-    private DataExportService dataExportService = DataExportService.getInstance();
+    private final LoaderManager loaderManager;
 
-    public ExportButtonListener(Context context, ViewProvider viewProvider) {
+    public ExportButtonListener(Context context,
+            ViewProvider viewProvider,
+            LoaderManager loaderManager)
+    {
         super(context, viewProvider);
+        this.loaderManager = loaderManager;
     }
 
     @Override
     public void onClick(DialogInterface dialogInterface, int i) {
-        hideKeyboard();
-        String password = getPasswordFromTextInput();
 
+        loaderManager.initLoader(ExportDataLoader.ID, null, this);
+
+        hideKeyboard();
         dialogInterface.dismiss();
         showSnackbar(R.string.data_export_wait_msg);
+    }
 
-        String exportedData = dataExportService.exportAllData(password);
+    @Override
+    public Loader<String> onCreateLoader(int i, Bundle bundle) {
+        return new ExportDataLoader(getPasswordFromTextInput());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<String> loader, String exportedData) {
+        Log.i("LOAD_FINISHED", "BACKGROUND LOAD FINISHED !!!");
         copyToClipboard(context, "Countee export", exportedData);
-
         showSnackbar(R.string.data_exported_msg);
     }
 
+    @Override
+    public void onLoaderReset(Loader<String> loader) {
+
+    }
 }

@@ -1,5 +1,6 @@
 package ru.takoe.iav.countee.dagger.module;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import dagger.Module;
 import dagger.Provides;
@@ -24,14 +25,20 @@ public class ViewProviderModule {
 
     @Provides
     @ActivityScope
+    Context provideContext() {
+        return activity.getApplicationContext();
+    }
+
+    @Provides
+    @ActivityScope
     ViewProvider provideViewProvider(AppCompatActivity activity) {
         return new ViewProvider(activity);
     }
 
     @Provides
     @ActivityScope
-    ViewRenderer provideViewRenderer(ViewProvider viewProvider, AppCompatActivity activity) {
-        return new ViewRenderer(activity, viewProvider);
+    ViewRenderer provideViewRenderer(AppCompatActivity activity) {
+        return new ViewRenderer(activity);
     }
 
 }

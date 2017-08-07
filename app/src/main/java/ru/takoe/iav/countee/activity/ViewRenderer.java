@@ -1,6 +1,7 @@
 package ru.takoe.iav.countee.activity;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
 
 import android.support.v4.app.Fragment;
@@ -14,14 +15,11 @@ import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.CreateCostFragment;
 import ru.takoe.iav.countee.fragment.SettingsFragment;
 import ru.takoe.iav.countee.fragment.StatsFragment;
-import ru.takoe.iav.countee.view.ViewProvider;
 
-
+@ParametersAreNonnullByDefault
 public class ViewRenderer {
 
     private AppCompatActivity activity;
-
-    private ViewProvider viewProvider;
 
     @BindString(R.string.app_name) String appName;
     @BindString(R.string.nav_add_cost) String navAddCost;
@@ -29,9 +27,8 @@ public class ViewRenderer {
     @BindString(R.string.nav_settings) String navSettings;
 
     @Inject
-    public ViewRenderer(@Nonnull AppCompatActivity activity, ViewProvider viewProvider) {
+    public ViewRenderer(AppCompatActivity activity) {
         this.activity = activity;
-        this.viewProvider = viewProvider;
     }
 
     void displayView(int viewId) {
@@ -51,7 +48,7 @@ public class ViewRenderer {
                 title = navStats;
                 break;
             case R.id.nav_settings:
-                fragment = SettingsFragment.newInstance(getViewProvider());
+                fragment = SettingsFragment.newInstance();
                 title = navSettings;
                 break;
             default:
@@ -82,10 +79,6 @@ public class ViewRenderer {
     private void closeDrawer() {
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-    }
-
-    private ViewProvider getViewProvider() {
-        return viewProvider;
     }
 
 }

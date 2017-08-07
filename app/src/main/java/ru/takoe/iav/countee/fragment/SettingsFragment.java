@@ -1,5 +1,7 @@
 package ru.takoe.iav.countee.fragment;
 
+import javax.inject.Inject;
+
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import ru.takoe.iav.countee.R;
+import ru.takoe.iav.countee.application.CounteeApp;
 import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent;
 import ru.takoe.iav.countee.fragment.content.settings.SettingsRecyclerViewAdapter;
 import ru.takoe.iav.countee.fragment.listener.CancelButtonListener;
@@ -32,28 +35,33 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private int mColumnCount = 1;
     private OnFragmentInteractionListener mListener;
 
-    private ViewProvider viewProvider;
+    @Inject ViewProvider viewProvider;
+    @Inject ExportButtonListener exportButtonListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
     public SettingsFragment() {
+        // required empty public constructor
     }
 
     @SuppressWarnings("unused")
-    public static SettingsFragment newInstance(ViewProvider viewProvider) {
+    public static SettingsFragment newInstance() {
         SettingsFragment fragment = new SettingsFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, VAL_COLUMN_COUNT);
         fragment.setArguments(args);
-        fragment.viewProvider = viewProvider;
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        CounteeApp.getInstance()
+                .getSettingsFragmentComponent(this)
+                .injectInto(this);
 
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -106,7 +114,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (viewProvider.getExportDataButton().getId() == view.getId()) {
-            buildPasswordDialog(new ExportButtonListener(getContext(), viewProvider));
+            buildPasswordDialog(exportButtonListener);
         } else if (viewProvider.getImportDataButton().getId() == view.getId()) {
             buildPasswordDialog(new ImportButtonListener(getContext(), viewProvider));
         }

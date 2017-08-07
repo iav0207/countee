@@ -7,16 +7,21 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import ru.takoe.iav.countee.dagger.AppComponent;
 import ru.takoe.iav.countee.dagger.DaggerAppComponent;
 import ru.takoe.iav.countee.dagger.DaggerStatsComponent;
 import ru.takoe.iav.countee.dagger.DaggerViewProviderComponent;
+import ru.takoe.iav.countee.dagger.SettingsFragmentComponent;
 import ru.takoe.iav.countee.dagger.StatsComponent;
 import ru.takoe.iav.countee.dagger.ViewProviderComponent;
+import ru.takoe.iav.countee.dagger.module.SettingsFragmentModule;
 import ru.takoe.iav.countee.dagger.module.StatsModule;
 import ru.takoe.iav.countee.dagger.module.ViewProviderModule;
+
+import static com.google.common.base.Preconditions.checkState;
 
 public class CounteeApp extends Application {
 
@@ -28,6 +33,7 @@ public class CounteeApp extends Application {
 
     private volatile ViewProviderComponent viewProviderComponent;
     private volatile StatsComponent statsComponent;
+    private volatile SettingsFragmentComponent settingsFragmentComponent;
 
     public static volatile Context applicationContext;
     public static volatile Handler applicationHandler;
@@ -79,6 +85,21 @@ public class CounteeApp extends Application {
                     .build();
         }
         return statsComponent;
+    }
+
+    public SettingsFragmentComponent getSettingsFragmentComponent(Fragment fragment) {
+        if (settingsFragmentComponent == null) {
+            if (viewProviderComponent != null) {
+                settingsFragmentComponent = viewProviderComponent.fragmentComponent(new SettingsFragmentModule(fragment));
+            }
+        }
+        return settingsFragmentComponent;
+    }
+
+    public SettingsFragmentComponent getSettingsFragmentComponent() {
+        checkState(settingsFragmentComponent != null,
+                "SettingsFragmentComponent has not been set yet!");
+        return settingsFragmentComponent;
     }
 
 }
