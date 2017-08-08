@@ -37,9 +37,10 @@ public class DataAccessModule {
     @Singleton
     DataExporter provideDataExporter(CostFileNamesFactory fileNamesFactory,
             LocalReader reader,
+            LocalWriter writer,
             CryptFacade cryptFacade)
     {
-        return new DataExporterImpl(fileNamesFactory, reader, cryptFacade);
+        return new DataExporterImpl(fileNamesFactory, reader, writer, cryptFacade);
     }
 
     @Provides

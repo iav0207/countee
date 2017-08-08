@@ -10,8 +10,10 @@ import org.mockito.Mock;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.reporters.Files;
 import ru.iav.takoe.countee.crypt.impl.SimpleGostCryptFacade;
 import ru.iav.takoe.countee.persistence.file.LocalReader;
+import ru.iav.takoe.countee.persistence.file.LocalWriter;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
@@ -32,6 +34,9 @@ public class DataExporterImplTest {
 
     @Mock
     private LocalReader reader;
+
+    @Mock(answer = Answers.CALLS_REAL_METHODS)
+    private LocalWriter writer;
 
     @Mock(answer = Answers.CALLS_REAL_METHODS)
     private SimpleGostCryptFacade cryptFacade;
@@ -79,6 +84,16 @@ public class DataExporterImplTest {
         assertNotNull(dataExporter.exportAllData(getRandomString()));
     }
 
+    @Test
+    public void shouldFileExportProduceEquivalentContentAsSimpleStringExport() throws Exception {
+        String password = getRandomString();
+        File target = createFile("out");
+        dataExporter.exportAllData(target, password);
+        String expectedFileContent = dataExporter.exportAllData(password);
+
+        assertEquals(Files.readFile(target), expectedFileContent);
+    }
+
     private void letReaderReturn(String s) {
         doReturn(s).when(reader).read(any(File.class));
     }
@@ -86,9 +101,13 @@ public class DataExporterImplTest {
     private List<File> generateFilesList() {
         List<File> files = new ArrayList<>();
         for (int i = 0; i < getRandomInteger(50); i++) {
-            files.add(new File("io/test" + i));
+            files.add(createFile(String.valueOf(i)));
         }
         return files;
+    }
+
+    private File createFile(String key) {
+        return new File("io/test" + key);
     }
 
 }

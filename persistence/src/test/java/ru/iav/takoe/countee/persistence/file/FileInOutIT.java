@@ -45,7 +45,7 @@ public class FileInOutIT {
     @Test
     public void shouldBeSymmetric() throws Exception {
         String input = getRandomString(100);
-        writer.append(input, testFile);
+        writer.clearWrite(input, testFile);
         String result = reader.read(testFile);
 
         assertEquals(result, input);

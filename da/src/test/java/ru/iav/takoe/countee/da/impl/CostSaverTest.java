@@ -62,7 +62,7 @@ public class CostSaverTest {
     @Test(expectedExceptions = CostNotSavedException.class)
     public void shouldThrowExceptionIfFileWritingFails() throws Exception {
         doReturn(getRandomString()).when(jsonConverter).serialize(anyCost());
-        doThrow(new RuntimeException()).when(writer).append(anyString(), anyFile());
+        doThrow(new RuntimeException()).when(writer).clearWrite(anyString(), anyFile());
         costSaver.save(createCost());
     }
 
@@ -83,7 +83,7 @@ public class CostSaverTest {
     private void configureDependenciesToRunOk() {
         doReturn(getRandomString()).when(jsonConverter).serialize(anyCost());
         doReturn(new CostsData()).when(costReader).getDeserializedData(anyFile());
-        doNothing().when(writer).append(anyString(), anyFile());
+        doNothing().when(writer).clearWrite(anyString(), anyFile());
     }
 
     private Cost createCost() {
