@@ -1,6 +1,9 @@
 package ru.iav.takoe.countee.da.impl;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +13,6 @@ import org.mockito.Mock;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.reporters.Files;
 import ru.iav.takoe.countee.crypt.impl.SimpleGostCryptFacade;
 import ru.iav.takoe.countee.persistence.file.LocalReader;
 import ru.iav.takoe.countee.persistence.file.LocalWriter;
@@ -24,9 +26,6 @@ import static ru.iav.takoe.countee.da.impl.DataExporterImpl.EOF;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 07.02.17.
- */
 public class DataExporterImplTest {
 
     @Mock
@@ -52,7 +51,7 @@ public class DataExporterImplTest {
     }
 
     @BeforeMethod
-    public void reset() {
+    public void reset() throws Exception {
         doReturn(generateFilesList()).when(fileNamesFactory).getAllCostFiles();
         letReaderReturn(returnedByReader);
     }
@@ -91,14 +90,16 @@ public class DataExporterImplTest {
         dataExporter.exportAllData(target, password);
         String expectedFileContent = dataExporter.exportAllData(password);
 
-        assertEquals(Files.readFile(target), expectedFileContent);
+        String actualFileContent = Files.readAllLines(target.toPath(), Charset.defaultCharset()).get(0);
+
+        assertEquals(actualFileContent, expectedFileContent);
     }
 
     private void letReaderReturn(String s) {
         doReturn(s).when(reader).read(any(File.class));
     }
 
-    private List<File> generateFilesList() {
+    private List<File> generateFilesList() throws Exception {
         List<File> files = new ArrayList<>();
         for (int i = 0; i < getRandomInteger(50); i++) {
             files.add(createFile(String.valueOf(i)));
@@ -106,8 +107,10 @@ public class DataExporterImplTest {
         return files;
     }
 
-    private File createFile(String key) {
-        return new File("io/test" + key);
+    private File createFile(String key) throws IOException {
+        File testFile = new File("io/test" + key);
+        Files.deleteIfExists(testFile.toPath());
+        return testFile;
     }
 
 }
