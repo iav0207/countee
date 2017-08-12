@@ -36,6 +36,10 @@ public class CostCommentsService {
 
         List<Cost> allCosts = reader.readAll();
         for (Cost cost : safeList(allCosts)) {
+            if (cost == null) {
+                continue;
+            }
+
             String key = lowerCaseCommentOf(cost);
             if (commentsSet.contains(key)) {
                 BigDecimal newValue = totals.get(key).add(cost.getAmount());
@@ -47,12 +51,16 @@ public class CostCommentsService {
         }
 
         for (Map.Entry<String, BigDecimal> entry : totals.entrySet()) {
-            if (BigDecimal.ZERO.equals(entry.getValue())) {
+            if (isLessThanPlusMinusOne(entry.getValue())) {
                 commentsSet.remove(entry.getKey());
             }
         }
 
         return commentsSet;
+    }
+
+    private boolean isLessThanPlusMinusOne(BigDecimal value) {
+        return Math.abs(value.doubleValue()) < 1d;
     }
 
     @Nullable

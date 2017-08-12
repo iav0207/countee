@@ -21,7 +21,7 @@ public class DataExportServiceTest {
     private DataExporterImpl dataExporter;
 
     @InjectMocks
-    private DataExportService service = DataExportService.getInstance();
+    private DataExportService service;
 
     @BeforeClass
     public void init() {

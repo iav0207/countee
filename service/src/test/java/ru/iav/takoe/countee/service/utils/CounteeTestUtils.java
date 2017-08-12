@@ -1,6 +1,7 @@
 package ru.iav.takoe.countee.service.utils;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -34,9 +35,15 @@ public class CounteeTestUtils {
     }
 
     public static Cost cost(String comment, int amount) {
-        Cost mock = mock(Cost.class);
-        when(mock.getComment()).thenReturn(comment);
+        Cost mock = costWithComment(comment);
         when(mock.getAmount()).thenReturn(new BigDecimal(amount));
+        return mock;
+    }
+
+    public static Cost cost(String comment, int amount, int amountScale) {
+        Cost mock = costWithComment(comment);
+        when(mock.getAmount()).thenReturn(
+                new BigDecimal(BigInteger.valueOf(amount), amountScale));
         return mock;
     }
 

@@ -42,7 +42,9 @@ public class CostCommentsServiceTestData {
                 Arrays.asList(
                         cost("a", 5),
                         cost("c", 5),
-                        cost("a", -5)),
+                        cost("a", -5),
+                        cost("b", 8, 2),
+                        cost("b", -8, 5)),
                 set("c")
         }};
     }
