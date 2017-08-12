@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import android.text.InputType;
 import android.widget.EditText;
 import android.widget.Toast;
-import ru.takoe.iav.countee.fragment.util.KeyboardUtil;
+import ru.takoe.iav.countee.android.util.KeyboardUtil;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;

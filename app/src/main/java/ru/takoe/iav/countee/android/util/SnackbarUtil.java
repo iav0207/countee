@@ -1,12 +1,14 @@
-package ru.takoe.iav.countee.fragment.util;
+package ru.takoe.iav.countee.android.util;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
-/**
- * Created by takoe on 09.02.17.
- */
+@ParametersAreNonnullByDefault
 public class SnackbarUtil {
+
+    private SnackbarUtil() {}
 
     public static void showSnackbar(View view, int stringId) {
         Snackbar.make(view, stringId, Snackbar.LENGTH_SHORT).show();

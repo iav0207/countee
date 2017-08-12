@@ -13,7 +13,7 @@ import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.loader.ExportDataLoader;
 import ru.takoe.iav.countee.view.ViewProvider;
 
-import static ru.takoe.iav.countee.fragment.util.ClipboardUtil.copyToClipboard;
+import static ru.takoe.iav.countee.android.util.ClipboardUtil.copyToClipboard;
 
 @ParametersAreNonnullByDefault
 public class ExportButtonListener extends SettingsFragmentButtonListener

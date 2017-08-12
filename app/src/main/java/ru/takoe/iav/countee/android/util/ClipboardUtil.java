@@ -1,13 +1,15 @@
-package ru.takoe.iav.countee.fragment.util;
+package ru.takoe.iav.countee.android.util;
+
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 
-/**
- * Created by takoe on 09.02.17.
- */
+@ParametersAreNonnullByDefault
 public class ClipboardUtil {
+
+    private ClipboardUtil() {}
 
     public static void copyToClipboard(Context context, String label, String data) {
         getClipboardManager(context).setPrimaryClip(ClipData.newPlainText(label, data));

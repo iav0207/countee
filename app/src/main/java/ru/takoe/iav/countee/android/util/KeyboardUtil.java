@@ -1,4 +1,7 @@
-package ru.takoe.iav.countee.fragment.util;
+package ru.takoe.iav.countee.android.util;
+
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import android.app.Activity;
 import android.content.Context;
@@ -7,12 +10,12 @@ import android.view.inputmethod.InputMethodManager;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 09.02.17.
- */
+@ParametersAreNonnullByDefault
 public class KeyboardUtil {
 
-    public static void hideKeyboard(Context context, View view) {
+    private KeyboardUtil() {}
+
+    public static void hideKeyboard(Context context, @Nullable View view) {
         if (!isNull(view)) {
             getKeyboardManager(context).hideSoftInputFromWindow(view.getRootView().getWindowToken(), 0);
         }
