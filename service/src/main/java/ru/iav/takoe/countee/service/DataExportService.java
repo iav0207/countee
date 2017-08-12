@@ -1,5 +1,7 @@
 package ru.iav.takoe.countee.service;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import ru.iav.takoe.countee.da.DataExporter;
@@ -18,6 +20,10 @@ public class DataExportService {
 
     public String exportAllData(String password) {
         return dataExporter.exportAllData(password);
+    }
+
+    public void exportAllData(File target, String password) {
+        dataExporter.exportAllData(target, password);
     }
 
 }

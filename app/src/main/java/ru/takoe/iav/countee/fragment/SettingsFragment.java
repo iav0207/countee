@@ -124,7 +124,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     private void buildPasswordDialog(SettingsFragmentButtonListener positiveButtonListener) {
         new AlertDialog.Builder(getContext())
                 .setTitle("Enter password")
-                .setView(positiveButtonListener.getEditText())
+                .setView(positiveButtonListener.newEditText())
                 .setPositiveButton("OK", positiveButtonListener)
                 .setNegativeButton("Cancel", new CancelButtonListener(getContext(), viewProvider))
                 .show();

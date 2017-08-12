@@ -18,4 +18,5 @@ public class CancelButtonListener extends SettingsFragmentButtonListener {
         hideKeyboard();
         dialogInterface.cancel();
     }
+
 }

@@ -31,13 +31,12 @@ public class ExportButtonListener extends SettingsFragmentButtonListener
     }
 
     @Override
-    public void onClick(DialogInterface dialogInterface, int i) {
-
+    public void onClick(DialogInterface dialogInterface, int whichButton) {
+        hideKeyboard();
+        showToast(R.string.data_export_wait_msg);
         loaderManager.initLoader(ExportDataLoader.ID, null, this);
 
-        hideKeyboard();
         dialogInterface.dismiss();
-        showToast(R.string.data_export_wait_msg);
     }
 
     @Override
@@ -49,7 +48,7 @@ public class ExportButtonListener extends SettingsFragmentButtonListener
     public void onLoadFinished(Loader<String> loader, String exportedData) {
         Log.i("LOAD_FINISHED", "BACKGROUND LOAD FINISHED !!!");
         copyToClipboard(context, "Countee export", exportedData);
-        showToast(R.string.data_exported_msg);
+        showToast(exportedData);
     }
 
     @Override

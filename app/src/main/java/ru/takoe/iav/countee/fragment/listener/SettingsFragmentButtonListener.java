@@ -24,18 +24,21 @@ public abstract class SettingsFragmentButtonListener implements DialogInterface.
     SettingsFragmentButtonListener(Context context, ViewProvider viewProvider) {
         this.context = context;
         this.viewProvider = viewProvider;
+        createEditText();
+    }
 
+    public EditText newEditText() {
+        createEditText();
+        return editText;
+    }
+
+    private void createEditText() {
         editText = new EditText(context);
         editText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
     }
 
-    public SettingsFragmentButtonListener withViewProvider(ViewProvider viewProvider) {
-        this.viewProvider = viewProvider;
-        return this;
-    }
-
-    public EditText getEditText() {
-        return editText;
+    ViewProvider getViewProvider() {
+        return viewProvider;
     }
 
     String getPasswordFromTextInput() {
@@ -46,6 +49,10 @@ public abstract class SettingsFragmentButtonListener implements DialogInterface.
         if (!isNull(viewProvider)) {
             Toast.makeText(context, resId, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    void showToast(String s) {
+        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
     }
 
     void hideKeyboard() {

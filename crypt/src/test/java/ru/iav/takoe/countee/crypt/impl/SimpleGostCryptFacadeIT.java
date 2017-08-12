@@ -26,12 +26,29 @@ public class SimpleGostCryptFacadeIT {
         assertEquals(result, "");
     }
 
+    @Test(enabled = false,  // manual run
+            dataProvider = "hugeString")
+    public void testHugeInput(String text, String key) throws Exception {
+        String result = runSymmetricTestNoLogging(text, key);
+        assertEquals(result, text.trim());
+    }
+
     private String runSymmetricTest(String text, String key) {
+        return runSymmetricTest(text, key, true);
+    }
+
+    private String runSymmetricTestNoLogging(String text, String key) {
+        return runSymmetricTest(text, key, false);
+    }
+
+    private String runSymmetricTest(String text, String key, boolean isLoggingEnabled) {
         long tic = System.currentTimeMillis();
         String cypher = simpleGostCryptFacade.encrypt(text, key);
         String result = simpleGostCryptFacade.decrypt(cypher, key);
         long toc = System.currentTimeMillis();
-        logInfo(String.format("\nOpen text: %s\nCypher: %s\nResult: %s", text, cypher, result));
+        if (isLoggingEnabled) {
+            logInfo(String.format("\nOpen text: %s\nCypher: %s\nResult: %s", text, cypher, result));
+        }
         logInfo(String.format("Time elapsed: %d ms", toc - tic));
         return result;
     }
@@ -41,7 +58,6 @@ public class SimpleGostCryptFacadeIT {
         return new Object[][] {
                 text(getRandomString(64)),
                 text(getRandomString()),
-                text(getRandomString(1_111_111)),
                 text(getRandomString() + " " + getRandomString()),
                 text(getRandomString() + "    "),
                 text(" " + getRandomString()),
@@ -49,6 +65,11 @@ public class SimpleGostCryptFacadeIT {
                 text(""),
                 text(" ")
         };
+    }
+
+    @DataProvider(name = "hugeString")
+    public static Object[][] hugeString() {
+        return new Object[][] { text(getRandomString(11_111_111)) };
     }
 
     private static Object[] text(String s) {
