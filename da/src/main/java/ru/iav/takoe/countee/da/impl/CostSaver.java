@@ -2,7 +2,7 @@ package ru.iav.takoe.countee.da.impl;
 
 import java.io.File;
 
-import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -18,6 +18,7 @@ import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.logging.LogService.logInfo;
 
 @Singleton
+@ParametersAreNonnullByDefault
 public class CostSaver implements Saver<Cost, CostNotSavedException> {
 
     private CostFileNamesFactory fileNamesFactory;
@@ -42,7 +43,7 @@ public class CostSaver implements Saver<Cost, CostNotSavedException> {
     }
 
     @Override
-    public void save(@Nonnull Cost cost) throws CostNotSavedException {
+    public void save(Cost cost) throws CostNotSavedException {
         try {
             clearPreviousRecordsIfNeeded();       // for debugging
             CostsData data = costReader.getDeserializedData(getActualFile());
@@ -68,12 +69,12 @@ public class CostSaver implements Saver<Cost, CostNotSavedException> {
         }
     }
 
-    private String getSerialized(@Nonnull CostsData data) {
+    private String getSerialized(CostsData data) {
         return jsonConverter.serialize(data);
     }
 
     private void writeToFile(String json)  {
-        writer.append(json, getActualFile());
+        writer.clearWrite(json, getActualFile());
     }
 
     private File getActualFile() {

@@ -4,7 +4,7 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "ru.takoe.iav.countee"
         minSdkVersion 21
@@ -38,7 +38,10 @@ android {
         compile 'com.android.support:recyclerview-v7:24.1.1'
         compile 'com.github.PhilJay:MPAndroidChart:v3.0.0'
 
-        compile 'com.jakewharton:butterknife:8.6.0'
+        compile('com.jakewharton:butterknife:8.6.0'){
+            exclude module: 'appcompat-v7'
+            exclude group: 'com.android.support'
+        }
         annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
         apt 'com.jakewharton:butterknife-compiler:8.6.0'
 
@@ -59,7 +62,10 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:24.1.1'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.0'
 
-    compile 'com.jakewharton:butterknife:8.6.0'
+    compile('com.jakewharton:butterknife:8.6.0'){
+        exclude module: 'appcompat-v7'
+        exclude group: 'com.android.support'
+    }
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     apt 'com.jakewharton:butterknife-compiler:8.6.0'
 

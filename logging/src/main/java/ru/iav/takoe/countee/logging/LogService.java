@@ -23,6 +23,10 @@ public class LogService {
         logDebug(t.getMessage(), t);
     }
 
+    public static void logDebug(String message) {
+        logger.debug(message);
+    }
+
     public static void logDebug(String message, Throwable throwable) {
         logger.debug(message, throwable);
     }

@@ -1,4 +1,4 @@
-package ru.takoe.iav.countee.dagger;
+package ru.takoe.iav.countee.dagger.scope;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

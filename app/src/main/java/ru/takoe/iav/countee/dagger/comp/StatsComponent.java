@@ -1,8 +1,9 @@
-package ru.takoe.iav.countee.dagger;
+package ru.takoe.iav.countee.dagger.comp;
 
 import dagger.Component;
 import ru.takoe.iav.countee.dagger.module.StatsModule;
 import ru.takoe.iav.countee.dagger.module.ViewProviderModule;
+import ru.takoe.iav.countee.dagger.scope.ActivityScope;
 import ru.takoe.iav.countee.fragment.StatsFragment;
 import ru.takoe.iav.countee.fragment.content.stats.data.BarDataFacade;
 import ru.takoe.iav.countee.fragment.content.stats.data.CostsBarDataProvider;

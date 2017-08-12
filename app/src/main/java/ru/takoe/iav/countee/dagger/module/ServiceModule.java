@@ -4,6 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import ru.iav.takoe.countee.da.DataExporter;
 import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.da.Saver;
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
@@ -15,6 +16,7 @@ import ru.iav.takoe.countee.service.CostCommentsService;
 import ru.iav.takoe.countee.service.CostInputParser;
 import ru.iav.takoe.countee.service.CostInputValidator;
 import ru.iav.takoe.countee.service.CostOutputService;
+import ru.iav.takoe.countee.service.DataExportService;
 import ru.iav.takoe.countee.service.MonthOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.iav.takoe.countee.vo.Cost;
@@ -93,6 +95,12 @@ public class ServiceModule {
     public MonthOutputService provideMonthOutputService(DateCostMultimapBuilder multimapBuilder,
             Reader<Cost> costReader) {
         return new MonthOutputService(multimapBuilder, costReader);
+    }
+
+    @Provides
+    @Singleton
+    public DataExportService provideDataExportService(DataExporter dataExporter) {
+        return new DataExportService(dataExporter);
     }
 
     @Provides

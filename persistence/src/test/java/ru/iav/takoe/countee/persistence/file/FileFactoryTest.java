@@ -49,7 +49,7 @@ public class FileFactoryTest {
     public void shouldNotChangeFileContentOnCreateIfItExisted() throws Exception {
         assertTrue(testFile.createNewFile());
         String content = getRandomString();
-        writer.append(content, testFile);
+        writer.clearWrite(content, testFile);
         fileFactory.create(testFileName);
         assertTrue(testFile.exists());
         assertEquals(reader.read(testFile), content);

@@ -1,0 +1,17 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'commons-codec:commons-codec:1.3'
+
+    compile project(':utils')
+    compile project(':logging')
+
+    testCompile 'org.testng:testng:6.9.10'
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+}
