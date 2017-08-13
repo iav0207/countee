@@ -1,9 +1,9 @@
-package ru.iav.takoe.countee.model.comparator;
-
-import ru.iav.takoe.countee.vo.Cost;
+package ru.iav.takoe.countee.vo.comparator;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
+
+import ru.iav.takoe.countee.vo.Cost;
 
 public class CostAmountComparator implements Comparator<Cost> {
 

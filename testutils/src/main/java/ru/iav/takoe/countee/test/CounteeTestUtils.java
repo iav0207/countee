@@ -1,7 +1,10 @@
-package ru.iav.takoe.countee.service.utils;
+package ru.iav.takoe.countee.test;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +19,12 @@ import static ru.iav.takoe.countee.utils.TestUtils.getRandomDateOfLastYear;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
 public class CounteeTestUtils {
+
+    public static File createFile(String key) throws IOException {
+        File testFile = new File("io/test" + key);
+        Files.deleteIfExists(testFile.toPath());
+        return testFile;
+    }
 
     public static List<Cost> getListOfRandomCosts(int size) {
         List<Cost> list = new ArrayList<>();
@@ -48,7 +57,7 @@ public class CounteeTestUtils {
     }
 
     public static Cost cost(DateTime dateTime) {
-        Cost cost = mock(Cost.class);
+        Cost cost = getRandomCost();
         when(cost.getTimestamp()).thenReturn(dateTime.toDate());
         return cost;
     }

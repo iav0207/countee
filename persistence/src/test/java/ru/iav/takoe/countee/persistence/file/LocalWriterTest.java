@@ -51,8 +51,8 @@ public class LocalWriterTest {
 
     @Test
     public void shouldAppend() throws Exception {
-        writer.append(lineOne, file);
-        writer.append(lineTwo, file);
+        writer.appendNewLine(lineOne, file);
+        writer.appendNewLine(lineTwo, file);
 
         String content = Files.readFile(file);
         assertTrue(content.contains(lineTwo));

@@ -1,10 +1,10 @@
-package ru.iav.takoe.countee.model;
+package ru.iav.takoe.countee.vo.util;
+
+import javax.annotation.Nullable;
 
 import org.joda.time.DateTime;
 import ru.iav.takoe.countee.utils.DateUtils;
 import ru.iav.takoe.countee.vo.Cost;
-
-import javax.annotation.Nullable;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 

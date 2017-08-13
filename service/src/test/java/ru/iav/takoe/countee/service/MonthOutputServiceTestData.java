@@ -1,13 +1,13 @@
 package ru.iav.takoe.countee.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.joda.time.DateTime;
 import org.testng.annotations.DataProvider;
 import ru.iav.takoe.countee.vo.Cost;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static ru.iav.takoe.countee.service.utils.CounteeTestUtils.cost;
+import static ru.iav.takoe.countee.test.CounteeTestUtils.cost;
 import static ru.iav.takoe.countee.utils.DateUtils.month;
 
 public class MonthOutputServiceTestData {

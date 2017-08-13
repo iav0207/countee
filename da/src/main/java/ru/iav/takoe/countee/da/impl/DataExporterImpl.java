@@ -14,18 +14,15 @@ import ru.iav.takoe.countee.persistence.file.LocalReader;
 import ru.iav.takoe.countee.persistence.file.LocalWriter;
 
 import static org.apache.commons.lang3.StringUtils.defaultString;
+import static ru.iav.takoe.countee.da.impl.Constants.EOF;
+import static ru.iav.takoe.countee.logging.LogService.logInfo;
 
 @ParametersAreNonnullByDefault
 public class DataExporterImpl implements DataExporter {
 
-    static final String EOF = "6a58c043-284f-49f1-a681-64d7a1391633";
-
     private final CostFileNamesFactory fileNamesFactory;
-
     private final LocalReader reader;
-
     private final LocalWriter writer;
-
     private final CryptFacade cryptFacade;
 
     @Inject
@@ -53,10 +50,13 @@ public class DataExporterImpl implements DataExporter {
 
     @Override
     public boolean exportAllData(File target, @Nullable String password) {
+        logInfo("Starting data export. Target file: " + target);
+        writer.clear(target);
         for (File source : getAllCostFiles()) {
-            String contentToWrite = cryptFacade.encrypt(reader.read(source) + EOF, defaultString(password));
+            String contentToWrite = cryptFacade.encrypt(reader.read(source), defaultString(password)) + EOF;
             writer.append(contentToWrite, target);
         }
+        logInfo("Successfully finished data export to file " + target);
         return true;
     }
 

@@ -1,7 +1,6 @@
 package ru.iav.takoe.countee.da.impl;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -22,7 +21,8 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
-import static ru.iav.takoe.countee.da.impl.DataExporterImpl.EOF;
+import static ru.iav.takoe.countee.da.impl.Constants.EOF;
+import static ru.iav.takoe.countee.test.CounteeTestUtils.createFile;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
@@ -105,12 +105,6 @@ public class DataExporterImplTest {
             files.add(createFile(String.valueOf(i)));
         }
         return files;
-    }
-
-    private File createFile(String key) throws IOException {
-        File testFile = new File("io/test" + key);
-        Files.deleteIfExists(testFile.toPath());
-        return testFile;
     }
 
 }

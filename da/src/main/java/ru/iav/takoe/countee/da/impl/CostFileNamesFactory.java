@@ -3,11 +3,13 @@ package ru.iav.takoe.countee.da.impl;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.inject.Inject;
 
+import org.joda.time.DateTime;
 import ru.iav.takoe.countee.persistence.file.FileFactory;
 
 import static java.util.Arrays.asList;
@@ -36,12 +38,16 @@ public class CostFileNamesFactory {
     }
 
     File getActualFile() {
-        return fileFactory.create(getActualFileName());
+        return fileFactory.create(getFileNameFor(now()));
     }
 
-    private static String getActualFileName() {
+    File getFileForDate(DateTime dateTime) {
+        return fileFactory.create(getFileNameFor(dateTime.toDate()));
+    }
+
+    private static String getFileNameFor(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat(FILE_NAME_FORMAT);
-        return OUTPUT_PATH + sdf.format(now()) + EXTENSION;
+        return OUTPUT_PATH + sdf.format(date) + EXTENSION;
     }
 
 }
