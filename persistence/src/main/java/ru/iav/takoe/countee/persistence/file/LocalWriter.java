@@ -4,9 +4,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.nio.charset.Charset;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+
+import com.google.common.io.Files;
 
 import static ru.iav.takoe.countee.logging.LogService.logDebug;
 import static ru.iav.takoe.countee.logging.LogService.logError;
@@ -14,7 +16,6 @@ import static ru.iav.takoe.countee.logging.LogService.logError;
 @ParametersAreNonnullByDefault
 public class LocalWriter {
 
-    // TODO test
     private enum Option {
         CLEAR_WRITE,
         APPEND,
@@ -40,7 +41,7 @@ public class LocalWriter {
     private void write(String text, File file, Option option) {
         try (BufferedWriter writer = new BufferedWriter(createFileWriter(file, option)))
         {
-            logDebug("Writing to file " + file.getAbsolutePath() + "\n...");
+            logDebug("Writing to file " + file.getAbsolutePath() + " ...");
             if (option == Option.APPEND_NEW_LINE && !isEmptyOrAbsent(file)) {
                 writer.newLine();
             }
@@ -52,16 +53,15 @@ public class LocalWriter {
     }
 
     private FileWriter createFileWriter(File file, Option option) throws IOException {
-        switch (option) {
-            case CLEAR_WRITE:
-                return new FileWriter(file, false);
-            default:
-                return new FileWriter(file, true);
+        if (option == Option.CLEAR_WRITE) {
+            return new FileWriter(file, false);
+        } else {
+            return new FileWriter(file, true);
         }
     }
 
     private boolean isEmptyOrAbsent(File file) throws IOException {
-        return !file.exists() || Files.readAllBytes(file.toPath()).length < 1;
+        return !file.exists() || Files.toString(file, Charset.defaultCharset()).isEmpty();
     }
 
 }

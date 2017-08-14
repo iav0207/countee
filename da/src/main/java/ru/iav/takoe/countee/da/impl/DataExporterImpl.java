@@ -42,10 +42,10 @@ public class DataExporterImpl implements DataExporter {
     public String exportAllData(@Nullable String password) {
         StringBuilder sb = new StringBuilder();
         for (File file : getAllCostFiles()) {
-            sb.append(reader.read(file));
+            sb.append(getContentEncrypted(file, password));
             sb.append(EOF);
         }
-        return cryptFacade.encrypt(sb.toString(), defaultString(password));
+        return sb.toString();
     }
 
     @Override
@@ -53,11 +53,15 @@ public class DataExporterImpl implements DataExporter {
         logInfo("Starting data export. Target file: " + target);
         writer.clear(target);
         for (File source : getAllCostFiles()) {
-            String contentToWrite = cryptFacade.encrypt(reader.read(source), defaultString(password)) + EOF;
+            String contentToWrite = getContentEncrypted(source, password) + EOF;
             writer.append(contentToWrite, target);
         }
         logInfo("Successfully finished data export to file " + target);
         return true;
+    }
+
+    private String getContentEncrypted(File source, @Nullable String password) {
+        return cryptFacade.encrypt(reader.read(source), defaultString(password));
     }
 
     private List<File> getAllCostFiles() {

@@ -53,11 +53,12 @@ public class CostBulkSaver implements Saver<DateCostMultimap, RuntimeException> 
             File targetFile = fileNamesFactory.getFileForDate(month);
 
             if (!filesWritten.contains(targetFile)) {
-                clear(targetFile);
+                writer.clear(targetFile);
                 filesWritten.add(targetFile);
                 logInfo("File cleared before writing: " + targetFile);
             }
 
+            logInfo("Bulk saver: costs collection has size " + bulk.get(month).size());
             CostsData costsData = new CostsData();
             for (Cost cost : bulk.get(month)) {
                 addToDescriptor(cost, costsData);
@@ -72,10 +73,6 @@ public class CostBulkSaver implements Saver<DateCostMultimap, RuntimeException> 
         for (File file : filesWritten) {
             logInfo("\t\t" + file);
         }
-    }
-
-    private void clear(File file) {
-        writer.clearWrite("", file);
     }
 
     private void addToDescriptor(Cost cost, CostsData data) {

@@ -1,8 +1,6 @@
 package ru.iav.takoe.countee.persistence.file;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -21,15 +19,6 @@ public class LocalReader {
         } catch (IOException ioe) {
             logError("Couldn't read file " + file.getName(), ioe);
             return null;
-        }
-    }
-
-    public FileReader getIterativeFileReader(File file) {
-        try {
-            return new FileReader(file);
-        } catch (FileNotFoundException e) {
-            logError("File " + file.getName() + "not found", e);
-            throw new RuntimeException(e);
         }
     }
 

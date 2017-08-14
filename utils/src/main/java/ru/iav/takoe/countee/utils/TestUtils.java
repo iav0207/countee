@@ -1,13 +1,15 @@
 package ru.iav.takoe.countee.utils;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.joda.time.DateTime;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 public class TestUtils {
+
+    private TestUtils() {}
 
     public static String getRandomString() {
         return getRandomString(10);
@@ -22,11 +24,10 @@ public class TestUtils {
     }
 
     public static Date getRandomDateOfLastYear() {
-        return DateTime.now()
-                .minusMonths(getRandomInteger(12))
-                .minusDays(getRandomInteger(30))
-                .minusHours(getRandomInteger(24))
-                .toDate();
+        long upperBound = DateUtils.now().getTime();
+        long lowerBound = DateTime.now().minusYears(1).toDate().getTime();
+        long rand = lowerBound + getRandomLong(upperBound - lowerBound);
+        return new Date(rand);
     }
 
     public static BigDecimal getRandomBigDecimal() {
@@ -34,7 +35,11 @@ public class TestUtils {
     }
 
     public static Long getRandomLong() {
-        return RandomUtils.nextLong(0, Long.MAX_VALUE);
+        return getRandomLong(Long.MAX_VALUE);
+    }
+
+    public static Long getRandomLong(long max) {
+        return RandomUtils.nextLong(0, max);
     }
 
     public static Integer getRandomInteger() {

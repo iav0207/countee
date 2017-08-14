@@ -1,10 +1,10 @@
 package ru.iav.takoe.countee.da.impl;
 
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -19,7 +19,6 @@ import ru.iav.takoe.countee.persistence.file.LocalReader;
 import ru.iav.takoe.countee.vo.Cost;
 
 import static ru.iav.takoe.countee.da.impl.Constants.EOF;
-import static ru.iav.takoe.countee.da.impl.Constants.IMPORT_BUFFER_SIZE;
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.logging.LogService.logInfo;
 import static ru.iav.takoe.countee.vo.util.CostDateUtil.month;
@@ -51,12 +50,10 @@ public class MergeFileDataImporter extends FileDataImporter {
         backupData();
 
         try {
-            FileReader iterativeReader = reader.getIterativeFileReader(source);
-            Worker worker = new Worker(iterativeReader, password);
+            String sourceContent = reader.read(source);
 
-            while (worker.readNextBlock() > -1) {
-                worker.processBlock();
-            }
+            Worker worker = new Worker(sourceContent, password);
+            worker.processBlockByBlock();
             worker.mergeCosts();
             logInfo("All data processed successfully. Saving changes...");
 
@@ -83,49 +80,26 @@ public class MergeFileDataImporter extends FileDataImporter {
 
     private class Worker {
 
-        private final char[] buffer = new char[IMPORT_BUFFER_SIZE];
-        private final FileReader iterativeReader;
+        private final String sourceContent;
         private final String password;
 
-        private int charsCurrentlyRead;
-        private int charsReadAtLastIteration;
-        private String decrypted;
-        private String[] split;
-
-        private String prevTail = "";       // tail of decrypted string
-        private int offsetForNextIteration; // unprocessed buffer tail length
+        private List<String> split;
+        private List<String> openSplit;
 
         private Map<String, Cost> uuidMap;
         private DateCostMultimap monthMultimap;
 
-        Worker(FileReader iterativeReader, String password) {
-            this.iterativeReader = iterativeReader;
+        Worker(String sourceContent, String password) {
+            this.sourceContent = sourceContent;
             this.password = password;
             uuidMap = new HashMap<>();
             monthMultimap = new DateCostMultimap();
+            split = Arrays.asList(sourceContent.split(EOF));
         }
 
-        /**
-         * @return Number of chars read from file.
-         */
-        int readNextBlock() {
-            try {
-                int limit = buffer.length - offsetForNextIteration;
-                if (offsetForNextIteration > 0) {
-                    System.arraycopy(buffer, limit, buffer, 0, offsetForNextIteration);
-                }
-                charsReadAtLastIteration = iterativeReader.read(buffer, offsetForNextIteration, limit);
-                charsCurrentlyRead += charsReadAtLastIteration;
-                return charsReadAtLastIteration;
-            } catch (IOException e) {
-                logError("Failed to read next block. Current offset = " + charsCurrentlyRead, e);
-                throw new DataNotImportedException(e);
-            }
-        }
-
-        void processBlock() {
+        void processBlockByBlock() {
+            splitBySourceFiles();
             decrypt();
-            splitByFiles();
             parseFilesAndAddObtainedCostsToMaps();
         }
 
@@ -133,26 +107,19 @@ public class MergeFileDataImporter extends FileDataImporter {
             return monthMultimap;
         }
 
-        private void decrypt() {
-            decrypted = cryptFacade.decrypt(String.copyValueOf(buffer), password);
+        private void splitBySourceFiles() {
+            split = Arrays.asList(sourceContent.split(EOF));
         }
 
-        private void splitByFiles() {
-            split = decrypted.split(EOF);
-            int len = split.length;
-            if (len > 1) {
-                prevTail = split[len - 1];
-                split = Arrays.copyOf(split, len - 1);
-                offsetForNextIteration = toCypherLength(prevTail.length());
-                charsCurrentlyRead -= offsetForNextIteration;
-            } else {
-                prevTail = "";
-                offsetForNextIteration = 0;
+        private void decrypt() {
+            openSplit = new ArrayList<>();
+            for (String sourceFileContent : split) {
+                openSplit.add(cryptFacade.decrypt(sourceFileContent, password));
             }
         }
 
         private void parseFilesAndAddObtainedCostsToMaps() {
-            for (String singleFileContent : Arrays.asList(split)) {
+            for (String singleFileContent : openSplit) {
                 CostsData singleFileData = jsonParser.deserialize(singleFileContent, CostsData.class);
                 addToMaps(singleFileData.getDescriptor().values());
             }
@@ -160,20 +127,6 @@ public class MergeFileDataImporter extends FileDataImporter {
         
         private void mergeCosts() {
             addToMaps(costReader.readAll());
-        }
-
-        private int toCypherLength(int openTextLength) {
-            int t = decrypted.length();
-            int c = charsReadAtLastIteration;
-            if (t > c) {
-                int ratio = t / c;
-                return openTextLength / ratio;
-            } else if (t < c) {
-                int ratio = c / t;
-                return openTextLength * ratio;
-            } else {
-                return openTextLength;
-            }
         }
 
         private void addToMaps(Iterable<Cost> costs) {

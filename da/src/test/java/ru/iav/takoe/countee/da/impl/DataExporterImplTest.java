@@ -61,9 +61,10 @@ public class DataExporterImplTest {
         String password = getRandomString();
         String exportResult = dataExporter.exportAllData(password);
 
-        String decryptedResult = cryptFacade.decrypt(exportResult, password);
-        for (String eachFileContent : decryptedResult.split(EOF)) {
-            assertEquals(eachFileContent, returnedByReader);
+        for (String eachFileExportResult : exportResult.split(EOF)) {
+            String decryptedExportedFileContent =
+                    cryptFacade.decrypt(eachFileExportResult, password);
+            assertEquals(decryptedExportedFileContent, returnedByReader);
         }
     }
 

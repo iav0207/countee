@@ -12,6 +12,7 @@ import ru.iav.takoe.countee.json.JsonParser;
 import ru.iav.takoe.countee.persistence.file.LocalReader;
 import ru.iav.takoe.countee.vo.Cost;
 
+import static java.util.Collections.emptyList;
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.utils.ObjectUtils.defensiveCopy;
 
@@ -42,7 +43,7 @@ public class CostReader implements Reader<Cost> {
             return cache.getCostsForThisMonth();
         } catch (RuntimeException e) {
             logError(e.getMessage());
-            return new ArrayList<>();
+            return emptyList();
         }
     }
 
@@ -53,7 +54,7 @@ public class CostReader implements Reader<Cost> {
             return cache.getAllCosts();
         } catch (RuntimeException e) {
             logError(e.getMessage());
-            return new ArrayList<>();
+            return emptyList();
         }
     }
 
