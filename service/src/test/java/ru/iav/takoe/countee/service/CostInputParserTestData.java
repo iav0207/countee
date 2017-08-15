@@ -15,9 +15,8 @@ public class CostInputParserTestData {
     public static Object[][] getValidStrings() {
         return new Object[][] {
                 {"5 abc",           cost(5d, "abc")},
-                {"0.1 ${#+",        cost(0.1d, "${#+")},
-                {"-5 t",            cost(-5d, "t")},
-                {"201 --1",         cost(201d, "--1")}
+                {"-5.0 t",          cost(-5d, "t")},
+                {"-5 ta_5",         cost(-5d, "ta_5")},
         };
     }
 
@@ -27,7 +26,11 @@ public class CostInputParserTestData {
                 {"a abc",           null},
                 {"0  ",             null},
                 {"-5 t a",          null},
-                {"201 d 1",         null}
+                {"201 d 1",         null},
+                {"0.1 ${#+",        null},
+                {"201 --1",         null},
+                {" 2 a",            null},
+                {"2 a ",            null}
         };
     }
 
