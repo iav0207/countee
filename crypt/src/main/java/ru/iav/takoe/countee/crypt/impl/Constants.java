@@ -1,8 +1,9 @@
 package ru.iav.takoe.countee.crypt.impl;
 
-/**
- * Created by takoe on 02.02.17.
- */
+
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
 class Constants {
 
     static final String DEFAULT_KEY = "hjIT/TtM++7pMs0dUfVuh/7LsOhHVkZt";

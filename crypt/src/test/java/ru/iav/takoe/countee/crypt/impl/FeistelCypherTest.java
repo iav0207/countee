@@ -1,13 +1,13 @@
 package ru.iav.takoe.countee.crypt.impl;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import org.testng.annotations.Test;
 import ru.iav.takoe.countee.crypt.vo.Block64;
 
 import static org.testng.Assert.assertEquals;
 
-/**
- * Created by takoe on 06.02.17.
- */
+@ParametersAreNonnullByDefault
 public class FeistelCypherTest {
 
     @Test

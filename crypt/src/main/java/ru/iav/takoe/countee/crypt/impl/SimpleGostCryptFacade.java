@@ -1,10 +1,10 @@
 package ru.iav.takoe.countee.crypt.impl;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import ru.iav.takoe.countee.crypt.CryptFacade;
 
-/**
- * Created by takoe on 06.02.17.
- */
+@ParametersAreNonnullByDefault
 public class SimpleGostCryptFacade implements CryptFacade {
 
     @Override

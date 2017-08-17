@@ -1,13 +1,12 @@
 package ru.iav.takoe.countee.crypt.impl;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.xml.bind.DatatypeConverter;
+
 import org.apache.commons.codec.binary.Base64;
 import ru.iav.takoe.countee.crypt.utils.BytesToStringParser;
 
-import javax.xml.bind.DatatypeConverter;
-
-/**
- * Created by takoe on 01.02.17.
- */
+@ParametersAreNonnullByDefault
 class SimpleGostDecryptor extends SimpleGostAlgorithmExecutor implements Decryptor {
 
     private static BytesToStringParser parser = new BytesToStringParser();

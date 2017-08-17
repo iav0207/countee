@@ -1,17 +1,16 @@
 package ru.iav.takoe.countee.crypt.impl;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+import javax.xml.bind.DatatypeConverter;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import javax.xml.bind.DatatypeConverter;
-
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
-/**
- * Created by takoe on 01.02.17.
- */
+@ParametersAreNonnullByDefault
 class SimpleGostEncryptor extends SimpleGostAlgorithmExecutor implements Encryptor {
 
     public static SimpleGostEncryptor withKey(String key) {

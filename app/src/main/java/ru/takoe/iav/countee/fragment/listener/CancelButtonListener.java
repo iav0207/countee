@@ -1,12 +1,12 @@
 package ru.takoe.iav.countee.fragment.listener;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import ru.takoe.iav.countee.view.ViewProvider;
 
-/**
- * Created by takoe on 09.02.17.
- */
+@ParametersAreNonnullByDefault
 public class CancelButtonListener extends SettingsFragmentButtonListener {
 
     public CancelButtonListener(Context context, ViewProvider viewProvider) {
