@@ -10,7 +10,7 @@ import ru.iav.takoe.countee.da.DataExporter;
 @ParametersAreNonnullByDefault
 public class DataExportService {
 
-    private DataExporter dataExporter;
+    private final DataExporter dataExporter;
 
     @Inject
     public DataExportService(DataExporter dataExporter) {
