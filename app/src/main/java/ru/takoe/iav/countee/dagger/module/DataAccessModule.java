@@ -1,5 +1,7 @@
 package ru.takoe.iav.countee.dagger.module;
 
+import java.io.File;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -7,14 +9,18 @@ import dagger.Provides;
 import ru.iav.takoe.countee.crypt.CryptFacade;
 import ru.iav.takoe.countee.crypt.impl.SimpleGostCryptFacade;
 import ru.iav.takoe.countee.da.DataExporter;
+import ru.iav.takoe.countee.da.DataImporter;
 import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.da.Saver;
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
+import ru.iav.takoe.countee.da.impl.CostBulkSaver;
 import ru.iav.takoe.countee.da.impl.CostFileNamesFactory;
 import ru.iav.takoe.countee.da.impl.CostReader;
 import ru.iav.takoe.countee.da.impl.CostSaver;
 import ru.iav.takoe.countee.da.impl.CostsCache;
 import ru.iav.takoe.countee.da.impl.DataExporterImpl;
+import ru.iav.takoe.countee.da.impl.DateCostMultimap;
+import ru.iav.takoe.countee.da.impl.MergeFileDataImporter;
 import ru.iav.takoe.countee.json.JsonConverter;
 import ru.iav.takoe.countee.json.JsonParser;
 import ru.iav.takoe.countee.persistence.file.FileFactory;
@@ -31,6 +37,29 @@ public class DataAccessModule {
     Saver<Cost, CostNotSavedException> provideCostSaver(CostFileNamesFactory fileNamesFactory, CostReader costReader,
             CostsCache cache, JsonConverter jsonConverter, LocalWriter writer) {
         return new CostSaver(fileNamesFactory, costReader, cache, jsonConverter, writer);
+    }
+
+    @Provides
+    @Singleton
+    DataImporter<File> provideFileDataImporter(
+            LocalReader reader,
+            JsonParser jsonParser,
+            Reader<Cost> costReader,
+            Saver<DateCostMultimap, ? extends RuntimeException> costBulkSaver,
+            CryptFacade cryptFacade)
+    {
+        return new MergeFileDataImporter(reader, jsonParser, costReader, costBulkSaver, cryptFacade);
+    }
+
+    @Provides
+    @Singleton
+    CostBulkSaver provideCostBulkSaver(
+            CostFileNamesFactory fileNamesFactory,
+            CostsCache cache,
+            JsonConverter jsonConverter,
+            LocalWriter writer)
+    {
+        return new CostBulkSaver(fileNamesFactory, cache, jsonConverter, writer);
     }
 
     @Provides

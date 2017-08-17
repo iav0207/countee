@@ -1,10 +1,13 @@
 package ru.takoe.iav.countee.dagger.module;
 
+import java.io.File;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import ru.iav.takoe.countee.da.DataExporter;
+import ru.iav.takoe.countee.da.DataImporter;
 import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.da.Saver;
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
@@ -17,6 +20,7 @@ import ru.iav.takoe.countee.service.CostInputParser;
 import ru.iav.takoe.countee.service.CostInputValidator;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.DataExportService;
+import ru.iav.takoe.countee.service.FileDataImportService;
 import ru.iav.takoe.countee.service.MonthOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.iav.takoe.countee.vo.Cost;
@@ -31,26 +35,26 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public CostInputValidator provideCostInputValidator() {
+    CostInputValidator provideCostInputValidator() {
         return new CostInputValidator();
     }
 
     @Provides
     @Singleton
-    public CostValidator provideCostValidator() {
+    CostValidator provideCostValidator() {
         return new CostValidator();
     }
 
     @Provides
     @Singleton
-    public CostFactory provideCostFactory(CostValidator validator) {
+    CostFactory provideCostFactory(CostValidator validator) {
         return new CostFactory(validator);
     }
 
 
     @Provides
     @Singleton
-    public SaveCostService provideSaveCostService(Saver<Cost, CostNotSavedException> costSaver,
+    SaveCostService provideSaveCostService(Saver<Cost, CostNotSavedException> costSaver,
             CostInputParser inputParser,
             MonthOutputService monthOutputService)
     {
@@ -59,7 +63,7 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public CostOutputService provideCostOutputService(Reader<Cost> costReader,
+    CostOutputService provideCostOutputService(Reader<Cost> costReader,
             BalanceService balanceService,
             MonthOutputService monthOutputService)
     {
@@ -68,44 +72,50 @@ public class ServiceModule {
 
     @Provides
     @Singleton
-    public CostCommentsService provideCostCommentsService(Reader<Cost> costReader) {
+    CostCommentsService provideCostCommentsService(Reader<Cost> costReader) {
         return new CostCommentsService(costReader);
     }
 
     @Provides
     @Singleton
-    public CostInputParser provideCostInputParser(CostInputValidator validator, CostFactory factory) {
+    CostInputParser provideCostInputParser(CostInputValidator validator, CostFactory factory) {
         return new CostInputParser(validator, factory);
     }
 
     @Provides
     @Singleton
-    public BalanceService provideBalanceService(Reader<Cost> costReader, BalanceCalculator balanceCalculator) {
+    BalanceService provideBalanceService(Reader<Cost> costReader, BalanceCalculator balanceCalculator) {
         return new BalanceService(costReader, balanceCalculator);
     }
 
     @Provides
     @Singleton
-    public ChartsDataService provideChartsDataService(Reader<Cost> reader) {
+    ChartsDataService provideChartsDataService(Reader<Cost> reader) {
         return new ChartsDataService(reader);
     }
 
     @Provides
     @Singleton
-    public MonthOutputService provideMonthOutputService(DateCostMultimapBuilder multimapBuilder,
+    MonthOutputService provideMonthOutputService(DateCostMultimapBuilder multimapBuilder,
             Reader<Cost> costReader) {
         return new MonthOutputService(multimapBuilder, costReader);
     }
 
     @Provides
     @Singleton
-    public DataExportService provideDataExportService(DataExporter dataExporter) {
+    DataExportService provideDataExportService(DataExporter dataExporter) {
         return new DataExportService(dataExporter);
+    }
+    
+    @Provides
+    @Singleton
+    FileDataImportService provideFileDataImportService(DataImporter<File> fileDataImporter) {
+        return new FileDataImportService(fileDataImporter);
     }
 
     @Provides
     @Singleton
-    public DateCostMultimapBuilder provideMultimapBuilder() {
+    DateCostMultimapBuilder provideMultimapBuilder() {
         return new DateCostMultimapBuilder();
     }
 
