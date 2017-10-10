@@ -1,5 +1,7 @@
 package ru.takoe.iav.countee.fragment.listener;
 
+import java.io.File;
+
 import javax.annotation.ParametersAreNonnullByDefault;
 import javax.inject.Inject;
 
@@ -8,15 +10,17 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import ru.takoe.iav.countee.R;
-import ru.takoe.iav.countee.fragment.loader.ExportDataLoader;
+import ru.takoe.iav.countee.fragment.loader.ImportDataLoader;
 import ru.takoe.iav.countee.view.ViewProvider;
 
 @ParametersAreNonnullByDefault
 public class ImportButtonListener extends SettingsFragmentButtonListener
-        implements LoaderManager.LoaderCallbacks<String> {
+        implements LoaderManager.LoaderCallbacks<Boolean> {
 
     private final LoaderManager loaderManager;
+    private File importSource;
 
     @Inject
     public ImportButtonListener(Context context,
@@ -27,28 +31,34 @@ public class ImportButtonListener extends SettingsFragmentButtonListener
         this.loaderManager = loaderManager;
     }
 
-    @Override
-    public void onClick(DialogInterface dialogInterface, int i) {
+    public ImportButtonListener withSourceFile(String fileName) {
+        importSource = new File(fileName);
+        return this;
+    }
 
-        if (false) {    // TODO implement
-            loaderManager.initLoader(ExportDataLoader.ID, null, this);
-        }
+    @Override
+    public void onClick(DialogInterface dialogInterface, int whichButton) {
         hideKeyboard();
-        showToast(R.string.data_import_not_implemented_msg);
+        showToast(R.string.data_import_wait_msg);
+
+        loaderManager.initLoader(ImportDataLoader.ID, null, this);
+
+        dialogInterface.dismiss();
     }
 
     @Override
-    public Loader<String> onCreateLoader(int id, Bundle args) {
-        return null;
+    public Loader<Boolean> onCreateLoader(int id, Bundle args) {
+        return new ImportDataLoader(importSource, getPasswordFromTextInput());
     }
 
     @Override
-    public void onLoadFinished(Loader<String> loader, String data) {
-
+    public void onLoadFinished(Loader<Boolean> loader, Boolean result) {
+        Log.i("load_finish", "Background import finished.");
+        showToast(R.string.data_imported_msg);
     }
 
     @Override
-    public void onLoaderReset(Loader<String> loader) {
-
+    public void onLoaderReset(Loader<Boolean> loader) {
+        // not implemented
     }
 }

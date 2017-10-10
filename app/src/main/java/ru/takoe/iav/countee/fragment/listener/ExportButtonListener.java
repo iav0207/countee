@@ -45,10 +45,10 @@ public class ExportButtonListener extends SettingsFragmentButtonListener
     }
 
     @Override
-    public void onLoadFinished(Loader<String> loader, String exportedData) {
-        Log.i("LOAD_FINISHED", "BACKGROUND LOAD FINISHED !!!");
-        copyToClipboard(context, "Countee export", exportedData);
-        showToast(exportedData);
+    public void onLoadFinished(Loader<String> loader, String exportFileName) {
+        Log.i("load_finish", "Background export finished.");
+        copyToClipboard(context, "Countee export", exportFileName);
+        showToast(exportFileName);
     }
 
     @Override

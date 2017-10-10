@@ -21,6 +21,7 @@ import ru.takoe.iav.countee.fragment.listener.ExportButtonListener;
 import ru.takoe.iav.countee.fragment.listener.ImportButtonListener;
 import ru.takoe.iav.countee.fragment.listener.SettingsFragmentButtonListener;
 import ru.takoe.iav.countee.view.ViewProvider;
+import ru.takoe.iav.countee.view.dialog.OpenFileDialog;
 
 /**
  * A fragment representing a list of Items.
@@ -28,7 +29,8 @@ import ru.takoe.iav.countee.view.ViewProvider;
  * Activities containing this fragment MUST implement the {@link OnFragmentInteractionListener}
  * interface.
  */
-public class SettingsFragment extends Fragment implements View.OnClickListener {
+public class SettingsFragment extends Fragment
+        implements View.OnClickListener, OpenFileDialog.OpenDialogListener {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     private static final int VAL_COLUMN_COUNT = 1;
@@ -117,16 +119,27 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
         if (viewProvider.getExportDataButton().getId() == view.getId()) {
             buildPasswordDialog(exportButtonListener);
         } else if (viewProvider.getImportDataButton().getId() == view.getId()) {
-            buildPasswordDialog(importButtonListener);
+            buildOpenFileDialog();
         }
+    }
+
+    @Override
+    public void onSelectedFile(String fileName) {
+        buildPasswordDialog(importButtonListener.withSourceFile(fileName));
     }
 
     private void buildPasswordDialog(SettingsFragmentButtonListener positiveButtonListener) {
         new AlertDialog.Builder(getContext())
-                .setTitle("Enter password")
+                .setTitle(R.string.enter_password_title)
                 .setView(positiveButtonListener.newEditText())
-                .setPositiveButton("OK", positiveButtonListener)
-                .setNegativeButton("Cancel", new CancelButtonListener(getContext(), viewProvider))
+                .setPositiveButton(android.R.string.ok, positiveButtonListener)
+                .setNegativeButton(android.R.string.cancel, new CancelButtonListener(getContext(), viewProvider))
+                .show();
+    }
+
+    private void buildOpenFileDialog() {
+        new OpenFileDialog(getContext())
+                .setOpenDialogListener(this)
                 .show();
     }
 

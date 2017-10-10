@@ -45,7 +45,7 @@ public class DataAccessModule {
             LocalReader reader,
             JsonParser jsonParser,
             Reader<Cost> costReader,
-            Saver<DateCostMultimap, ? extends RuntimeException> costBulkSaver,
+            Saver<DateCostMultimap, RuntimeException> costBulkSaver,
             CryptFacade cryptFacade)
     {
         return new MergeFileDataImporter(reader, jsonParser, costReader, costBulkSaver, cryptFacade);
@@ -53,7 +53,7 @@ public class DataAccessModule {
 
     @Provides
     @Singleton
-    CostBulkSaver provideCostBulkSaver(
+    Saver<DateCostMultimap, RuntimeException> provideCostBulkSaver(
             CostFileNamesFactory fileNamesFactory,
             CostsCache cache,
             JsonConverter jsonConverter,

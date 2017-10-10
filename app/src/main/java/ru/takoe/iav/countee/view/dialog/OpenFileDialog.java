@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.common.base.Joiner;
+import com.google.common.base.Optional;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static ru.takoe.iav.countee.android.util.DisplayUtil.getDefaultDisplay;
@@ -47,7 +48,7 @@ public class OpenFileDialog extends AlertDialog.Builder {
     private FilenameFilter filenameFilter;
     private OpenDialogListener listener;
     private String accessDeniedMessage;
-    private boolean isOnlyFoldersFilter;
+    private boolean foldersOnly = false;
 
     public interface OpenDialogListener {
         void onSelectedFile(String fileName);
@@ -55,7 +56,6 @@ public class OpenFileDialog extends AlertDialog.Builder {
 
     public OpenFileDialog(Context context) {
         super(context);
-        isOnlyFoldersFilter = false;
         title = createTitle(context);
         changeTitle();
         LinearLayout linearLayout = createMainLayout(context);
@@ -67,10 +67,13 @@ public class OpenFileDialog extends AlertDialog.Builder {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (selectedIndex > -1 && listener != null) {
+                        if (listener == null) {
+                            return;
+                        }
+                        if (selectedIndex > -1) {
                             listener.onSelectedFile(listView.getItemAtPosition(selectedIndex).toString());
                         }
-                        if (listener != null && isOnlyFoldersFilter) {
+                        if (foldersOnly) {
                             listener.onSelectedFile(currentPath);
                         }
                     }
@@ -98,15 +101,14 @@ public class OpenFileDialog extends AlertDialog.Builder {
     }
 
     public OpenFileDialog setOnlyFoldersFilter() {
-        isOnlyFoldersFilter = true;
         filenameFilter = new FilenameFilter() {
-
             @Override
             public boolean accept(File file, String fileName) {
                 File tempFile = new File(path(file.getPath(), fileName));
                 return tempFile.isDirectory();
             }
         };
+        foldersOnly = true;
         return this;
     }
 
@@ -196,19 +198,17 @@ public class OpenFileDialog extends AlertDialog.Builder {
 
     private List<File> getFiles(String directoryPath) {
         File directory = new File(directoryPath);
-        File[] list = directory.listFiles(filenameFilter);
-        if(list == null)
-            list = new File[]{};
+        File[] list = Optional.fromNullable(directory.listFiles(filenameFilter)).or(new File[]{});
         List<File> fileList = Arrays.asList(list);
         Collections.sort(fileList, new Comparator<File>() {
             @Override
             public int compare(File file, File file2) {
-                if (file.isDirectory() && file2.isFile())
+                if (file.isDirectory() && file2.isFile()) {
                     return -1;
-                else if (file.isFile() && file2.isDirectory())
+                } else if (file.isFile() && file2.isDirectory()) {
                     return 1;
-                else
-                    return file.getPath().compareTo(file2.getPath());
+                }
+                return file.getPath().compareTo(file2.getPath());
             }
         });
         return fileList;
