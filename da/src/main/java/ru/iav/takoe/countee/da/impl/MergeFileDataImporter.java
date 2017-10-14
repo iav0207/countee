@@ -13,7 +13,6 @@ import javax.inject.Inject;
 import ru.iav.takoe.countee.crypt.CryptFacade;
 import ru.iav.takoe.countee.da.Reader;
 import ru.iav.takoe.countee.da.Saver;
-import ru.iav.takoe.countee.da.exception.DataNotImportedException;
 import ru.iav.takoe.countee.json.JsonParser;
 import ru.iav.takoe.countee.persistence.file.LocalReader;
 import ru.iav.takoe.countee.vo.Cost;
@@ -43,12 +42,7 @@ public class MergeFileDataImporter extends FileDataImporter {
     }
 
     @Override
-    public boolean importData(File source, String password) {
-
-        logInfo("Starting data import. Source file: " + source);
-
-        backupData();
-
+    void doImport(File source, String password) {
         try {
             String sourceContent = reader.read(source);
 
@@ -58,24 +52,11 @@ public class MergeFileDataImporter extends FileDataImporter {
             logInfo("All data processed successfully. Saving changes...");
 
             costBulkSaver.save(worker.getMonthMultimap());
-            logInfo("Data import finished successfully.");
 
         } catch (RuntimeException ex) {
             logError("Failed to import data from file: " + source, ex);
-
-            restoreDataFromBackup();
-            throw new DataNotImportedException(ex);
+            throw ex;
         }
-
-        return true;
-    }
-
-    private void backupData() {
-        // TODO implement
-    }
-
-    private void restoreDataFromBackup() {
-        // TODO implement
     }
 
     private class Worker {

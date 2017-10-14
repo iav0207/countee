@@ -53,8 +53,13 @@ public class ImportButtonListener extends SettingsFragmentButtonListener
 
     @Override
     public void onLoadFinished(Loader<Boolean> loader, Boolean result) {
-        Log.i("load_finish", "Background import finished.");
-        showToast(R.string.data_imported_msg);
+        if (result) {
+            Log.i("load_finish", "Background import finished successfully.");
+            showToast(R.string.data_imported_msg);
+        } else {
+            Log.e("load_finish", "Background import failed.");
+            showToast(R.string.data_not_imported_msg);
+        }
     }
 
     @Override

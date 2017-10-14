@@ -22,7 +22,7 @@ public class ReplaceFileDataImporter extends FileDataImporter {
     }
 
     @Override
-    public boolean importData(File source, String password) {
+    void doImport(File source, String password) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
