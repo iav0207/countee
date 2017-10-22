@@ -1,34 +1,21 @@
 package ru.iav.takoe.countee.service;
 
-import org.mockito.Answers;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Spy;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.iav.takoe.countee.service.exception.CostInputValidationException;
 import ru.iav.takoe.countee.vo.Cost;
 import ru.iav.takoe.countee.vo.CostFactory;
 import ru.iav.takoe.countee.vo.CostValidator;
 
-import static org.mockito.MockitoAnnotations.initMocks;
+import static org.mockito.Mockito.spy;
 import static org.testng.Assert.assertEquals;
 
 public class CostInputParserTest {
 
-    @Mock(answer = Answers.CALLS_REAL_METHODS)
-    private CostInputValidator validator;
+    private CostInputValidator validator = new CostInputValidator();
 
-    @Spy
-    private CostFactory costFactory = new CostFactory(new CostValidator());
+    private CostFactory costFactory = spy(new CostFactory(new CostValidator()));
 
-    @InjectMocks
-    private CostInputParser parser;
-
-    @BeforeClass
-    public void init() {
-        initMocks(this);
-    }
+    private CostInputParser parser = new CostInputParser(validator, costFactory);
 
     @Test(dataProvider = "getValidStrings", dataProviderClass = CostInputParserTestData.class)
     public void shouldParseValidStringsToCosts(String input, Cost expected) throws Exception {
