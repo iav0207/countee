@@ -15,6 +15,9 @@ import ru.takoe.iav.countee.R;
 import ru.takoe.iav.countee.fragment.loader.ImportDataLoader;
 import ru.takoe.iav.countee.view.ViewProvider;
 
+import static ru.takoe.iav.countee.event.AppEventsFactory.dataImported;
+import static ru.takoe.iav.countee.event.EventBusProvider.eventBus;
+
 @ParametersAreNonnullByDefault
 public class ImportButtonListener extends SettingsFragmentButtonListener
         implements LoaderManager.LoaderCallbacks<Boolean> {
@@ -56,6 +59,7 @@ public class ImportButtonListener extends SettingsFragmentButtonListener
         if (result) {
             Log.i("load_finish", "Background import finished successfully.");
             showToast(R.string.data_imported_msg);
+            eventBus().post(dataImported());
         } else {
             Log.e("load_finish", "Background import failed.");
             showToast(R.string.data_not_imported_msg);

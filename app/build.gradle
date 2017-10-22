@@ -45,6 +45,8 @@ android {
         annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
         apt 'com.jakewharton:butterknife-compiler:8.6.0'
 
+        compile 'org.greenrobot:eventbus:3.0.0'
+
         apt 'com.google.dagger:dagger-compiler:2.4'
         compile 'com.google.dagger:dagger:2.4'
         annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
@@ -68,6 +70,8 @@ dependencies {
     }
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
     apt 'com.jakewharton:butterknife-compiler:8.6.0'
+
+    compile 'org.greenrobot:eventbus:3.0.0'
 
     apt 'com.google.dagger:dagger-compiler:2.4'
     compile 'com.google.dagger:dagger:2.4'
