@@ -109,8 +109,9 @@ public class ServiceModule {
     
     @Provides
     @Singleton
-    FileDataImportService provideFileDataImportService(DataImporter<File> fileDataImporter) {
-        return new FileDataImportService(fileDataImporter);
+    FileDataImportService provideFileDataImportService(DataImporter<File> fileDataImporter,
+            MonthOutputService monthOutputService) {
+        return new FileDataImportService(fileDataImporter, monthOutputService);
     }
 
     @Provides
