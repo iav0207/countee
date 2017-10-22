@@ -1,0 +1,646 @@
+{
+  "descriptor": {
+    "3fdce84e-ba0f-4230-8e92-cd8c57232321": {
+      "amount": 400.0,
+      "comment": "comm1",
+      "timestamp": "Aug 1, 2016 00:00:00",
+      "uuid": "3fdce84e-ba0f-4230-8e92-cd8c57232321"
+    },
+    "33d3f354-68a4-463f-959f-a5feacae8467": {
+      "amount": 215.0,
+      "comment": "comm2",
+      "timestamp": "Aug 1, 2016 00:00:00",
+      "uuid": "33d3f354-68a4-463f-959f-a5feacae8467"
+    },
+    "5e3810ae-bfc2-4919-9e06-3db1a985c7cb": {
+      "amount": 295.0,
+      "comment": "comm4",
+      "timestamp": "Aug 1, 2016 00:00:00",
+      "uuid": "5e3810ae-bfc2-4919-9e06-3db1a985c7cb"
+    },
+    "975a9d40-0eff-4df8-8a9c-18b0e09840ed": {
+      "amount": 1140.0,
+      "comment": "comm5",
+      "timestamp": "Aug 1, 2016 00:00:00",
+      "uuid": "975a9d40-0eff-4df8-8a9c-18b0e09840ed"
+    },
+    "1146a4c0-1f77-4388-941e-c14b049ac56a": {
+      "amount": 305.0,
+      "comment": "comm6",
+      "timestamp": "Aug 1, 2016 00:00:00",
+      "uuid": "1146a4c0-1f77-4388-941e-c14b049ac56a"
+    },
+    "64d93114-db32-41c1-8eb4-d56f40b17466": {
+      "amount": 400.0,
+      "comment": "comm7",
+      "timestamp": "Aug 2, 2016 00:00:00",
+      "uuid": "64d93114-db32-41c1-8eb4-d56f40b17466"
+    },
+    "59bda7a4-d7d0-4765-b323-51c6363f58c8": {
+      "amount": 135.0,
+      "comment": "comm8",
+      "timestamp": "Aug 2, 2016 00:00:00",
+      "uuid": "59bda7a4-d7d0-4765-b323-51c6363f58c8"
+    },
+    "f746231b-d83f-4cdc-8a17-3d64a662bd65": {
+      "amount": 360.0,
+      "comment": "comm4",
+      "timestamp": "Aug 2, 2016 00:00:00",
+      "uuid": "f746231b-d83f-4cdc-8a17-3d64a662bd65"
+    },
+    "4e481f92-bdb6-49df-8815-e4ae18c86b73": {
+      "amount": 378.0,
+      "comment": "comm9",
+      "timestamp": "Aug 2, 2016 00:00:00",
+      "uuid": "4e481f92-bdb6-49df-8815-e4ae18c86b73"
+    },
+    "1e96b4e4-500a-4f32-938c-df69155a6771": {
+      "amount": 532.0,
+      "comment": "comm4",
+      "timestamp": "Aug 3, 2016 00:00:00",
+      "uuid": "1e96b4e4-500a-4f32-938c-df69155a6771"
+    },
+    "8a4982d9-7fde-44bf-88d1-612099aca9c2": {
+      "amount": 75.0,
+      "comment": "comm9",
+      "timestamp": "Aug 3, 2016 00:00:00",
+      "uuid": "8a4982d9-7fde-44bf-88d1-612099aca9c2"
+    },
+    "2faf465f-8c6c-42a6-b059-ee86b9a618cc": {
+      "amount": 289.0,
+      "comment": "comm9",
+      "timestamp": "Aug 3, 2016 00:00:00",
+      "uuid": "2faf465f-8c6c-42a6-b059-ee86b9a618cc"
+    },
+    "625dbaf7-9b90-44e1-b2c7-e85a42bd6744": {
+      "amount": 300.0,
+      "comment": "comm4",
+      "timestamp": "Aug 4, 2016 00:00:00",
+      "uuid": "625dbaf7-9b90-44e1-b2c7-e85a42bd6744"
+    },
+    "34efb07b-a8a7-4033-aa9c-cba7ef6876f2": {
+      "amount": 218.0,
+      "comment": "comm9",
+      "timestamp": "Aug 4, 2016 00:00:00",
+      "uuid": "34efb07b-a8a7-4033-aa9c-cba7ef6876f2"
+    },
+    "22ec4cc0-5d71-4dc7-ad60-684475a4a6a3": {
+      "amount": 272.0,
+      "comment": "comm4",
+      "timestamp": "Aug 5, 2016 00:00:00",
+      "uuid": "22ec4cc0-5d71-4dc7-ad60-684475a4a6a3"
+    },
+    "1f5c168a-0ccc-40d4-9d40-9127a59a7d6f": {
+      "amount": -77714.0,
+      "comment": "comm10",
+      "timestamp": "Aug 5, 2016 00:00:00",
+      "uuid": "1f5c168a-0ccc-40d4-9d40-9127a59a7d6f"
+    },
+    "d38d8a1c-7abd-4a24-a0d0-d2e81bb00850": {
+      "amount": 7955.0,
+      "comment": "comm11",
+      "timestamp": "Aug 5, 2016 00:00:00",
+      "uuid": "d38d8a1c-7abd-4a24-a0d0-d2e81bb00850"
+    },
+    "b6ba2085-79ca-481b-b22e-e1b7e43569a4": {
+      "amount": 3250.0,
+      "comment": "comm11",
+      "timestamp": "Aug 5, 2016 00:00:00",
+      "uuid": "b6ba2085-79ca-481b-b22e-e1b7e43569a4"
+    },
+    "d8d87660-2d3f-40b5-b9af-e4f81c6ab8ba": {
+      "amount": -6000.0,
+      "comment": "comm11",
+      "timestamp": "Aug 5, 2016 00:00:00",
+      "uuid": "d8d87660-2d3f-40b5-b9af-e4f81c6ab8ba"
+    },
+    "6ed0df30-1db8-486e-9b57-db1014a0b6f9": {
+      "amount": 428.0,
+      "comment": "comm6",
+      "timestamp": "Aug 5, 2016 00:00:00",
+      "uuid": "6ed0df30-1db8-486e-9b57-db1014a0b6f9"
+    },
+    "47288488-0cec-4f93-91ec-0e12b962a765": {
+      "amount": 4271.0,
+      "comment": "comm9",
+      "timestamp": "Aug 6, 2016 00:00:00",
+      "uuid": "47288488-0cec-4f93-91ec-0e12b962a765"
+    },
+    "c34420ae-18b8-40ac-9c80-285e79077e5c": {
+      "amount": 200.0,
+      "comment": "comm3",
+      "timestamp": "Aug 7, 2016 00:00:00",
+      "uuid": "c34420ae-18b8-40ac-9c80-285e79077e5c"
+    },
+    "49d68918-a221-42e8-bef9-fab611a16c31": {
+      "amount": 46.0,
+      "comment": "comm9",
+      "timestamp": "Aug 8, 2016 00:00:00",
+      "uuid": "49d68918-a221-42e8-bef9-fab611a16c31"
+    },
+    "b4dcd180-ce95-466a-ae0e-fa2cd9415dc5": {
+      "amount": 12460.0,
+      "comment": "comm5",
+      "timestamp": "Aug 8, 2016 00:00:00",
+      "uuid": "b4dcd180-ce95-466a-ae0e-fa2cd9415dc5"
+    },
+    "3188d9e0-8847-42d6-a2fc-00c4efde489a": {
+      "amount": -3000.0,
+      "comment": "comm5",
+      "timestamp": "Aug 8, 2016 00:00:00",
+      "uuid": "3188d9e0-8847-42d6-a2fc-00c4efde489a"
+    },
+    "0b02e46d-4632-4a00-b910-f474e853f2e6": {
+      "amount": 996.0,
+      "comment": "comm6",
+      "timestamp": "Aug 8, 2016 00:00:00",
+      "uuid": "0b02e46d-4632-4a00-b910-f474e853f2e6"
+    },
+    "72092f44-d1ad-45d9-a1d1-8ff19587218c": {
+      "amount": 392.0,
+      "comment": "comm4",
+      "timestamp": "Aug 9, 2016 00:00:00",
+      "uuid": "72092f44-d1ad-45d9-a1d1-8ff19587218c"
+    },
+    "4d6db90e-995a-4276-a2b4-bad755575586": {
+      "amount": 140.0,
+      "comment": "comm2",
+      "timestamp": "Aug 9, 2016 00:00:00",
+      "uuid": "4d6db90e-995a-4276-a2b4-bad755575586"
+    },
+    "f7ac5865-5951-4dd4-b21c-82f28c47e12c": {
+      "amount": -1150.0,
+      "comment": "comm5",
+      "timestamp": "Aug 9, 2016 00:00:00",
+      "uuid": "f7ac5865-5951-4dd4-b21c-82f28c47e12c"
+    },
+    "89e53678-8029-4e8c-858b-34aed57652c9": {
+      "amount": 2000.0,
+      "comment": "comm12",
+      "timestamp": "Aug 9, 2016 00:00:00",
+      "uuid": "89e53678-8029-4e8c-858b-34aed57652c9"
+    },
+    "bd0cf538-985c-4212-ad2f-3b444d2d61c8": {
+      "amount": 443.0,
+      "comment": "comm7",
+      "timestamp": "Aug 9, 2016 00:00:00",
+      "uuid": "bd0cf538-985c-4212-ad2f-3b444d2d61c8"
+    },
+    "2092d699-3f60-43c5-b85b-42afb052b710": {
+      "amount": -7397.0,
+      "comment": "comm10",
+      "timestamp": "Aug 10, 2016 00:00:00",
+      "uuid": "2092d699-3f60-43c5-b85b-42afb052b710"
+    },
+    "de03e0ae-ebdb-4134-9e42-f05ed7cfdd37": {
+      "amount": 100.0,
+      "comment": "comm2",
+      "timestamp": "Aug 11, 2016 00:00:00",
+      "uuid": "de03e0ae-ebdb-4134-9e42-f05ed7cfdd37"
+    },
+    "f4d4fbdc-d876-48a7-8b0a-19b4d95029ee": {
+      "amount": 300.0,
+      "comment": "comm4",
+      "timestamp": "Aug 11, 2016 00:00:00",
+      "uuid": "f4d4fbdc-d876-48a7-8b0a-19b4d95029ee"
+    },
+    "21092ddb-efb6-447e-8b69-0f8fdf16afde": {
+      "amount": 846.0,
+      "comment": "comm9",
+      "timestamp": "Aug 11, 2016 00:00:00",
+      "uuid": "21092ddb-efb6-447e-8b69-0f8fdf16afde"
+    },
+    "0230c67e-d4d2-4b9b-b016-84453526698f": {
+      "amount": 255.0,
+      "comment": "comm4",
+      "timestamp": "Aug 12, 2016 00:00:00",
+      "uuid": "0230c67e-d4d2-4b9b-b016-84453526698f"
+    },
+    "dbcaa11c-3816-416a-88c2-c59f5f5c69fe": {
+      "amount": 579.0,
+      "comment": "comm13",
+      "timestamp": "Aug 12, 2016 00:00:00",
+      "uuid": "dbcaa11c-3816-416a-88c2-c59f5f5c69fe"
+    },
+    "3d0452af-105c-485f-aa58-89673df6875e": {
+      "amount": 369.0,
+      "comment": "comm13",
+      "timestamp": "Aug 12, 2016 00:00:00",
+      "uuid": "3d0452af-105c-485f-aa58-89673df6875e"
+    },
+    "da80cc83-1980-4abb-aedc-211fa3eb41f5": {
+      "amount": 230.0,
+      "comment": "comm13",
+      "timestamp": "Aug 12, 2016 00:00:00",
+      "uuid": "da80cc83-1980-4abb-aedc-211fa3eb41f5"
+    },
+    "102980d5-c8f2-4f99-9d07-2492250eea9c": {
+      "amount": 249.0,
+      "comment": "comm6",
+      "timestamp": "Aug 12, 2016 00:00:00",
+      "uuid": "102980d5-c8f2-4f99-9d07-2492250eea9c"
+    },
+    "77bc71c0-71ce-4331-91a9-bb87c538e268": {
+      "amount": 346.0,
+      "comment": "comm14",
+      "timestamp": "Aug 12, 2016 00:00:00",
+      "uuid": "77bc71c0-71ce-4331-91a9-bb87c538e268"
+    },
+    "4ce610fd-3fa6-4994-babf-701f491465c0": {
+      "amount": 3000.0,
+      "comment": "comm15",
+      "timestamp": "Aug 13, 2016 00:00:00",
+      "uuid": "4ce610fd-3fa6-4994-babf-701f491465c0"
+    },
+    "98da6c29-f1fd-4b07-9ee4-dcb106ae4b4d": {
+      "amount": 94.0,
+      "comment": "comm16",
+      "timestamp": "Aug 13, 2016 00:00:00",
+      "uuid": "98da6c29-f1fd-4b07-9ee4-dcb106ae4b4d"
+    },
+    "c80a73c5-488c-4d68-aa12-1aedf34f3beb": {
+      "amount": 2768.0,
+      "comment": "comm9",
+      "timestamp": "Aug 13, 2016 00:00:00",
+      "uuid": "c80a73c5-488c-4d68-aa12-1aedf34f3beb"
+    },
+    "afb44c09-ddfa-4429-b752-92870c2264e8": {
+      "amount": 3331.0,
+      "comment": "comm9",
+      "timestamp": "Aug 13, 2016 00:00:00",
+      "uuid": "afb44c09-ddfa-4429-b752-92870c2264e8"
+    },
+    "5a0de241-cad7-4f23-8ef9-5060b27937fa": {
+      "amount": 9834.0,
+      "comment": "comm17",
+      "timestamp": "Aug 16, 2016 00:00:00",
+      "uuid": "5a0de241-cad7-4f23-8ef9-5060b27937fa"
+    },
+    "a5a0709e-4f4a-4fdc-8bb2-f862bdbe2f62": {
+      "amount": 404.0,
+      "comment": "comm4",
+      "timestamp": "Aug 17, 2016 12:17:53",
+      "uuid": "a5a0709e-4f4a-4fdc-8bb2-f862bdbe2f62"
+    },
+    "67151dea-a56b-43f5-9591-28bebbb27c3b": {
+      "amount": -45612.0,
+      "comment": "comm18",
+      "timestamp": "Aug 17, 2016 23:27:50",
+      "uuid": "67151dea-a56b-43f5-9591-28bebbb27c3b"
+    },
+    "98c93ce6-de2a-47f4-a6c0-23bbf103ce44": {
+      "amount": 47.0,
+      "comment": "comm16",
+      "timestamp": "Aug 18, 2016 07:31:16",
+      "uuid": "98c93ce6-de2a-47f4-a6c0-23bbf103ce44"
+    },
+    "2fabb27a-5450-42f0-8e5c-a17316903db7": {
+      "amount": 444.0,
+      "comment": "comm4",
+      "timestamp": "Aug 18, 2016 12:09:09",
+      "uuid": "2fabb27a-5450-42f0-8e5c-a17316903db7"
+    },
+    "63c4f237-abf7-4a3c-8f50-6d1147116b4e": {
+      "amount": 323.0,
+      "comment": "comm6",
+      "timestamp": "Aug 18, 2016 19:12:12",
+      "uuid": "63c4f237-abf7-4a3c-8f50-6d1147116b4e"
+    },
+    "8ef22f64-e3bc-4935-bedc-81de167f33fd": {
+      "amount": 2400.0,
+      "comment": "comm11",
+      "timestamp": "Aug 18, 2016 22:42:57",
+      "uuid": "8ef22f64-e3bc-4935-bedc-81de167f33fd"
+    },
+    "234c7018-1815-4287-b316-3abd78eb5f3b": {
+      "amount": 2200.0,
+      "comment": "comm11",
+      "timestamp": "Aug 18, 2016 22:43:02",
+      "uuid": "234c7018-1815-4287-b316-3abd78eb5f3b"
+    },
+    "27a27ab2-3743-4be1-aec1-6aefbbcf0067": {
+      "amount": 725.0,
+      "comment": "comm6",
+      "timestamp": "Aug 18, 2016 23:52:13",
+      "uuid": "27a27ab2-3743-4be1-aec1-6aefbbcf0067"
+    },
+    "dae9e1ca-1a3e-40d7-9e99-ce7243d86e45": {
+      "amount": 500.0,
+      "comment": "comm19",
+      "timestamp": "Aug 19, 2016 07:48:48",
+      "uuid": "dae9e1ca-1a3e-40d7-9e99-ce7243d86e45"
+    },
+    "6826c0f5-5654-4de8-9a17-c7972c64345f": {
+      "amount": 94.0,
+      "comment": "comm16",
+      "timestamp": "Aug 19, 2016 07:48:56",
+      "uuid": "6826c0f5-5654-4de8-9a17-c7972c64345f"
+    },
+    "f38f6d16-5988-4e28-a9c2-9019683eb745": {
+      "amount": 195.0,
+      "comment": "comm4",
+      "timestamp": "Aug 19, 2016 14:19:22",
+      "uuid": "f38f6d16-5988-4e28-a9c2-9019683eb745"
+    },
+    "b0d9b221-3e1f-4d36-91af-4128fc72589f": {
+      "amount": -27391.0,
+      "comment": "comm10",
+      "timestamp": "Aug 19, 2016 16:24:18",
+      "uuid": "b0d9b221-3e1f-4d36-91af-4128fc72589f"
+    },
+    "b623b537-3d62-4b98-a589-5239ccb1b6b8": {
+      "amount": -4150.0,
+      "comment": "comm5",
+      "timestamp": "Aug 19, 2016 17:57:09",
+      "uuid": "b623b537-3d62-4b98-a589-5239ccb1b6b8"
+    },
+    "a6887caa-04d5-4729-bbb1-79fa0650d7bf": {
+      "amount": -3000.0,
+      "comment": "comm15",
+      "timestamp": "Aug 19, 2016 17:57:15",
+      "uuid": "a6887caa-04d5-4729-bbb1-79fa0650d7bf"
+    },
+    "ff4b200e-9139-49d4-86c6-be43d296869c": {
+      "amount": -2400.0,
+      "comment": "comm11",
+      "timestamp": "Aug 19, 2016 20:26:29",
+      "uuid": "ff4b200e-9139-49d4-86c6-be43d296869c"
+    },
+    "9d9f4810-518b-4934-83f8-28d9cca3a6c2": {
+      "amount": 1200.0,
+      "comment": "comm12",
+      "timestamp": "Aug 19, 2016 20:26:36",
+      "uuid": "9d9f4810-518b-4934-83f8-28d9cca3a6c2"
+    },
+    "14b08ab9-76ba-4a01-a9a7-dc8c8ed6909e": {
+      "amount": 1700.0,
+      "comment": "comm5",
+      "timestamp": "Aug 20, 2016 04:58:32",
+      "uuid": "14b08ab9-76ba-4a01-a9a7-dc8c8ed6909e"
+    },
+    "7355eb25-4fed-4b2e-998a-898bd038d2a0": {
+      "amount": 916.0,
+      "comment": "comm6",
+      "timestamp": "Aug 20, 2016 09:58:27",
+      "uuid": "7355eb25-4fed-4b2e-998a-898bd038d2a0"
+    },
+    "b4c32a5a-52bb-41d3-8976-a2620e400735": {
+      "amount": 625.0,
+      "comment": "comm9",
+      "timestamp": "Aug 20, 2016 09:58:40",
+      "uuid": "b4c32a5a-52bb-41d3-8976-a2620e400735"
+    },
+    "3328b846-6eb0-4765-9e4f-ea58ae293a4b": {
+      "amount": 807.0,
+      "comment": "comm9",
+      "timestamp": "Aug 21, 2016 17:44:06",
+      "uuid": "3328b846-6eb0-4765-9e4f-ea58ae293a4b"
+    },
+    "83dd717d-4a30-45e6-83dc-0de7d486bf21": {
+      "amount": 185.0,
+      "comment": "comm2",
+      "timestamp": "Aug 22, 2016 20:50:16",
+      "uuid": "83dd717d-4a30-45e6-83dc-0de7d486bf21"
+    },
+    "73d378a0-0f45-4bab-b1df-1bedd35a5c74": {
+      "amount": 355.0,
+      "comment": "comm4",
+      "timestamp": "Aug 22, 2016 20:51:03",
+      "uuid": "73d378a0-0f45-4bab-b1df-1bedd35a5c74"
+    },
+    "0435f4a1-1248-4071-a88a-f49c2de1fd24": {
+      "amount": 400.0,
+      "comment": "comm7",
+      "timestamp": "Aug 22, 2016 20:51:17",
+      "uuid": "0435f4a1-1248-4071-a88a-f49c2de1fd24"
+    },
+    "faec5efd-82c4-4ec2-b9ec-eb8bb50697a0": {
+      "amount": 7908.0,
+      "comment": "comm20",
+      "timestamp": "Aug 22, 2016 21:45:30",
+      "uuid": "faec5efd-82c4-4ec2-b9ec-eb8bb50697a0"
+    },
+    "fa531a83-8331-4fbb-a98b-4e66093725d7": {
+      "amount": 995.0,
+      "comment": "comm21",
+      "timestamp": "Aug 22, 2016 22:31:48",
+      "uuid": "fa531a83-8331-4fbb-a98b-4e66093725d7"
+    },
+    "600ee3a8-fb0e-4c74-9c81-e97416e60830": {
+      "amount": 191.0,
+      "comment": "comm9",
+      "timestamp": "Aug 23, 2016 08:34:11",
+      "uuid": "600ee3a8-fb0e-4c74-9c81-e97416e60830"
+    },
+    "bb30a3e9-87ac-48c1-b11b-8890345e3a5c": {
+      "amount": 200.0,
+      "comment": "comm4",
+      "timestamp": "Aug 23, 2016 12:25:47",
+      "uuid": "bb30a3e9-87ac-48c1-b11b-8890345e3a5c"
+    },
+    "14c2cd96-646c-4c7a-bebe-ad94a3c665ca": {
+      "amount": 519.0,
+      "comment": "comm9",
+      "timestamp": "Aug 23, 2016 20:09:42",
+      "uuid": "14c2cd96-646c-4c7a-bebe-ad94a3c665ca"
+    },
+    "53170e53-f6ee-4545-80a3-abc6152415bd": {
+      "amount": 240.0,
+      "comment": "comm4",
+      "timestamp": "Aug 24, 2016 13:54:57",
+      "uuid": "53170e53-f6ee-4545-80a3-abc6152415bd"
+    },
+    "6dded7cf-3061-4d63-b7d4-66219bfc7530": {
+      "amount": 1509.0,
+      "comment": "comm11",
+      "timestamp": "Aug 24, 2016 19:39:41",
+      "uuid": "6dded7cf-3061-4d63-b7d4-66219bfc7530"
+    },
+    "fb638d32-c309-4c12-8611-422f37075b85": {
+      "amount": 220.0,
+      "comment": "comm4",
+      "timestamp": "Aug 25, 2016 14:17:07",
+      "uuid": "fb638d32-c309-4c12-8611-422f37075b85"
+    },
+    "304b2f49-6016-43cd-a961-8c4452b19c6d": {
+      "amount": 94.0,
+      "comment": "comm16",
+      "timestamp": "Aug 26, 2016 07:49:07",
+      "uuid": "304b2f49-6016-43cd-a961-8c4452b19c6d"
+    },
+    "9d1e206c-70a3-4187-a948-0c83769be71c": {
+      "amount": 300.0,
+      "comment": "comm4",
+      "timestamp": "Aug 26, 2016 13:41:53",
+      "uuid": "9d1e206c-70a3-4187-a948-0c83769be71c"
+    },
+    "4db0bdc3-ccd1-412a-bab9-f552e656d03a": {
+      "amount": -85573.0,
+      "comment": "comm10",
+      "timestamp": "Aug 26, 2016 14:03:17",
+      "uuid": "4db0bdc3-ccd1-412a-bab9-f552e656d03a"
+    },
+    "ca1e92b4-fd3e-49b9-a7ff-39f89651d626": {
+      "amount": 140.0,
+      "comment": "comm2",
+      "timestamp": "Aug 26, 2016 16:41:36",
+      "uuid": "ca1e92b4-fd3e-49b9-a7ff-39f89651d626"
+    },
+    "f67e54e8-ec59-490b-b64f-c3a184fc8dd9": {
+      "amount": 236.0,
+      "comment": "comm6",
+      "timestamp": "Aug 26, 2016 19:31:25",
+      "uuid": "f67e54e8-ec59-490b-b64f-c3a184fc8dd9"
+    },
+    "f14997db-0fd7-4297-945b-a2367545bf48": {
+      "amount": 2540.0,
+      "comment": "comm11",
+      "timestamp": "Aug 26, 2016 21:56:50",
+      "uuid": "f14997db-0fd7-4297-945b-a2367545bf48"
+    },
+    "c48370ac-ec7b-4bf5-a467-cdaedfaecb04": {
+      "amount": 1041.0,
+      "comment": "comm9",
+      "timestamp": "Aug 26, 2016 21:56:59",
+      "uuid": "c48370ac-ec7b-4bf5-a467-cdaedfaecb04"
+    },
+    "2a9f89dc-7656-45ff-b9ea-48f8648bf7c0": {
+      "amount": 728.0,
+      "comment": "comm9",
+      "timestamp": "Aug 26, 2016 23:24:46",
+      "uuid": "2a9f89dc-7656-45ff-b9ea-48f8648bf7c0"
+    },
+    "5039c7ca-4055-4980-970f-37377ca346f2": {
+      "amount": 791.0,
+      "comment": "comm6",
+      "timestamp": "Aug 26, 2016 23:24:57",
+      "uuid": "5039c7ca-4055-4980-970f-37377ca346f2"
+    },
+    "198ea95b-5762-4f92-8a2f-2199e775b75c": {
+      "amount": 60.0,
+      "comment": "comm22",
+      "timestamp": "Aug 27, 2016 14:09:06",
+      "uuid": "198ea95b-5762-4f92-8a2f-2199e775b75c"
+    },
+    "b6f9a33c-2e32-4351-afcf-a6257e9b8d8c": {
+      "amount": 1000.0,
+      "comment": "comm7",
+      "timestamp": "Aug 27, 2016 15:25:07",
+      "uuid": "b6f9a33c-2e32-4351-afcf-a6257e9b8d8c"
+    },
+    "378c6b91-cda2-4163-ac59-2956686134e2": {
+      "amount": 4574.0,
+      "comment": "comm23",
+      "timestamp": "Aug 27, 2016 15:48:13",
+      "uuid": "378c6b91-cda2-4163-ac59-2956686134e2"
+    },
+    "c64d28d7-a202-4f9b-ae7f-028b7756848e": {
+      "amount": -27.0,
+      "comment": "comm23",
+      "timestamp": "Aug 27, 2016 15:48:45",
+      "uuid": "c64d28d7-a202-4f9b-ae7f-028b7756848e"
+    },
+    "60dd8d81-7b3d-4e66-8f63-e959af8a51f8": {
+      "amount": 11136.0,
+      "comment": "comm24",
+      "timestamp": "Aug 28, 2016 11:23:24",
+      "uuid": "60dd8d81-7b3d-4e66-8f63-e959af8a51f8"
+    },
+    "77c10a88-0fab-4858-a06a-d79bce3dee28": {
+      "amount": 1711.0,
+      "comment": "comm11",
+      "timestamp": "Aug 28, 2016 12:51:16",
+      "uuid": "77c10a88-0fab-4858-a06a-d79bce3dee28"
+    },
+    "5f6c1cc0-c8c5-44c5-b145-69b76f638d99": {
+      "amount": 3148.0,
+      "comment": "comm9",
+      "timestamp": "Aug 28, 2016 15:17:02",
+      "uuid": "5f6c1cc0-c8c5-44c5-b145-69b76f638d99"
+    },
+    "61d76420-256f-4838-a9b6-2fce25604a5e": {
+      "amount": -3000.0,
+      "comment": "comm9",
+      "timestamp": "Aug 28, 2016 21:28:29",
+      "uuid": "61d76420-256f-4838-a9b6-2fce25604a5e"
+    },
+    "a6d2855d-b8d2-4ee9-8899-9c0302ef7bcb": {
+      "amount": -4483.0,
+      "comment": "comm24",
+      "timestamp": "Aug 28, 2016 21:28:51",
+      "uuid": "a6d2855d-b8d2-4ee9-8899-9c0302ef7bcb"
+    },
+    "860a238c-4a0d-4652-a65b-83b8e952a79d": {
+      "amount": 175.0,
+      "comment": "comm2",
+      "timestamp": "Aug 29, 2016 08:50:01",
+      "uuid": "860a238c-4a0d-4652-a65b-83b8e952a79d"
+    },
+    "9cc307ec-2687-495a-b894-3756b466827a": {
+      "amount": 445.0,
+      "comment": "comm4",
+      "timestamp": "Aug 29, 2016 12:39:25",
+      "uuid": "9cc307ec-2687-495a-b894-3756b466827a"
+    },
+    "eb8ac005-ec62-439a-a308-f3c47590848e": {
+      "amount": 80.0,
+      "comment": "comm9",
+      "timestamp": "Aug 29, 2016 17:23:51",
+      "uuid": "eb8ac005-ec62-439a-a308-f3c47590848e"
+    },
+    "aa9dcecb-4b5e-42b6-9bfa-9b41ff8f7342": {
+      "amount": 1000.0,
+      "comment": "comm25",
+      "timestamp": "Aug 29, 2016 20:00:31",
+      "uuid": "aa9dcecb-4b5e-42b6-9bfa-9b41ff8f7342"
+    },
+    "72c7e6e4-2784-471f-bb5c-d2e604923831": {
+      "amount": 410.0,
+      "comment": "comm4",
+      "timestamp": "Aug 30, 2016 12:25:36",
+      "uuid": "72c7e6e4-2784-471f-bb5c-d2e604923831"
+    },
+    "4c1e8533-f848-4240-a32a-848df4d1cd55": {
+      "amount": 180.0,
+      "comment": "comm2",
+      "timestamp": "Aug 30, 2016 14:48:56",
+      "uuid": "4c1e8533-f848-4240-a32a-848df4d1cd55"
+    },
+    "5a3e742d-0cf1-402e-a35d-aa02a3094b44": {
+      "amount": 2410.0,
+      "comment": "comm9",
+      "timestamp": "Aug 30, 2016 21:10:05",
+      "uuid": "5a3e742d-0cf1-402e-a35d-aa02a3094b44"
+    },
+    "5868c1bb-89a8-4549-b458-632a4521034b": {
+      "amount": 491.0,
+      "comment": "comm9",
+      "timestamp": "Aug 30, 2016 21:10:21",
+      "uuid": "5868c1bb-89a8-4549-b458-632a4521034b"
+    },
+    "cd03deba-43f6-4d24-b94f-f0fab128918a": {
+      "amount": 165.0,
+      "comment": "comm2",
+      "timestamp": "Aug 31, 2016 08:54:43",
+      "uuid": "cd03deba-43f6-4d24-b94f-f0fab128918a"
+    },
+    "8549644c-f696-4157-9b85-a2b47765d366": {
+      "amount": 275.0,
+      "comment": "comm4",
+      "timestamp": "Aug 31, 2016 12:54:50",
+      "uuid": "8549644c-f696-4157-9b85-a2b47765d366"
+    },
+    "a75498a1-049e-4a65-a98d-8c5a1035ff82": {
+      "amount": 55.0,
+      "comment": "comm9",
+      "timestamp": "Aug 31, 2016 17:12:54",
+      "uuid": "a75498a1-049e-4a65-a98d-8c5a1035ff82"
+    },
+    "47b649fe-6dd8-4cb1-8ca8-13f80396743f": {
+      "amount": 456.0,
+      "comment": "comm7",
+      "timestamp": "Aug 31, 2016 22:38:42",
+      "uuid": "47b649fe-6dd8-4cb1-8ca8-13f80396743f"
+    }
+  }
+}
