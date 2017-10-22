@@ -12,10 +12,10 @@ import ru.iav.takoe.countee.da.exception.CostNotSavedException;
 import ru.iav.takoe.countee.json.JsonConverter;
 import ru.iav.takoe.countee.persistence.file.LocalWriter;
 import ru.iav.takoe.countee.vo.Cost;
-import ru.takoe.iav.countee.properties.ApplicationProperties;
 
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.logging.LogService.logInfo;
+import static ru.takoe.iav.countee.properties.ApplicationProperties.applicationProperties;
 
 @Singleton
 @ParametersAreNonnullByDefault
@@ -58,13 +58,13 @@ public class CostSaver implements Saver<Cost, CostNotSavedException> {
     }
 
     private void clearPreviousRecordsIfNeeded() {
-        if (ApplicationProperties.isClearPreviousRecords()) {
+        if (applicationProperties().isClearPreviousRecords()) {
             writeToFile("");
         }
     }
 
     private void addNewCostToTheDataSet(Cost cost, CostsData data) {
-        if (ApplicationProperties.isWritingDataActually()) {
+        if (applicationProperties().isWritingDataActually()) {
             data.getDescriptor().put(cost.getUuid().toString(), cost);
         }
     }

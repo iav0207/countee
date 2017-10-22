@@ -13,12 +13,12 @@ import com.google.common.io.Files;
 import org.joda.time.format.DateTimeFormat;
 import ru.iav.takoe.countee.service.DataExportService;
 import ru.takoe.iav.countee.application.CounteeApp;
-import ru.takoe.iav.countee.properties.ApplicationProperties;
 
 import static org.joda.time.DateTime.now;
 import static ru.iav.takoe.countee.logging.LogService.logError;
 import static ru.iav.takoe.countee.logging.LogService.logInfo;
 import static ru.takoe.iav.countee.android.util.ExternalMediaUtil.checkExternalMedia;
+import static ru.takoe.iav.countee.properties.ApplicationProperties.applicationProperties;
 
 @ParametersAreNonnullByDefault
 public class ExportDataLoader extends AsyncTaskLoader<String> {
@@ -50,7 +50,7 @@ public class ExportDataLoader extends AsyncTaskLoader<String> {
         checkExternalMedia();
 
         String storageRoot = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String relativePath = ApplicationProperties.getExportedDataPath();
+        String relativePath = applicationProperties().getExportedDataPath();
         File outDir = new File(Joiner.on(File.separator).join(storageRoot, relativePath));
 
         File exportFile = new File(outDir, generateFileName());
@@ -70,8 +70,8 @@ public class ExportDataLoader extends AsyncTaskLoader<String> {
     }
 
     private String generateFileName() {
-        String timestamp = DateTimeFormat.forPattern(ApplicationProperties.getDateFormat()).print(now());
-        return String.format(ApplicationProperties.getExportFileNameBase(), timestamp);
+        String timestamp = DateTimeFormat.forPattern(applicationProperties().getDateFormat()).print(now());
+        return String.format(applicationProperties().getExportFileNameBase(), timestamp);
     }
 
     @Override

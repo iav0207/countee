@@ -2,77 +2,98 @@ package ru.takoe.iav.countee.properties;
 
 import java.io.File;
 
-public class ApplicationProperties {
+import com.typesafe.config.Config;
+import com.typesafe.config.ConfigFactory;
 
-    private static File outputDirectory;
+import static ru.takoe.iav.countee.properties.PropNames.DEBUG_CLEAR_PREV_RECS;
+import static ru.takoe.iav.countee.properties.PropNames.DEBUG_GENERATE_RANDOM_CHARTS;
+import static ru.takoe.iav.countee.properties.PropNames.DEBUG_WRITE_DATA;
+import static ru.takoe.iav.countee.properties.PropNames.EXPORT_DATA_PATH;
+import static ru.takoe.iav.countee.properties.PropNames.EXPORT_DATE_FORMAT;
+import static ru.takoe.iav.countee.properties.PropNames.EXPORT_FILENAME_FORMAT;
+import static ru.takoe.iav.countee.properties.PropNames.OUTPUT_DIRECTORY;
 
-    private static String exportedDataPath = "Countee/data";
+public enum ApplicationProperties {
 
-    private static String exportFileNameBase = "exp-%s.cnt.cpt";
+    INSTANCE;
 
-    private static String dateFormat = "ssmmhhddMMyyyy";
+    private File outputDirectory;
+    private String exportedDataPath;
+    private String exportFileNameBase;
+    private String dateFormat;
+    private boolean clearPreviousRecords;
+    private boolean writingDataActually;
+    private boolean generateRandomDataForCharts;
 
-    private static boolean clearPreviousRecords = false;
+    ApplicationProperties() {
+        Config config = ConfigFactory.load();
 
-    private static boolean writingDataActually = true;
+        outputDirectory = new File(config.getString(OUTPUT_DIRECTORY));
+        exportedDataPath = config.getString(EXPORT_DATA_PATH);
+        exportFileNameBase = config.getString(EXPORT_FILENAME_FORMAT);
+        dateFormat = config.getString(EXPORT_DATE_FORMAT);
+        clearPreviousRecords = config.getBoolean(DEBUG_CLEAR_PREV_RECS);
+        writingDataActually = config.getBoolean(DEBUG_WRITE_DATA);
+        generateRandomDataForCharts = config.getBoolean(DEBUG_GENERATE_RANDOM_CHARTS);
+    }
 
-    private static boolean generateRandomDataForCharts = false;
+    public static ApplicationProperties applicationProperties() {
+        return INSTANCE;
+    }
 
-    private ApplicationProperties() {}
-
-    public static File getOutputDirectory() {
+    public File getOutputDirectory() {
         return outputDirectory;
     }
 
-    public static void setOutputDirectory(File outputDirectory) {
-        ApplicationProperties.outputDirectory = outputDirectory;
+    public void setOutputDirectory(File outputDirectory) {
+        this.outputDirectory = outputDirectory;
     }
 
-    public static String getExportedDataPath() {
+    public String getExportedDataPath() {
         return exportedDataPath;
     }
 
-    public static void setExportedDataPath(String exportedDataPath) {
-        ApplicationProperties.exportedDataPath = exportedDataPath;
+    public void setExportedDataPath(String exportedDataPath) {
+        this.exportedDataPath = exportedDataPath;
     }
 
-    public static String getExportFileNameBase() {
+    public String getExportFileNameBase() {
         return exportFileNameBase;
     }
 
-    public static void setExportFileNameBase(String exportFileNameBase) {
-        ApplicationProperties.exportFileNameBase = exportFileNameBase;
+    public void setExportFileNameBase(String exportFileNameBase) {
+        this.exportFileNameBase = exportFileNameBase;
     }
 
-    public static String getDateFormat() {
+    public String getDateFormat() {
         return dateFormat;
     }
 
-    public static void setDateFormat(String dateFormat) {
-        ApplicationProperties.dateFormat = dateFormat;
+    public void setDateFormat(String dateFormat) {
+        this.dateFormat = dateFormat;
     }
 
-    public static boolean isClearPreviousRecords() {
+    public boolean isClearPreviousRecords() {
         return clearPreviousRecords;
     }
 
-    public static void setClearPreviousRecords(boolean clearPreviousRecords) {
-        ApplicationProperties.clearPreviousRecords = clearPreviousRecords;
+    public void setClearPreviousRecords(boolean clearPreviousRecords) {
+        this.clearPreviousRecords = clearPreviousRecords;
     }
 
-    public static boolean isWritingDataActually() {
+    public boolean isWritingDataActually() {
         return writingDataActually;
     }
 
-    public static void setWritingDataActually(boolean writingDataActually) {
-        ApplicationProperties.writingDataActually = writingDataActually;
+    public void setWritingDataActually(boolean writingDataActually) {
+        this.writingDataActually = writingDataActually;
     }
 
-    public static boolean isGenerateRandomDataForCharts() {
+    public boolean isGenerateRandomDataForCharts() {
         return generateRandomDataForCharts;
     }
 
-    public static void setGenerateRandomDataForCharts(boolean generateRandomDataForCharts) {
-        ApplicationProperties.generateRandomDataForCharts = generateRandomDataForCharts;
+    public void setGenerateRandomDataForCharts(boolean generateRandomDataForCharts) {
+        this.generateRandomDataForCharts = generateRandomDataForCharts;
     }
 }

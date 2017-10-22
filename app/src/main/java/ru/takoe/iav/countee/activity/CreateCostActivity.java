@@ -21,8 +21,9 @@ import ru.takoe.iav.countee.fragment.SettingsFragment;
 import ru.takoe.iav.countee.fragment.StatsFragment;
 import ru.takoe.iav.countee.fragment.content.common.StringItem;
 import ru.takoe.iav.countee.fragment.content.settings.SettingsFragmentContent;
-import ru.takoe.iav.countee.properties.ApplicationProperties;
 import ru.takoe.iav.countee.view.ViewProvider;
+
+import static ru.takoe.iav.countee.properties.ApplicationProperties.applicationProperties;
 
 public class CreateCostActivity extends AppCompatActivity implements
         NavigationView.OnNavigationItemSelectedListener,
@@ -51,7 +52,7 @@ public class CreateCostActivity extends AppCompatActivity implements
         addDrawerListener();
         navigationView.setNavigationItemSelectedListener(this);
 
-        ApplicationProperties.setOutputDirectory(getFilesDir());
+        applicationProperties().setOutputDirectory(getFilesDir());
 
         viewRenderer.displayView(R.id.nav_add_cost);
     }

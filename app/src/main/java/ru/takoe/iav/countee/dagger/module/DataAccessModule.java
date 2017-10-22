@@ -27,7 +27,8 @@ import ru.iav.takoe.countee.persistence.file.FileFactory;
 import ru.iav.takoe.countee.persistence.file.LocalReader;
 import ru.iav.takoe.countee.persistence.file.LocalWriter;
 import ru.iav.takoe.countee.vo.Cost;
-import ru.takoe.iav.countee.properties.ApplicationProperties;
+
+import static ru.takoe.iav.countee.properties.ApplicationProperties.applicationProperties;
 
 @Module
 public class DataAccessModule {
@@ -88,7 +89,7 @@ public class DataAccessModule {
     @Provides
     @Singleton
     FileFactory provideFileFactory() {
-        return new FileFactory(ApplicationProperties.getOutputDirectory());
+        return new FileFactory(applicationProperties().getOutputDirectory());
     }
 
     @Provides
