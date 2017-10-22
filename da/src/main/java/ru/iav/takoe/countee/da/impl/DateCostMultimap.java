@@ -1,6 +1,7 @@
 package ru.iav.takoe.countee.da.impl;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import com.google.common.collect.TreeMultimap;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeComparator;
 import ru.iav.takoe.countee.vo.Cost;
-import ru.iav.takoe.countee.vo.comparator.CostDateComparator;
+import ru.iav.takoe.countee.vo.comparator.CostIntegralComparator;
 
 /**
  * Wrapper class.
@@ -21,11 +22,11 @@ import ru.iav.takoe.countee.vo.comparator.CostDateComparator;
 @ParametersAreNonnullByDefault
 public class DateCostMultimap implements Multimap<DateTime, Cost> {
 
-    private static final CostDateComparator costDateComparator = new CostDateComparator();
+    private static final Comparator<Cost> costValueComparator = new CostIntegralComparator();
 
     private final Multimap<DateTime, Cost> multimap = TreeMultimap.create(
             DateTimeComparator.getInstance(),
-            costDateComparator
+            costValueComparator
     );
 
     @Override
