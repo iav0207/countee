@@ -9,13 +9,13 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.TreeMultimap;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeComparator;
-import ru.iav.takoe.countee.model.comparator.CostDateComparator;
 import ru.iav.takoe.countee.vo.Cost;
+import ru.iav.takoe.countee.vo.comparator.CostIntegralComparator;
 
-import static ru.iav.takoe.countee.model.CostDateUtil.day;
-import static ru.iav.takoe.countee.model.CostDateUtil.month;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 import static ru.iav.takoe.countee.utils.ObjectUtils.safeList;
+import static ru.iav.takoe.countee.vo.util.CostDateUtil.day;
+import static ru.iav.takoe.countee.vo.util.CostDateUtil.month;
 
 public class DateCostMultimapBuilder {
 
@@ -58,7 +58,7 @@ public class DateCostMultimapBuilder {
     @Nonnull
     public Multimap<DateTime, Cost> groupByMonthsSortedAsc(List<Cost> costs) {
         Multimap<DateTime, Cost> multimap = TreeMultimap.create(
-                DateTimeComparator.getInstance(), new CostDateComparator());
+                DateTimeComparator.getInstance(), new CostIntegralComparator());
         return buildMonthsMultimap(multimap, costs);
     }
 

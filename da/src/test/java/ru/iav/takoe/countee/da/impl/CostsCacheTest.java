@@ -1,24 +1,17 @@
 package ru.iav.takoe.countee.da.impl;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.joda.time.DateTime;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.iav.takoe.countee.da.impl.CostsCache;
 import ru.iav.takoe.countee.vo.Cost;
 
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.mock;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
-import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
-import static ru.iav.takoe.countee.utils.TestUtils.getRandomDateOfLastYear;
+import static ru.iav.takoe.countee.test.CounteeTestUtils.getListOfRandomCosts;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomInteger;
-import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
 public class CostsCacheTest {
 
@@ -53,7 +46,8 @@ public class CostsCacheTest {
         cache.put(allCosts);
         List<Cost> result = cache.getCostsForThisMonth();
         for (Cost each : allCosts) {
-            assertEquals(result.contains(each), thisMonthStart().isBefore(dateOf(each)));
+            assertEquals(result.contains(each),
+                    thisMonthStart().isBefore(dateOf(each)));
         }
     }
 
@@ -71,7 +65,9 @@ public class CostsCacheTest {
     }
 
     private static DateTime thisMonthStart() {
-        return DateTime.now().withDayOfMonth(1).withTimeAtStartOfDay();
+        return DateTime.now()
+                .withDayOfMonth(1)
+                .withTimeAtStartOfDay();
     }
 
     private static DateTime dateOf(Cost cost) {
@@ -79,20 +75,7 @@ public class CostsCacheTest {
     }
 
     private List<Cost> listOfCosts() {
-        List<Cost> list = new ArrayList<>();
-        for (int i = 0; i < getRandomInteger(10000); i++) {
-            list.add(cost());
-        }
-        return list;
-    }
-
-    private Cost cost() {
-        Cost cost = mock(Cost.class);
-        doReturn(UUID.randomUUID()).when(cost).getUuid();
-        doReturn(getRandomDateOfLastYear()).when(cost).getTimestamp();
-        doReturn(getRandomBigDecimal()).when(cost).getAmount();
-        doReturn(getRandomString()).when(cost).getComment();
-        return cost;
+        return getListOfRandomCosts(getRandomInteger(10_000));
     }
 
 }

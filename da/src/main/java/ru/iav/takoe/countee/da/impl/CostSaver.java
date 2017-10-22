@@ -21,19 +21,19 @@ import static ru.iav.takoe.countee.logging.LogService.logInfo;
 @ParametersAreNonnullByDefault
 public class CostSaver implements Saver<Cost, CostNotSavedException> {
 
-    private CostFileNamesFactory fileNamesFactory;
-
-    private CostReader costReader;
-
-    private Cache costsCache;
-
-    private JsonConverter jsonConverter;
-
-    private LocalWriter writer;
+    private final CostFileNamesFactory fileNamesFactory;
+    private final CostReader costReader;
+    private final Cache costsCache;
+    private final JsonConverter jsonConverter;
+    private final LocalWriter writer;
 
     @Inject
-    public CostSaver(CostFileNamesFactory fileNamesFactory, CostReader costReader,
-            Cache costsCache, JsonConverter jsonConverter, LocalWriter writer)
+    public CostSaver(
+            CostFileNamesFactory fileNamesFactory,
+            CostReader costReader,
+            Cache costsCache,
+            JsonConverter jsonConverter,
+            LocalWriter writer)
     {
         this.fileNamesFactory = fileNamesFactory;
         this.costReader = costReader;

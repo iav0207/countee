@@ -1,10 +1,10 @@
 package ru.iav.takoe.countee.crypt.impl;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import static ru.iav.takoe.countee.crypt.impl.Constants.DEFAULT_KEY;
 
-/**
- * Created by takoe on 02.02.17.
- */
+@ParametersAreNonnullByDefault
 abstract class SimpleGostAlgorithmExecutor {
 
     private static KeyMerger keyMerger = new KeyMerger();

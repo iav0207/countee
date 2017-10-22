@@ -1,10 +1,10 @@
 package ru.iav.takoe.countee.crypt.impl;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import ru.iav.takoe.countee.crypt.vo.Block64;
 
-/**
- * Created by takoe on 01.02.17.
- */
+@ParametersAreNonnullByDefault
 class FeistelCypher {
 
     private static FeistelFunction feistelFunction = new FeistelFunction();

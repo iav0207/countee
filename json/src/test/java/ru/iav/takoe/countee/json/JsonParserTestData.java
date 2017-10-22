@@ -9,15 +9,25 @@ public class JsonParserTestData {
 
     @DataProvider(name = "getJsonToParse")
     public static Object[][] getJsonToParse() {
-        return new Object[][] {
+        return new Object[][]{
                 {
-                    "{\n" +
-                        "  \"uuid\": \"5870d857-2a91-4032-a449-7808fefa3b71\",\n" +
-                        "  \"string\": \"vJK6DqFUZF\",\n" +
-                        "  \"integer\": 1549795924,\n" +
-                        "  \"aBoolean\": true,\n" +
-                        "  \"date\": \"Jul 24, 2016 2:47:54 PM\"\n" +
-                        "}",
+                        "{\n" +
+                                "  \"uuid\": \"5870d857-2a91-4032-a449-7808fefa3b71\",\n" +
+                                "  \"string\": \"vJK6DqFUZF\",\n" +
+                                "  \"integer\": 1549795924,\n" +
+                                "  \"aBoolean\": true,\n" +
+                                "  \"date\": \"Jul 24, 2016 2:47:54 PM\"\n" +
+                                "}",
+                        getTestObject("vJK6DqFUZF", 1549795924, true)
+                },
+                {
+                        "{\n" +
+                                "  \"uuid\": \"5870d857-2a91-4032-a449-7808fefa3b71\",\n" +
+                                "  \"string\": \"vJK6DqFUZF\",\n" +
+                                "  \"integer\": 1549795924,\n" +
+                                "  \"aBoolean\": true,\n" +
+                                "  \"date\": \"Aug 1, 2016 00:00:00\"\n" +
+                                "}",
                         getTestObject("vJK6DqFUZF", 1549795924, true)
                 }
         };

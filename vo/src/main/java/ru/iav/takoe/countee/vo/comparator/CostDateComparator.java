@@ -1,10 +1,10 @@
-package ru.iav.takoe.countee.model.comparator;
-
-import org.joda.time.DateTimeComparator;
-import ru.iav.takoe.countee.vo.Cost;
+package ru.iav.takoe.countee.vo.comparator;
 
 import java.util.Comparator;
 import java.util.Date;
+
+import org.joda.time.DateTimeComparator;
+import ru.iav.takoe.countee.vo.Cost;
 
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 

@@ -1,8 +1,10 @@
 package ru.iav.takoe.countee.json;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import ru.iav.takoe.countee.json.exception.DeserializationException;
 
 public class JsonParser {
@@ -10,7 +12,9 @@ public class JsonParser {
     private Gson parser;
 
     public JsonParser() {
-        parser = GsonFactory.getGsonInstance();
+        parser = new GsonBuilder()
+                .registerTypeAdapter(Date.class, new DateTypeAdapter())
+                .create();
     }
 
     public JsonParser(Gson parser) {

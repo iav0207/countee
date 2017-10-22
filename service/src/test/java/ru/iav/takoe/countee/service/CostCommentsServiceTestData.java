@@ -7,8 +7,8 @@ import java.util.TreeSet;
 
 import org.testng.annotations.DataProvider;
 
-import static ru.iav.takoe.countee.service.utils.CounteeTestUtils.cost;
-import static ru.iav.takoe.countee.service.utils.CounteeTestUtils.listOfCostsWithComments;
+import static ru.iav.takoe.countee.test.CounteeTestUtils.cost;
+import static ru.iav.takoe.countee.test.CounteeTestUtils.listOfCostsWithComments;
 
 public class CostCommentsServiceTestData {
 

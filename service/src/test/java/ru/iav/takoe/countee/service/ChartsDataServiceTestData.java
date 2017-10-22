@@ -1,13 +1,13 @@
-package ru.iav.takoe.countee.service.model;
-
-import org.joda.time.DateTime;
-import org.testng.annotations.DataProvider;
-import ru.iav.takoe.countee.vo.Cost;
+package ru.iav.takoe.countee.service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.joda.time.DateTime;
+import org.testng.annotations.DataProvider;
+import ru.iav.takoe.countee.vo.Cost;
 
 import static java.math.BigDecimal.ZERO;
 import static org.mockito.Mockito.doReturn;

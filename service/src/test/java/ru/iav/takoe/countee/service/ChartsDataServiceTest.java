@@ -1,4 +1,11 @@
-package ru.iav.takoe.countee.service.model;
+package ru.iav.takoe.countee.service;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 import org.joda.time.DateTime;
 import org.mockito.Answers;
@@ -7,17 +14,8 @@ import org.mockito.Mock;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import ru.iav.takoe.countee.da.impl.CostReader;
-import ru.iav.takoe.countee.service.BalanceService;
-import ru.iav.takoe.countee.service.ChartsDataService;
-import ru.iav.takoe.countee.model.comparator.CostDateComparator;
 import ru.iav.takoe.countee.vo.Cost;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
+import ru.iav.takoe.countee.vo.comparator.CostDateComparator;
 
 import static java.lang.Math.abs;
 import static org.mockito.Mockito.doReturn;

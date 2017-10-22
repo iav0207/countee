@@ -2,12 +2,14 @@ package ru.iav.takoe.countee.persistence.file;
 
 import java.io.File;
 
+import org.apache.commons.lang3.StringUtils;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.reporters.Files;
 
 import static java.nio.file.Files.deleteIfExists;
+import static org.apache.commons.lang3.StringUtils.LF;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
@@ -51,13 +53,21 @@ public class LocalWriterTest {
 
     @Test
     public void shouldAppend() throws Exception {
-        writer.append(lineOne, file);
-        writer.append(lineTwo, file);
+        writer.appendNewLine(lineOne, file);
+        writer.appendNewLine(lineTwo, file);
 
         String content = Files.readFile(file);
         assertTrue(content.contains(lineTwo));
 
         assertTrue(content.contains(lineOne));
+    }
+
+    @Test
+    public void shouldNotInsertNewLineSymbolIfFileIsEmpty() throws Exception {
+        writer.appendNewLine(lineOne, file);
+
+        String content = Files.readFile(file);
+        assertFalse(StringUtils.startsWith(content, LF));
     }
 
     private File getTestFile() {

@@ -20,7 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.testng.Assert.assertEquals;
-import static ru.iav.takoe.countee.service.utils.CounteeTestUtils.getListOfRandomCosts;
+import static ru.iav.takoe.countee.test.CounteeTestUtils.getListOfRandomCosts;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomBigDecimal;
 
 public class BalanceServiceTest {

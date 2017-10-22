@@ -10,9 +10,9 @@ import ru.iav.takoe.countee.vo.CostFactory;
 
 import static ru.iav.takoe.countee.logging.LogService.logError;
 
-public class CostInputParser {
+public final class CostInputParser {
 
-    private static final String VALIDATION_FAILED_MESSAGE = "Неверный формат введённой строки. Запись не создана.";
+    private static final String VALIDATION_FAILED_MESSAGE = "Invalid input string format. No record has been saved.";
 
     private final CostInputValidator validator;
 

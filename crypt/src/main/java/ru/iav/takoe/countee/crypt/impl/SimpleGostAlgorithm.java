@@ -1,16 +1,15 @@
 package ru.iav.takoe.countee.crypt.impl;
 
-import ru.iav.takoe.countee.crypt.vo.Block64;
-
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+import ru.iav.takoe.countee.crypt.vo.Block64;
 
 import static ru.iav.takoe.countee.crypt.impl.SimpleGostAlgorithm.Mode.DECRYPTION;
 import static ru.iav.takoe.countee.crypt.impl.SimpleGostAlgorithm.Mode.ENCRYPTION;
 import static ru.iav.takoe.countee.crypt.utils.ByteIntUtils.byteArrayLengthFit;
 
-/**
- * Created by takoe on 01.02.17.
- */
+@ParametersAreNonnullByDefault
 class SimpleGostAlgorithm {
 
     enum Mode {ENCRYPTION, DECRYPTION}

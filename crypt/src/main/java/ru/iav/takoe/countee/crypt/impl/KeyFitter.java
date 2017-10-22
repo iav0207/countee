@@ -1,6 +1,7 @@
 package ru.iav.takoe.countee.crypt.impl;
 
 import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
 
 import static com.google.common.base.Strings.isNullOrEmpty;
 import static ru.iav.takoe.countee.crypt.impl.Constants.DEFAULT_KEY;
@@ -11,9 +12,7 @@ import static ru.iav.takoe.countee.crypt.utils.ByteIntUtils.bytesToInts;
 import static ru.iav.takoe.countee.logging.LogService.logDebug;
 import static ru.iav.takoe.countee.logging.LogService.logWarning;
 
-/**
- * Created by takoe on 01.02.17.
- */
+@ParametersAreNonnullByDefault
 class KeyFitter {
 
     String fitLength(String key) {

@@ -10,6 +10,7 @@ import ru.iav.takoe.countee.service.ChartsDataService;
 import ru.iav.takoe.countee.service.CostCommentsService;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.DataExportService;
+import ru.iav.takoe.countee.service.FileDataImportService;
 import ru.iav.takoe.countee.service.MonthOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.dagger.module.AppModule;
@@ -32,6 +33,7 @@ public interface AppComponent {
     ChartsDataService getChartsDataService();
     BarDataColorGenerator getBarDataColorGenerator();
     DataExportService getDataExportService();
+    FileDataImportService getDataImportService();
 
     void injectInto(SaveCostService saveCostService);
     void injectInto(CostOutputService costOutputService);
@@ -39,6 +41,7 @@ public interface AppComponent {
     void injectInto(BalanceService balanceService);
     void injectInto(MonthOutputService monthOutputService);
     void injectInto(DataExportService dataExportService);
+    void injectInto(FileDataImportService dataImportService);
 
     void injectInto(CostSaver costSaver);
     void injectInto(CostReader costReader);

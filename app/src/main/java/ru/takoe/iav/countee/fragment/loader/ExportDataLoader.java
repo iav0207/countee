@@ -29,7 +29,6 @@ public class ExportDataLoader extends AsyncTaskLoader<String> {
 
     private final String password;
 
-    @Inject
     public ExportDataLoader(String password) {
         super(CounteeApp.getInstance().getApplicationContext());
 

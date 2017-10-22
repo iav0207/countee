@@ -1,5 +1,7 @@
 package ru.iav.takoe.countee.crypt.impl;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -7,9 +9,7 @@ import static org.testng.Assert.assertEquals;
 import static ru.iav.takoe.countee.logging.LogService.logInfo;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 06.02.17.
- */
+@ParametersAreNonnullByDefault
 public class SimpleGostCryptFacadeIT {
 
     private SimpleGostCryptFacade simpleGostCryptFacade = new SimpleGostCryptFacade();

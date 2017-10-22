@@ -3,8 +3,8 @@ package ru.iav.takoe.countee.da;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-public interface DataImporter {
+public interface DataImporter<S> {
 
-    boolean importData(String key, String password);
+    boolean importData(S source, String password);
 
 }

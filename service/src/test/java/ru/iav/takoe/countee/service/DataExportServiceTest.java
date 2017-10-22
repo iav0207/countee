@@ -1,5 +1,7 @@
 package ru.iav.takoe.countee.service;
 
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.testng.annotations.BeforeClass;
@@ -12,9 +14,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
 import static org.testng.Assert.assertEquals;
 import static ru.iav.takoe.countee.utils.TestUtils.getRandomString;
 
-/**
- * Created by takoe on 07.02.17.
- */
+@ParametersAreNonnullByDefault
 public class DataExportServiceTest {
 
     @Mock

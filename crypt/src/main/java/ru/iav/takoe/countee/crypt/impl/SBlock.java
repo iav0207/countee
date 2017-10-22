@@ -2,9 +2,6 @@ package ru.iav.takoe.countee.crypt.impl;
 
 import static ru.iav.takoe.countee.crypt.utils.ByteIntUtils.intToBinaryString;
 
-/**
- * Created by takoe on 01.02.17.
- */
 class SBlock {
 
     int substitute(int in) {
