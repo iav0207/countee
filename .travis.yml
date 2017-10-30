@@ -2,7 +2,7 @@ language: java
 sudo: false
 jdk: oraclejdk8
 
-#before_install:
+before_install:
 #  - chmod +x $PWD/ci/.travis_install_android.sh
 #  - $PWD/ci/.travis_install_android.sh
   - export ANDROID_HOME=$PWD/android-sdk-linux
