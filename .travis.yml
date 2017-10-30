@@ -5,13 +5,13 @@ jdk: oraclejdk8
 #before_install:
 #  - chmod +x $PWD/ci/.travis_install_android.sh
 #  - $PWD/ci/.travis_install_android.sh
-#
-#  - export ANDROID_HOME=$PWD/android-sdk-linux
-#  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
-#
+
+  - export ANDROID_HOME=$PWD/android-sdk-linux
+  - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
+
 #  - chmod +x $PWD/ci/.travis_install_android_dependencies.sh
 #  - $PWD/ci/.travis_install_android_dependencies.sh
-#
+
 #  - chmod +x $PWD/ci/.travis_start_emulator.sh
 #  - $PWD/ci/.travis_start_emulator.sh
 
@@ -24,8 +24,8 @@ cache:
     - $HOME/.gradle/wrapper/
 
 before_script:
+  - gradle assemble
 #  - chmod +x $PWD/ci/.travis_wait_for_emulator.sh
 #  - $PWD/ci/.travis_wait_for_emulator.sh
-  - gradle assemble
 
 script: gradle check
