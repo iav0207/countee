@@ -3,7 +3,9 @@ sudo: false
 jdk: oraclejdk8
 
 before_install:
-  - sudo chmod +x gradlew
+  - pwd
+  - ls -la
+  - chmod +x /.gradlew
   - chmod +x $PWD/ci/.travis_install_android.sh
   - $PWD/ci/.travis_install_android.sh
   - chmod +x $PWD/ci/.travis_install_android_dependencies.sh
