@@ -5,13 +5,19 @@ jdk: oraclejdk8
 
 android:
   components:
+    - platform-tools
+    - tools
     - build-tools-25.0.0
     - android-L
     - sys-img-armeabi-v7a-android-tv-l
     - add-on
     - extra
+    - android-22
+    - android-24
+    - sys-img-armeabi-v7a-android-22
+    - extra-android-m2repository
   licenses:
-    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-preview-license-.+'
     - 'android-sdk-license-.+'
     - 'google-gdk-license-.+'
 
@@ -19,10 +25,10 @@ before_install:
   - pwd
   - ls -la
   - chmod +x ./gradlew
-  - chmod +x $PWD/ci/.travis_install_android.sh
-  - $PWD/ci/.travis_install_android.sh
-  - chmod +x $PWD/ci/.travis_install_android_dependencies.sh
-  - $PWD/ci/.travis_install_android_dependencies.sh
+#  - chmod +x $PWD/ci/.travis_install_android.sh
+#  - $PWD/ci/.travis_install_android.sh
+#  - chmod +x $PWD/ci/.travis_install_android_dependencies.sh
+#  - $PWD/ci/.travis_install_android_dependencies.sh
 #  - chmod +x $PWD/ci/.travis_start_emulator.sh
 #  - $PWD/ci/.travis_start_emulator.sh
 
