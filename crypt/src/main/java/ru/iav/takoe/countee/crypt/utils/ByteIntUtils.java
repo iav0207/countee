@@ -1,11 +1,17 @@
 package ru.iav.takoe.countee.crypt.utils;
 
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 public class ByteIntUtils {
 
+    private ByteIntUtils () {
+    }
 	
 	public static int[] bytesToInts(byte[] byteArray) {
-	    if (byteArray.length ==0) return new int[0];
+	    if (byteArray.length ==0) {
+	        return new int[0];
+        }
 		int intArrayLength = lengthOfShorterArray(byteArray,4);
 		return bytesToInts(byteArray,intArrayLength);
 	}
@@ -15,16 +21,16 @@ public class ByteIntUtils {
 		checkLengthPositivity(intsLength);
 		checkLengthNotLessThan(4*intsLength,bytesLength);
 
-        String s = new String();
+        StringBuilder s = new StringBuilder();
         int[] intArray = new int[intsLength];
 		int bytesNewLength = makeLengthMultipleTo(bytesLength,4);
 		byte[] byteArrayResized = byteArrayLengthFit(byteArray,bytesNewLength);
 
         for (int i = 0; i < bytesNewLength; i++) {
-            s += intToBinaryString((int) byteArrayResized[i],8);
+            s.append(intToBinaryString((int) byteArrayResized[i], 8));
             if (i%4 == 3) {
-                intArray[i/4] = (int) Long.parseLong(s,2);
-                s = "";
+                intArray[i/4] = (int) Long.parseLong(s.toString(),2);
+                s = new StringBuilder();
             }
         }
         return intArray;
@@ -32,7 +38,7 @@ public class ByteIntUtils {
     
     public static byte[] intsToBytes(int[] intArray) {
         int n = intArray.length;
-        String s = new String();
+        String s;
         byte[] byteArray = new byte[4*n];
         for (int i = 0; i < n; i++) {
             s = intToBinaryString(intArray[i],32);
@@ -46,14 +52,14 @@ public class ByteIntUtils {
     
     public static String intToBinaryString(int n, int stringLength) {
 		checkLengthPositivity(stringLength);
-        String s = Integer.toBinaryString(n);
+        StringBuilder s = new StringBuilder(Integer.toBinaryString(n));
         // Fit string length
             // Leading zeros addition
         while (s.length() < stringLength)
-            s = "0" + s;
+            s.insert(0, "0");
             // Leaving required length by cutting upper bits
-        s = s.substring(s.length() - stringLength,s.length());
-        return s;
+        s = new StringBuilder(s.substring(s.length() - stringLength, s.length()));
+        return s.toString();
     }
         
 	public static byte[] byteArrayLengthFit(byte[] byteArray, int fitTo) {
@@ -76,18 +82,20 @@ public class ByteIntUtils {
     	return lengthOfShorterArray(array.length,xTimesSmaller);
     }
     
-    protected static int lengthOfShorterArray(byte[] array, int xTimesSmaller) {
+    private static int lengthOfShorterArray(byte[] array, int xTimesSmaller) {
     	return lengthOfShorterArray(array.length,xTimesSmaller);
     }
     
-    protected static int lengthOfShorterArray(int length, int xTimesSmaller) {
-        if (length == 0) return 0;
+    private static int lengthOfShorterArray(int length, int xTimesSmaller) {
+        if (length == 0) {
+            return 0;
+        }
 		checkLengthPositivity(length);
 		checkPositivity(xTimesSmaller);
 		return length/xTimesSmaller + ( (length%xTimesSmaller == 0) ? 0:1 );
 	}
 
-	protected static int makeLengthMultipleTo(int length, int multipleTo) {
+	private static int makeLengthMultipleTo(int length, int multipleTo) {
 		checkLengthPositivity(length);
 		checkPositivity(multipleTo);
 		int extension = multipleTo - (length % multipleTo);
@@ -95,27 +103,19 @@ public class ByteIntUtils {
 		return length + extension;
 	}
 
-    private static void checkPositivity(int n)
-	throws IllegalArgumentException {
+    private static void checkPositivity(int n)  {
         if (n < 1)
             throw new IllegalArgumentException(
                     "\nThe argument must be positive.");
 	}
     
-	private static void checkLengthPositivity(int length)
-	throws IllegalArgumentException {
-        if (length < 0)
-            throw new IllegalArgumentException(
-                    "\nNon-positive length requested.");
+	private static void checkLengthPositivity(int length)  {
+        checkArgument(length >= 0, "Length should be positive");
 	}
     
-	private static void checkLengthNotLessThan(int length, int notLessThan)
-	throws IllegalArgumentException {
-        if (length < notLessThan) {
-            throw new IllegalArgumentException(
-                "\nInvalid requested length value: " + length + ".\n" +
-				"It must be not less than " + notLessThan + ".");
-        }
+	private static void checkLengthNotLessThan(int length, int notLessThan) {
+        checkArgument(length >= notLessThan,
+                "Length must be greater or equal to %d, but was %d", notLessThan, length);
 	}
 
 }
