@@ -4,7 +4,7 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.3'
     defaultConfig {
         applicationId "ru.takoe.iav.countee"
         minSdkVersion 21
@@ -49,6 +49,7 @@ android {
 
         apt 'com.google.dagger:dagger-compiler:2.4'
         compile 'com.google.dagger:dagger:2.4'
+        annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
         annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
         provided 'org.glassfish:javax.annotation:10.0-b28'
     }

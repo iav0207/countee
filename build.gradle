@@ -39,11 +39,26 @@ allprojects {
 
 }
 
+test {
+    useTestNG ()
+    scanForTestClasses = false
+    include "**/*Test.class"
+}
+
+subprojects {
+    test {
+        useTestNG ()
+        scanForTestClasses = false
+        include "**/*Test.class"
+    }
+}
+
 //task clean(type: Delete) {
 //    delete rootProject.buildDir
 //}
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testCompile 'org.testng:testng:6.9.10'
 }
 
 compileKotlin {
