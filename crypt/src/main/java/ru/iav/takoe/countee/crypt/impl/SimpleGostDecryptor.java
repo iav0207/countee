@@ -1,7 +1,6 @@
 package ru.iav.takoe.countee.crypt.impl;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import javax.xml.bind.DatatypeConverter;
 
 import org.apache.commons.codec.binary.Base64;
 import ru.iav.takoe.countee.crypt.utils.BytesToStringParser;
@@ -22,11 +21,7 @@ class SimpleGostDecryptor extends SimpleGostAlgorithmExecutor implements Decrypt
     @Override
     public String decrypt(String cypher) {
         final byte[] cypherBytes;
-        if (true) {
-            cypherBytes = Base64.decodeBase64(cypher.getBytes());       // Android compatible
-        } else {
-            cypherBytes = DatatypeConverter.parseBase64Binary(cypher);
-        }
+        cypherBytes = Base64.decodeBase64(cypher.getBytes());       // Android compatible
         byte[] endTextBytes = SimpleGostAlgorithm.newDecryptor(cypherBytes, key.getBytes()).execute();
         return parser.parseBytesAsText(endTextBytes).trim();
     }
