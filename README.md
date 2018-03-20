@@ -10,12 +10,12 @@ analisys and forecasting (not implemented yet).
 
 ### Screenshots
 
-![Screenshot 1](/screenshots/sc01.jpg?raw=true "Menu")
-![Screenshot 2](/screenshots/sc02.jpg?raw=true "Main diagram")
-![Screenshot 3](/screenshots/sc03.jpg?raw=true "Filtered costs diagram, monthly")
+<img src="/screenshots/sc01.jpg" alt="Menu" style="width: 200px"/>
+<img src="/screenshots/sc02.jpg" alt="Main diagram" style="width: 200px"/>
+<img src="/screenshots/sc03.jpg" alt="Filtered costs diagram, monthly" style="width: 200px"/>
 
-![Screenshot 4](/screenshots/sc04.jpg?raw=true "'Add new cost' view")
-![Screenshot 5](/screenshots/sc05.jpg?raw=true "Filter costs to display")
+<img src="/screenshots/sc04.jpg" alt="'Add new cost' view" style="width: 200px"/>
+<img src="/screenshots/sc05.jpg" alt="Filter costs to display" style="width: 200px"/>
 
 ### Technical info
 
