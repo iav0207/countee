@@ -23,7 +23,7 @@ cache:
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
 before_script:
-- echo yes | sudo sdkmanager --licenses
+- echo yes | sudo tools/bin/sdkmanager --licenses
 - echo yes | android update sdk --no-ui --all --filter platform-tools,tools
 - echo yes | android update sdk --no-ui --all --filter build-tools-27.0.0
 - echo yes | android update sdk --no-ui --all --filter android-27
