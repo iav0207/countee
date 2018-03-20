@@ -53,6 +53,9 @@ subprojects {
     }
 }
 
+//task clean(type: Delete) {
+//    delete rootProject.buildDir
+//}
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     testCompile 'org.testng:testng:6.9.10'
