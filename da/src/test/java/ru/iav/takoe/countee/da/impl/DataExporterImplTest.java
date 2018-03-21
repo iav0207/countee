@@ -20,6 +20,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.MockitoAnnotations.initMocks;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertNotNull;
 import static ru.iav.takoe.countee.da.impl.Constants.EOF;
 import static ru.iav.takoe.countee.test.CounteeTestUtils.createFile;
@@ -57,7 +58,7 @@ public class DataExporterImplTest {
     }
 
     @Test
-    public void shouldConcatenateContentsOfAllFilesWithEofSymbol() throws Exception {
+    public void shouldConcatenateContentsOfAllFilesWithEofSymbol() {
         String password = getRandomString();
         String exportResult = dataExporter.exportAllData(password);
 
@@ -69,17 +70,17 @@ public class DataExporterImplTest {
     }
 
     @Test
-    public void shouldNotFailIfPasswordIsEmpty() throws Exception {
+    public void shouldNotFailIfPasswordIsEmpty() {
         assertNotNull(dataExporter.exportAllData(""));
     }
 
     @Test
-    public void shouldNotFailIfPasswordIsNull() throws Exception {
+    public void shouldNotFailIfPasswordIsNull() {
         assertNotNull(dataExporter.exportAllData(null));
     }
 
     @Test
-    public void shouldNotFailIfContentsAreEmpty() throws Exception {
+    public void shouldNotFailIfContentsAreEmpty() {
         letReaderReturn("");
         assertNotNull(dataExporter.exportAllData(getRandomString()));
     }
@@ -91,7 +92,9 @@ public class DataExporterImplTest {
         dataExporter.exportAllData(target, password);
         String expectedFileContent = dataExporter.exportAllData(password);
 
-        String actualFileContent = Files.readAllLines(target.toPath(), Charset.defaultCharset()).get(0);
+        List<String> lines = Files.readAllLines(target.toPath(), Charset.defaultCharset());
+        assertFalse(lines.isEmpty());
+        String actualFileContent = lines.get(0);
 
         assertEquals(actualFileContent, expectedFileContent);
     }
