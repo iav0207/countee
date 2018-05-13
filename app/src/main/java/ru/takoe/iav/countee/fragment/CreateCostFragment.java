@@ -1,5 +1,9 @@
 package ru.takoe.iav.countee.fragment;
 
+import java.util.ArrayList;
+
+import javax.inject.Inject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
@@ -33,9 +37,6 @@ import ru.takoe.iav.countee.application.CounteeApp;
 import ru.takoe.iav.countee.fragment.content.addcost.CreateCostPagerAdapter;
 import ru.takoe.iav.countee.view.ViewProvider;
 import ru.takoe.iav.countee.view.ViewScroller;
-
-import javax.inject.Inject;
-import java.util.ArrayList;
 
 import static org.apache.commons.lang3.StringUtils.SPACE;
 import static org.apache.commons.lang3.StringUtils.chop;
@@ -119,7 +120,7 @@ public class CreateCostFragment extends Fragment {
     }
 
     private ArrayAdapter<String> createAutocompleteAdapter() {
-        return new ArrayAdapter<>(getActivity(), android.R.layout.select_dialog_item,
+        return new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line,
                 new ArrayList<>(costCommentsService.getAllCommentsSet()));
     }
 
