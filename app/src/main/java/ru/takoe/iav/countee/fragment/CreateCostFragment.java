@@ -1,7 +1,5 @@
 package ru.takoe.iav.countee.fragment;
 
-import javax.inject.Inject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
@@ -9,12 +7,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,14 +24,21 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import org.apache.commons.lang3.StringUtils;
 import ru.iav.takoe.countee.da.exception.CostNotSavedException;
+import ru.iav.takoe.countee.service.CostCommentsService;
 import ru.iav.takoe.countee.service.CostOutputService;
 import ru.iav.takoe.countee.service.SaveCostService;
 import ru.takoe.iav.countee.R;
+import ru.takoe.iav.countee.android.util.SpaceTokenizer;
 import ru.takoe.iav.countee.application.CounteeApp;
 import ru.takoe.iav.countee.fragment.content.addcost.CreateCostPagerAdapter;
 import ru.takoe.iav.countee.view.ViewProvider;
 import ru.takoe.iav.countee.view.ViewScroller;
 
+import javax.inject.Inject;
+import java.util.ArrayList;
+
+import static org.apache.commons.lang3.StringUtils.SPACE;
+import static org.apache.commons.lang3.StringUtils.chop;
 import static ru.iav.takoe.countee.utils.ObjectUtils.isNull;
 
 /**
@@ -46,12 +53,13 @@ public class CreateCostFragment extends Fragment {
 
     @Inject SaveCostService saveCostService;
     @Inject CostOutputService costOutputService;
+    @Inject CostCommentsService costCommentsService;
 
     @Inject ViewProvider viewProvider;
 
     @BindView(R.id.create_cost_view_pager) ViewPager viewPager;
     @BindView(R.id.balance_text) TextView balanceOutput;
-    @BindView(R.id.edit_message) EditText inputField;
+    @BindView(R.id.edit_message) MultiAutoCompleteTextView inputField;
     @BindView(R.id.save_cost_button) Button saveCostButton;
 
     @BindString(R.string.cost_not_saved_msg) String costNotSavedMsg;
@@ -98,7 +106,21 @@ public class CreateCostFragment extends Fragment {
         pagerAdapter = new CreateCostPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(pagerAdapter);
 
+        setupAutocompleteTextField();
+
         return rootView;
+    }
+
+    private void setupAutocompleteTextField() {
+        getInputField().setTokenizer(new SpaceTokenizer());
+        getInputField().setInputType(InputType.TYPE_CLASS_TEXT);
+        getInputField().setThreshold(1);
+        getInputField().setAdapter(createAutocompleteAdapter());
+    }
+
+    private ArrayAdapter<String> createAutocompleteAdapter() {
+        return new ArrayAdapter<>(getActivity(), android.R.layout.select_dialog_item,
+                new ArrayList<>(costCommentsService.getAllCommentsSet()));
     }
 
     @Override
@@ -110,12 +132,6 @@ public class CreateCostFragment extends Fragment {
     private void refreshOutputOnStart() {
         getBalanceOutput().setText(getReadCostService().getCurrentBalanceOutput());
         setCurrentMonthView();
-    }
-
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -141,7 +157,7 @@ public class CreateCostFragment extends Fragment {
     @OnClick(R.id.save_cost_button)
     void saveCost() {
         try {
-            getSaveCostService().saveAsNewCost(getInputText());
+            getSaveCostService().saveAsNewCost(chopTrailingWhitespace(getInputText()));
         } catch (CostNotSavedException ex) {
             hideKeyboard();
             showToast();
@@ -149,6 +165,10 @@ public class CreateCostFragment extends Fragment {
             clearInputText();
             refreshOutputOnCostSaving();
         }
+    }
+
+    private static String chopTrailingWhitespace(String text) {
+        return text.endsWith(SPACE) ? chop(text) : text;
     }
 
     private void hideKeyboard() {
@@ -193,7 +213,7 @@ public class CreateCostFragment extends Fragment {
         return viewProvider.getOutputArea();
     }
 
-    private EditText getInputField() {
+    private MultiAutoCompleteTextView getInputField() {
         return inputField;
     }
 

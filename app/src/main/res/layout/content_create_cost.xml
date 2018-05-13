@@ -52,14 +52,17 @@
                 android:layout_weight="1"
                 android:layout_gravity="bottom|center">
 
-            <EditText
+            <MultiAutoCompleteTextView
                     android:id="@+id/edit_message"
                     android:layout_height="match_parent"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:hint="@string/edit_message"
                     android:maxLines="1"
-                    android:inputType="text"
+                    android:ems="10"
+                    android:inputType="textAutoComplete"
+                    android:dropDownHeight="300dp"
+                    android:completionThreshold="1"
                     android:layout_gravity="bottom|start"/>
 
             <Button
